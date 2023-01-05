@@ -1,8 +1,8 @@
-<div class="h-full overflow-auto flex justify-center background: bg-gradient-to-b from-red-50 to-red-300" style="">
-    <section>
-        <div class="w-[1200px] h-screen mt-4 mb-4 flex">
+<div class="h-screen overflow-auto flex justify-center background: bg-gradient-to-b from-red-50 to-red-300" style="">
+    <section >
+        <div class="max-w-7xl max-h-screen mt-4 mb-4 flex">
 
-            <div class="w-1/3 h-full bg-cover bg-gray-50 rounded-md shadow-slate-400 border-r-2 clas">
+            <div class="w-1/3 h-full bg-cover bg-gray-50 rounded-md shadow-slate-400 border-r-2 pb-4">
 
 
                 <img src="{{ asset('assets/dummy.jpg')}}" alt="" class="w-full h-[400px]">
@@ -52,7 +52,7 @@
                <div class="text-center font-semibold pt-8 text-2xl">
                     <h1>Motto</h1>
                 </div>
-                <div class="text-center font-semibold text-xl px-3 pt-3 text-slate-600">
+                <div class="text-center font-semibold text-xl px-3 py-3 text-slate-600">
                     <h1>"Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                         Aliquid similique iure praesentium sunt consequuntur voluptatem 
                         maxime odio voluptatum minus dolores"</h1>
