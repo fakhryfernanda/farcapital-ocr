@@ -24,5 +24,5 @@ use App\Http\Livewire\Features\Edit;
 //Route::get('/data', [UserController::class, 'index']);
 //Route::get('/register', Register::class);
 //Route::get('/login', Login::class);
-Route::post('/edit', Edit::class);
+Route::get('/edit', Edit::class);
 Route::get('/dashboard', Dashboard::class);
