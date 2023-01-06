@@ -15,13 +15,14 @@ class Edit extends Component
     public $alamat= 'Tambun selatan';
     public $rt = '004';
     public $rw = '004';
-    public $desa = 'Tambun selatan';
+    public $kelurahan = 'Tambun selatan';
     public $kecamatan = 'Tambun';
+    public $kota = 'Bekasi';
+    public $provinsi = 'Jawa Barat';
     public $agama = 'Islam';
     public $status_perkawinan = 'Belum nikah';
     public $pekerjaan = 'programmer';
     public $kewarganegaraan = 'WNI';
-    public $berlaku_hingga ='seumur jagung';
 
     public function edit (){
     
