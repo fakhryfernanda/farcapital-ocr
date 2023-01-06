@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\Auth\Registrasi;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Admin\Dashboard;
+use App\Http\Livewire\Features\Upload;
 use App\Http\Livewire\Features\Edit;
 use App\Http\Livewire\Features\Profile;
 
@@ -34,6 +35,8 @@ Route::get('/login', Login::class)->middleware('notlogin');
 Route::get('/registrasi', Registrasi::class);
 
 Route::get('/profile', Profile::class); 
+
+Route::get('/upload', Upload::class);
 
 Route::get('/', function () {
     return view('home');
