@@ -6,12 +6,12 @@ use Livewire\Component;
 
 class Edit extends Component
 {
-    public $nama = 'fakhry';
+    public $nama = 'Fakhry';
     public $nik ='330508030420000001';
     public $tempat_lahir ='Bekasi';
-    public $tanggal_lahir = '04/03/2000';
-    public $jenis_kelamin = 'L'; 
-    public $golongan_darah = 'A';
+    public $tanggal_lahir = '2000-03-23';
+    public $jenis_kelamin = 'P'; 
+    public $golongan_darah = 'B';
     public $alamat= 'Tambun selatan';
     public $rt = '004';
     public $rw = '004';
@@ -20,9 +20,9 @@ class Edit extends Component
     public $kota = 'Bekasi';
     public $provinsi = 'Jawa Barat';
     public $agama = 'Islam';
-    public $status_perkawinan = 'Belum nikah';
-    public $pekerjaan = 'programmer';
-    public $kewarganegaraan = 'WNI';
+    public $status_perkawinan = 'cerai_mati';
+    public $pekerjaan = 'Programmer';
+    public $kewarganegaraan = 'wna';
 
     public function edit (){
     
