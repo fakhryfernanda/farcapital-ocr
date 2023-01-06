@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Auth\Registrasi;
@@ -26,14 +27,18 @@ use App\Http\Livewire\Features\Profile;
 //Route::get('/register', Register::class);
 //Route::get('/login', Login::class);
 Route::post('/edit', Edit::class);
-Route::get('/dashboard', Dashboard::class);
+Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
 
-Route::get('/login', Login::class);
+Route::get('/login', Login::class)->middleware('notlogin');
 
 Route::get('/registrasi', Registrasi::class);
 
-Route::get('/profile', Profile::class);
+Route::get('/profile', Profile::class); 
 
 Route::get('/', function () {
     return view('home');
 });
+
+// ----( auth )----
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
