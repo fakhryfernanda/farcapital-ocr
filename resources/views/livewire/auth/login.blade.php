@@ -9,6 +9,11 @@
                 <div class="py-1 space-x-2 flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
+
+                @if($message = Session::get('success'))
+                    <p class="text-green-500 text-sm font-bold">{{ $message }}</p>
+                    <p class="text-green-500 text-sm font-bold">Silakan login</p>
+                @endif
                 
                 {{-- ---------------(batas suci)------------ --}}
                 <form action="{{route('login')}}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">                    

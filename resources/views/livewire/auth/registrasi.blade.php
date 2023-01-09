@@ -18,6 +18,11 @@
                         </div> 
                         <input type="email" name="email" id="email" placeholder="Email" class="block w-full p-2 text-lg rounded bg-gray-200 text-black">
                     </div>
+                    
+                    @if (session()->has('error'))
+                    <p class="text-red-500 text-xs italic">{{ session('error') }}</p>
+                    @endif
+
                     @if($message = Session::get('erroremail'))
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                     @endif
@@ -27,7 +32,7 @@
                         </div> 
                         <input class="block w-full p-2 text-lg rounded bg-gray-200 text-black" type="password" name="password" id="password" placeholder="Password" >
                     </div>
-                     @error('password')
+                    @error('password')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                     @enderror
                       <div class="pb-2 pt-4 flex text-gray-500">
@@ -36,15 +41,12 @@
                         </div> 
                         <input class="block w-full p-2 text-lg rounded bg-gray-200 text-black" type="password" name="password_verification" id="confirmation" placeholder="Konfimasi Password" >
                     </div>
-                     @error('verification_password')
+                    @error('verification_password')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                     @enderror
                     <div class="px-4 pb-2 pt-4 my-4">
                         <button class="border-blue-500 border uppercase block w-full px-4 py-2 text-lg rounded-lg  bg-blue-600 font-bold hover:bg-white hover:text-blue-500 hover:font-bold focus:outline-none hover:border-blue-500 hover:border">register</button>
                     </div>
-                    @if($message = Session::get('success'))
-                    <p class="text-green-500 text-sm font-bold">{{ $message }}</p>
-                    @endif
 
                     <div class="text-center text-slate-700 py-2">
                         <p>Already Have Account ? <a href="/login" class ="text-blue-500  hover:underline">Sign In</a></p>
