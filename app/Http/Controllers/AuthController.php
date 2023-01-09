@@ -10,6 +10,7 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
+        session()->invalidate();
         return redirect('/login');
     }
     public function authenticate(Request $request)
