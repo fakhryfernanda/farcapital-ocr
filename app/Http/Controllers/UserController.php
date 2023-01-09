@@ -38,11 +38,10 @@ class UserController extends Controller
             "http://localhost:8000/api/user/add",
             $payload
         );
-        // dd($responseUsers, $payload);
 
         if ($responseUsers['status'] == false) {
-            return redirect()->back()->with('error' . $responseUsers['data'], $responseUsers['message']);
+            return back()->with('error', $responseUsers['message']);
         }
-        return redirect()->back()->with('success', $responseUsers['message']);
+        return redirect('/login')->with('success', $responseUsers['message']);
     }
 }
