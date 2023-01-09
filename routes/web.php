@@ -34,7 +34,7 @@ Route::get('/login', Login::class)->middleware('notlogin');
 
 Route::get('/registrasi', Registrasi::class);
 
-Route::get('/profile', Profile::class); 
+Route::get('/profile', Profile::class);
 
 Route::get('/upload', Upload::class);
 
@@ -42,10 +42,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-<<<<<<< HEAD
 Route::post('/store', [UserController::class, 'store'])->name('store');
-=======
 // ----( auth )----
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
->>>>>>> b6e9c26965fcc7cf630ddb621a46cfde694e3545
