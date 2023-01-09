@@ -10,13 +10,14 @@
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
 
+                {{-- Pesan registrasi berhasil --}}
                 @if($message = Session::get('success'))
                     <p class="text-green-500 text-sm font-bold">{{ $message }}</p>
                     <p class="text-green-500 text-sm font-bold">Silakan login</p>
                 @endif
                 
                 {{-- ---------------(batas suci)------------ --}}
-                <form action="{{route('login')}}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">                    
+                <form action="{{ route('authenticate') }}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">                    
                     @csrf
                     <div class="pb-2 pt-4 text-gray-500 flex">
                         <div class="text-2xl p-2 bg-gray-300 rounded mx-1">
