@@ -40,3 +40,5 @@ Route::get('/upload', Upload::class);
 Route::get('/', function () {
     return view('home');
 });
+
+Route::post('/store', [UserController::class, 'store'])->name('store');
