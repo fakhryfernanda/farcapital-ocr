@@ -18,7 +18,7 @@ class Notlogin
     {
         if (session('token') != null) {
             // dd(session('token'));
-            return redirect()->route('home');
+            return redirect('/');
         }
         return $next($request);
     }
