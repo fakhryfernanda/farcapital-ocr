@@ -42,6 +42,8 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::post('/store', [UserController::class, 'store'])->name('store');
 // ----( auth )----
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', Login::class)->middleware('notlogin');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

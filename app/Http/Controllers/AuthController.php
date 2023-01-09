@@ -10,9 +10,10 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
+        session()->invalidate();
         return redirect('/login');
     }
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         $email = $request->email;
         $password = $request->password;
@@ -21,22 +22,20 @@ class AuthController extends Controller
             'email' => $email,
             'password' => $password,
         ];
-
+        
         $auth = HttpClient::fetch(
             "POST",
             "http://localhost:8000/api/login",
             $payload,
         );
 
+        if ($auth['status'] == false) {
+            return redirect()->back()->with('error'.$auth['data'], $auth['message']);
+        }
+
         if (!session()->isStarted()) {
             session()->start();
         }
-
-        if ($auth['status'] == false) {
-                return redirect()->back()->with('error'.$auth['data'], $auth['message']);
-            
-        }
-
 
         $token = $auth['data']['auth']['token'];
         $token_type = $auth['data']['auth']['token_type'];

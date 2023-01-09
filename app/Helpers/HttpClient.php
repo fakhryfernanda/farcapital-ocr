@@ -3,41 +3,43 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades;
+
 
 class HttpClient
 {
-
     static function fetch($method, $url, $body = [], $files = [])
-    {
+    {   //jika method get ,langsung return response dengan method get
+        if ($method == "GET") return Http::get($url)->json();
+
+
+
         $headers = [];
         $token = session()->get("token", "");
         if ($token != "") {
-            $headers["Authorization"] = $token;
+            $headers["Authorization"] = "Bearer $token";
         }
 
-        if ($method == "GET") {
-            return Http::withHeaders($headers)->get($url)->json();
-        }
+        //jika method get ,langsung return response dengan method get
+        if ($method == "GET") return Http::withHeaders($headers)->get($url)->json();
+
         //jika terdapat file, client berupa multipart
-        if (sizeof($files) > 0) {
-            $client = Http::asMultipart()->withHeaders($headers);
+        if (sizeOf($files) > 0) {
+            $client = Http::asMultipart();
             // dd($files);
             //attach setiap file pada client
-
             foreach ($files as $key => $file) {
                 $path = $file->getPathname();
                 $name = $file->getClientOriginalName();
-                //attach file (sisipkan file)
+
+                //attach file
                 $client->attach($key, file_get_contents($path), $name);
-                // dd($key, $path, $name);
             }
 
-            //fetch api
+            //fetch api 
             return $client->post($url, $body)->json();
         }
 
-        //fetch api
+        //fetch post 
         return Http::withHeaders($headers)->post($url, $body)->json();
     }
 }
