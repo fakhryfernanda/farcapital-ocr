@@ -30,11 +30,11 @@ use App\Http\Livewire\Features\Profile;
 Route::post('/edit', Edit::class);
 Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
 
-Route::get('/login', Login::class)->middleware('notlogin');
+Route::get('/', Login::class)->middleware('notlogin');
 
 Route::get('/registrasi', Registrasi::class);
 
-Route::get('/profile', Profile::class); 
+Route::get('/profile', Profile::class)->middleware('islogin');
 
 Route::get('/upload', Upload::class);
 
