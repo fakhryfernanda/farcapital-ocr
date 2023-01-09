@@ -30,7 +30,6 @@ use App\Http\Livewire\Features\Profile;
 Route::post('/edit', Edit::class);
 Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
 
-Route::get('/login', Login::class)->middleware('notlogin');
 
 Route::get('/registrasi', Registrasi::class);
 
@@ -44,5 +43,6 @@ Route::get('/', function () {
 
 Route::post('/store', [UserController::class, 'store'])->name('store');
 // ----( auth )----
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', Login::class)->middleware('notlogin');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
