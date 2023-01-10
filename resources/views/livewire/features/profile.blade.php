@@ -3,7 +3,10 @@
         <div class="max-w-7xl max-h-screen mt-4 mb-4 flex">
 
             <div class="w-1/3 h-full bg-cover bg-gray-50 rounded-md shadow-slate-400 border-r-2 pb-4">
-
+              {{-- @dd($data) --}}
+              
+                  
+              
 
                 <img src="{{ asset('assets/dummy.jpg')}}" alt="" class="w-full h-[400px]">
 
@@ -60,52 +63,51 @@
             
             </div>
 
-            <div class="w-2/3 h-full bg-gray-50 rounded-md shadow-slate-400">
+            <div class="w-2/3 h-full bg-gray-50 rounded-md shadow-slate-400 pb-6">
                 <h1 class="text-2xl font-bold bg-red-500 w-full rounded-lgtext-center text-white py-3 px-3">Identitas Pribadi</h1>
-                <h2 class="text-4xl text-slate-800 font-bold p-3"> Ridwan</h2>
-                <h2 class="text-2xl text-slate-800 font-bold p-3"> Full Stack Developer </h2>
+                <h2 class="text-4xl text-slate-800 font-bold p-3"> {{ $data["nama"] }}</h2>
+                <h2 class="text-2xl text-slate-800 font-bold p-3"> {{ $data["pekerjaan"] }} </h2>
                 <div class="border-red-200 border mt-5"></div>
                 <div class="p-3 mt-5">
                     <h1 class="text-3xl text-slate-800 font-bold">NIK</h1>
-                    <h1 class="text-2xl text-slate-800 font-semibold">1234567812345678</h1>
+                    <h1 class="text-2xl text-slate-800 font-semibold">{{ $data["nik"] }}</h1>
                 </div>
 
                  <div class="p-3">
                     <h1 class="text-2xl text-slate-800 font-bold">Tempat, Tanggal Lahir</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Kebumen, 1 Januari 2023</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data["tempat_lahir"] }}, {{ $data["tanggal_lahir"] }}</h1>
                 </div>
 
                 <div class="p-3">
                     <h1 class="text-2xl text-slate-800 font-bold">Jenis Kelamin</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Laki-laki</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data['jenis_kelamin'] ?  'Laki-Laki' : 'Perempuan' ; }}</h1>
                 </div>
 
                  <div class="p-3">
                     <h1 class="text-2xl text-slate-800 font-bold">Agama</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Islam</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data["agama"] }}</h1>
                 </div>
 
                 <div class="p-3">
                     <h1 class="text-2xl text-slate-800 font-bold">Status Perkawinan</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Belum Kawin</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data["status_perkawinan"] }}</h1>
                 </div>
 
                 <div class="p-3">
                     <h1 class="text-2xl text-slate-800 font-bold">Kewarganegaraan</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Indonesia</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data["kewarganegaraan"] }}</h1>
                 </div>
 
                 <div class="p-3">
-                    <h1 class="text-2xl text-slate-800 font-bold">Address</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Jalan Cisitu Indah 2 No 6</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">RT 004 RW 002</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Kelurahan Dago Kecamatan Coblong</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Kota Bandung Provinsi Jawa Barat</h1>
-                    <h1 class="text-xl text-slate-800 font-semibold">Kodepos 45363</h1>
+                    <h1 class="text-2xl text-slate-800 font-bold">Alamat</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">{{ $data["alamat"] }}</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">RT {{ $data["rt"] }} RW {{ $data["rw"] }}</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">Kelurahan {{ $data["kelurahan"] }} Kecamatan {{ $data["kecamatan"] }}</h1>
+                    <h1 class="text-xl text-slate-800 font-semibold">Kota {{ $data["kota"] }} {{ $data["provinsi"] }}</h1>
+                    {{-- <h1 class="text-xl text-slate-800 font-semibold">Kodepos 45363</h1> --}}
                 </div>
             </div>
         </div>
-
     </section>
-
+h
 </div>
