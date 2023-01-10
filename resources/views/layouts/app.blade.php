@@ -15,9 +15,8 @@
 <body>
   
 
+    @include('layouts.navbar.admin')
     {{$slot}}
     @livewireScripts
-
-
 </body>
 </html>
