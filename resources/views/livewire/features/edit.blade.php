@@ -1,5 +1,6 @@
 <div class="background: bg-gradient-to-b from-red-50 to-red-200 flex justify-between mx-5 h-screen w-screen">
-    <div class="container mt-10 block p-6 w-full">
+    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+    <div class="container mt-10  p-6   ">
         <form action="" >
             <div class="flex w-full justify-center gap-32">
                 <div class=" bg-gray-200 rounded-lg max-w-md px-10 pt-10 pb-12 mt-7">

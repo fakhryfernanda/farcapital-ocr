@@ -24,10 +24,10 @@ class Islogin
                 "http://localhost:8000/api/me"
             );
             if(!$auth) {
-                return redirect("/");
+                return redirect("/login");
             }
         } else {
-            return redirect("/");
+            return redirect("/login");
         }
         return $next($request);
     }
