@@ -8,16 +8,7 @@ use Livewire\Component;
 class Dashboard extends Component
 {
 
-    public function filter()
-    {
-        for ($i = 0; $i < count($this->users); $i++) {
-            if ($this->users[$i]['jenis_kelamin'] == 'L') {
-                $this->users[$i]['jenis_kelamin'] = 'Laki-laki';
-            } else {
-                $this->users[$i]['jenis_kelamin'] = 'Perempuan';
-            };
-        }
-    }
+
     public function render()
     {
         $responseData = HttpClient::fetch(
