@@ -7,15 +7,27 @@ use Livewire\Component;
 
 class Profile extends Component
 {
-    public function render()
-    {
-        $id = session('id_user');
+    public $responseData;
 
-        $responseData = HttpClient::fetch(
+    public function mount($id)
+    {
+        $this->responseData = HttpClient::fetch(
             "GET",
             "http://localhost:8000/api/identity/{$id}"
         );
-        $data = $responseData["data"];
+    }
+
+    public function render()
+    {
+        // $id = session('id_user');
+
+        // $responseData = HttpClient::fetch(
+        //     "GET",
+        //     "http://localhost:8000/api/identity/{$id}"
+        // );
+
+
+        $data = $this->responseData["data"];
         // dd($data);
 
         return view(
