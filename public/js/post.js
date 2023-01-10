@@ -23,6 +23,10 @@
         },
         mode : 'scan',
         datanya : {},
+        scanUlang(){
+            this.datanya = {},
+            this.mode = 'scan'
+        },
         scanktp() {
             this.form.image = document.getElementById('ktp').files[0]
 

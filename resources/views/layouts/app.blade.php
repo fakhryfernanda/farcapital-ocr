@@ -12,7 +12,7 @@
     <title>Document</title>
     @livewireStyles
 </head>
-<body>
+<body class=" background: bg-gradient-to-b from-red-50 to-red-300">
     @include('layouts.navbar.admin')
     {{$slot}}
     @livewireScripts
