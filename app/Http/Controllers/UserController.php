@@ -44,19 +44,4 @@ class UserController extends Controller
         }
         return redirect('/login')->with('success', $responseUsers['message']);
     }
-
-
-    // public function index()
-    // {
-    //     $responseData = HttpClient::fetch(
-    //         "GET",
-    //         "http://localhost:8000/api/user"
-    //     );
-    //     $data = $responseData["data"];
-
-    //     return view(
-    //         'profile',
-    //         ['data' => $data]
-    //     );
-    // }
 }

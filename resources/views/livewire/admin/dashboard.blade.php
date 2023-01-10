@@ -1,5 +1,4 @@
 <div class="background: bg-gradient-to-b from-red-50 to-red-200 h-screen">
-    {{-- Nothing in the world is as soft and yielding as water. --}}
     <h1 class="text-center py-10 text-[30px] font-bold">Daftar Customer</h1>
     <div class="overflow-x-auto">
         <table class="border-2">
@@ -113,110 +112,7 @@
                     </td>
                 </tr>
                 @endforeach
-                {{-- <tr class="border-2">
-                    <td class="px-6 py-4 whitespace-nowrap text-[16px] font-medium text-gray-900">1</td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Fakhry Fernanda
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        330508030420000001
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Bekasi
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        03/04/2000
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        L
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        A
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Tambun selatan
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        004
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        004
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Tambun Selatan
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Tambun
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Islam
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Belum Kawin
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Mahasiswa
-                    </td>
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        WNI
-                    </td>
-
-                    <td class="text-[16px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Seumur hidup
-                    </td>
-                </tr>
                 
-                <tr class="bg-white border-2">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Cell
-                    </td>
-                </tr> --}}
             </tbody>
         </table>
     </div>
