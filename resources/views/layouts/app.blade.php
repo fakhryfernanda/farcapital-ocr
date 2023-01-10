@@ -13,8 +13,6 @@
     @livewireStyles
 </head>
 <body>
-  
-
     @include('layouts.navbar.admin')
     {{$slot}}
     @livewireScripts
