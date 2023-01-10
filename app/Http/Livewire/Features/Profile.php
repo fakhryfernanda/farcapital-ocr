@@ -9,26 +9,30 @@ class Profile extends Component
 {
     public $responseData;
 
-    public function mount($id)
+    public function mount($id = null)
     {
-        $this->responseData = HttpClient::fetch(
-            "GET",
-            "http://localhost:8000/api/identity/{$id}"
-        );
+        if (!isset($id)) {
+            $this->responseData = HttpClient::fetch(
+                "GET",
+                "http://localhost:8000/api/identity/{$id}"
+            );
+        }
     }
 
     public function render()
     {
-        // $id = session('id_user');
+        if (!isset($this->responseData)) {
+            $id = session('id_user');
+            
+            $responseData = HttpClient::fetch(
+                "GET",
+                "http://localhost:8000/api/identity/{$id}"
+            );
 
-        // $responseData = HttpClient::fetch(
-        //     "GET",
-        //     "http://localhost:8000/api/identity/{$id}"
-        // );
-
-
-        $data = $this->responseData["data"];
-        // dd($data);
+            $data = $responseData["data"];
+        } else {
+            $data = $this->responseData["data"];
+        }
 
         return view(
             'livewire.features.profile',
