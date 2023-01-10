@@ -59,6 +59,13 @@
                     </div>
                 </div>
             
+                
+            
+
+            <img src="{{ asset('assets/dummy.jpg')}}" alt="" class="w-full h-[400px]">
+
+            <div class="text-center py-8">
+                <h1 class="text-2xl font-semibold">Social Media</h1>
             </div>
 
             {{-- -------------------------(batas suci)----------------------- --}}
@@ -73,11 +80,55 @@
                     <h1 class="text-xl text-slate-800 font-bold">NIK</h1>
                     <h1 class="text-lg text-slate-800 font-semibold">{{ $data["nik"] }}</h1>
                 </div>
+                <div class="w-10 h-10 text-4xl text-center text-[#3f729b]">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="w-10 h-10 text-4xl text-center text-blue-600">
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                    <div class="w-10 h-10 text-4xl text-center text-blue-800">
+                    <i class="fa-brands fa-linkedin"></i>
+                </div>
+            </div>
 
                  <div class="p-3">
                     <h1 class="text-xl text-slate-800 font-bold">Tempat, Tanggal Lahir</h1>
                     <h1 class="text-lg text-slate-800 font-semibold">{{ $data["tempat_lahir"] }}, {{ $data["tanggal_lahir"] }}</h1>
                 </div>
+                <div class="text-2xl font-semibold text-slate-600">
+                    <h1>081308130813</h1>
+                </div>
+                
+            </div>
+                <div class="flex justify-center">
+                <div class="w-10 h-10 text-2xl text-center text-slate-600">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="text-2xl font-semibold text-slate-600">
+                    <h1>ridwan@rocketmail.com</h1>
+                </div>
+            </div>
+
+            <div class="text-center font-semibold pt-8 text-2xl">
+                <h1>Motto</h1>
+            </div>
+            <div class="text-center font-semibold text-xl px-3 py-3 text-slate-600">
+                <h1>"Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Aliquid similique iure praesentium sunt consequuntur voluptatem 
+                    maxime odio voluptatum minus dolores"</h1>
+            </div>
+        
+        </div>
+
+        <div class="w-2/3 h-full bg-gray-50 rounded-md shadow-slate-400 pb-6">
+            <h1 class="text-2xl font-bold bg-red-500 w-full rounded-lgtext-center text-white py-3 px-3">Identitas Pribadi</h1>
+            <h2 class="text-4xl text-slate-800 font-bold p-3"> {{ $data["nama"] }}</h2>
+            <h2 class="text-2xl text-slate-800 font-bold p-3"> {{ $data["pekerjaan"] }} </h2>
+            <div class="border-red-200 border mt-5"></div>
+            <div class="p-3 mt-5">
+                <h1 class="text-3xl text-slate-800 font-bold">NIK</h1>
+                <h1 class="text-2xl text-slate-800 font-semibold">{{ $data["nik"] }}</h1>
+            </div>
 
                 <div class="p-3">
                     <h1 class="text-xl text-slate-800 font-bold">Jenis Kelamin</h1>

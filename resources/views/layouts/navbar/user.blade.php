@@ -11,12 +11,20 @@
              <div class="flex flex-wrap items-center gap-5 relative">
                 <div class="flex items-center relative gap-5">
                     <!-- Icon -->
-                        <button class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                        {{-- Belum login --}}
+                        @if (session('token') == null)
+                        <a href="/login" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
                             Login
-                        </button>
-                        <button class="text-white inline-block   mt-1 px-7 py-2 bg-red-400 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                        </a>
+                        <a href="/registrasi" class="text-white inline-block   mt-1 px-7 py-2 bg-red-400 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
                             Register
-                        </button>
+                        </a>
+                        {{-- Sudah login --}}
+                        @else
+                        <a href="/logout" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                            Logout
+                        </a>
+                        @endif
                 </div>
                 <div class="dropdown relative">
                     <a class="dropdown-toggle flex items-center hidden-arrow" href="#" id="dropdownMenuButton2" role="button"

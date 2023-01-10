@@ -13,8 +13,10 @@
     @livewireStyles
 </head>
 <body>
-    @include('layouts.navbar.admin')
-    {{$slot}}
+    @livewire('layouts.navbar.user')
+    <div class="h-screen overflow-hidden flex items-center justify-center background: bg-gradient-to-b from-red-50 to-red-300">
+        {{$slot}}
+    </div>
     @livewireScripts
 </body>
 </html>
