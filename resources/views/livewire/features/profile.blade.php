@@ -1,6 +1,6 @@
-<div class="h-screen overflow-auto flex justify-center background: bg-gradient-to-b from-red-50 to-red-300" style="">
-    <section >
-        <div class="max-w-7xl max-h-screen mt-4 mb-4 flex">
+<div>
+    <section class="min-h-full flex justify-center background: bg-gradient-to-b from-red-50 to-red-300">
+        <div class="container mt-4 mb-4 flex">
 
             <div class="w-1/3 h-full bg-cover bg-gray-50 rounded-md shadow-slate-400 border-r-2 pb-4">
               {{-- @dd($data) --}}
@@ -63,7 +63,7 @@
             
             </div>
 
-            <div class="w-2/3 h-full bg-gray-50 rounded-md shadow-slate-400 pb-6">
+            <div class="w-2/3 h-full bg-gray-50 rounded-md shadow-slate-400 pb-14">
                 <h1 class="text-2xl font-bold bg-red-500 w-full rounded-lgtext-center text-white py-3 px-3">Identitas Pribadi</h1>
                 <h2 class="text-4xl text-slate-800 font-bold p-3"> {{ $data["nama"] }}</h2>
                 <h2 class="text-2xl text-slate-800 font-bold p-3"> {{ $data["pekerjaan"] }} </h2>
@@ -104,10 +104,10 @@
                     <h1 class="text-xl text-slate-800 font-semibold">RT {{ $data["rt"] }} RW {{ $data["rw"] }}</h1>
                     <h1 class="text-xl text-slate-800 font-semibold">Kelurahan {{ $data["kelurahan"] }} Kecamatan {{ $data["kecamatan"] }}</h1>
                     <h1 class="text-xl text-slate-800 font-semibold">Kota {{ $data["kota"] }} {{ $data["provinsi"] }}</h1>
-                    {{-- <h1 class="text-xl text-slate-800 font-semibold">Kodepos 45363</h1> --}}
+                  
                 </div>
             </div>
         </div>
     </section>
-h
+
 </div>
