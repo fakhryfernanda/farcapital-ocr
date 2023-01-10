@@ -49,52 +49,52 @@
 
         //----------(batas suci)----------
         submitData() {
-            this.form.ktp = document.getElementById('ktp').files[0]
-            this.form.nik = document.getElementById('nik').value
-            this.form.nama = document.getElementById('nama').value
-            this.form.tempat_lahir = document.getElementById('tempat_lahir').value
-            this.form.tanggal_lahir = document.getElementById('tanggal_lahir').value
-            this.form.kelamin = document.getElementById('kelamin').value
-            this.form.golongan_darah = document.getElementById('golongan_darah').value
-            this.form.alamat = document.getElementById('alamat').value
-            this.form.rt = document.getElementById('rt').value
-            this.form.rw = document.getElementById('rw').value
-            this.form.kelurahan = document.getElementById('kelurahan').value
-            this.form.kecamatan = document.getElementById('kecamatan').value
-            this.form.kota = document.getElementById('kota').value
-            this.form.provinsi = document.getElementById('provinsi').value
-            this.form.agama = document.getElementById('agama').value
-            this.form.perkawinan = document.getElementById('perkawinan').value
-            this.form.pekerjaan = document.getElementById('pekerjaan').value
-            this.form.kewarganegaraan = document.getElementById('kewarganegaraan').value
-           
-
-            const data = new FormData();
-            data.append('ktp', this.form.ktp)
-            data.append('nik', document.getElementById('nik').value)
-            data.append('nama', this.form.nama)
-            data.append('tempat_lahir', this.form.tempat_lahir)
-            data.append('tanggal_lahir', this.form.tanggal_lahir)
-            data.append('kelamin', this.form.kelamin)
-            data.append('golongan_darah', this.form.golongan_darah)
-            data.append('alamat', this.form.alamat)
-            data.append('rt', this.form.rt)
-            data.append('rw', this.form.rw)
-            data.append('kelurahan', this.form.kelurahan)
-            data.append('kecamatan', this.form.kecamatan)
-            data.append('kota', this.form.kota)
-            data.append('provinsi', this.form.provinsi)
-            data.append('agama', this.form.agama)
-            data.append('perkawinan', this.form.perkawinan)
-            data.append('pekerjaan', this.form.pekerjaan)
-            data.append('kewarganegaraan', this.form.kewarganegaraan)
+            const ktp = document.getElementById('ktp').files[0]
+            const nik = document.getElementById('nik').value
+            const nama = document.getElementById('nama').value
+            const tempat_lahir = document.getElementById('tempat_lahir').value
+            const tanggal_lahir = document.getElementById('tanggal_lahir').value
+            const kelamin = document.getElementById('kelamin').value
+            const golongan_darah = document.getElementById('golongan_darah').value
+            const alamat = document.getElementById('alamat').value
+            const rt = document.getElementById('rt').value
+            const rw = document.getElementById('rw').value
+            const kelurahan = document.getElementById('kelurahan').value
+            const kecamatan = document.getElementById('kecamatan').value
+            const kota = document.getElementById('kota').value
+            const provinsi = document.getElementById('provinsi').value
+            const agama = document.getElementById('agama').value
+            const perkawinan = document.getElementById('perkawinan').value
+            const pekerjaan = document.getElementById('pekerjaan').value
+            const kewarganegaraan = document.getElementById('kewarganegaraan').value
+            
+            const datane = new FormData();
+            datane.append('ktp',  ktp)
+            datane.append('nik',  nik)
+            datane.append('nama',  nama)
+            datane.append('tempat_lahir',  tempat_lahir)
+            datane.append('tanggal_lahir',  tanggal_lahir)
+            datane.append('jenis_kelamin',  kelamin)
+            datane.append('golongan_darah',  golongan_darah)
+            datane.append('alamat',  alamat)
+            datane.append('rt',  rt)
+            datane.append('rw',  rw)
+            datane.append('kelurahan',  kelurahan)
+            datane.append('kecamatan',  kecamatan)
+            datane.append('kota',  kota)
+            datane.append('provinsi',  provinsi)
+            datane.append('agama',  agama)
+            datane.append('status_perkawinan',  perkawinan)
+            datane.append('pekerjaan',  pekerjaan)
+            datane.append('kewarganegaraan',  kewarganegaraan)
+            console.log(datane)
             this.loading = true
             fetch('http://localhost:8000/api/identity/add', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                 },
-                body: data
+                body: datane
             })
             .then(async response => {
                 anjay = await response.json()
