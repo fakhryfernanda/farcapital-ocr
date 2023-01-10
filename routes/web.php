@@ -15,6 +15,7 @@ Route::get('/', Home::class);
 //Route::get('/data', [UserController::class, 'index']);
 Route::post('/edit', Edit::class);
 Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
+Route::get('/profile/{id}', Profile::class)->name('profile')->middleware('islogin');
 
 
 
