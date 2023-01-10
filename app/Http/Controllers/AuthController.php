@@ -29,8 +29,11 @@ class AuthController extends Controller
             $payload,
         );
 
+        // dd($auth);
+
+        // jika login gagal
         if ($auth['status'] == false) {
-            return redirect()->back()->with('error'.$auth['data'], $auth['message']);
+            return back()->with('loginError', $auth['message']);
         }
 
         if (!session()->isStarted()) {

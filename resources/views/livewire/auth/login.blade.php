@@ -15,6 +15,11 @@
                     <p class="text-green-500 text-sm font-bold">{{ $message }}</p>
                     <p class="text-green-500 text-sm font-bold">Silakan login</p>
                 @endif
+
+                {{-- Login gagal --}}
+                @if($message = Session::get('loginError'))
+                    <p class="text-red-500 text-sm font-bold">{{ $message }}</p>
+                @endif
                 
                 {{-- ---------------(batas suci)------------ --}}
                 <form action="{{ route('authenticate') }}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">                    
