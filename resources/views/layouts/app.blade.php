@@ -14,7 +14,7 @@
 </head>
 <body>
     @livewire('navbar.user')
-    <div class="bg-gradient-to-b from-red-50 to-red-300">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-red-50 to-red-300">
         {{$slot}}
     </div>
     @livewireScripts
