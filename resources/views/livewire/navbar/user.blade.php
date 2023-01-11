@@ -1,9 +1,9 @@
 <nav class=" relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-200 text-black hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
     <div class="container w-full flex flex-wrap  justify-between items-center  px-6">
     <!-- Left links -->
-        <div class="navbar-nav flex flex-wrap pl-0 list-style-none mr-auto   relative ">
+        <a href="/" class=" flex flex-wrap pl-0 mr-auto relative cursor-pointer">
                 <img class=" h-20" src="{{ asset('assets/farcapital.png')}}" alt="">  
-        </div>
+        </a>
         <!-- Left links -->
             <!-- Right elements -->
             <div class="flex flex-wrap items-center gap-5 relative">
@@ -24,12 +24,13 @@
                     </a>
                     @endif
             </div>
-            <div class="dropdown relative">
-                <a class="dropdown-toggle flex items-center hidden-arrow" href="#" id="dropdownMenuButton2" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="relative">
+                @if (session('token')!=null)
+                <a class=" flex items-center hidden-arrow" href="/profile" id="dropdownMenuButton2" role="button">
                     <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" class="rounded-full"
                     style="height: 35px; width: 35px" alt="" loading="lazy" />
                 </a>
+                @endif
             </div>
             </div>
         
