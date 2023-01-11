@@ -34,6 +34,12 @@ class Profile extends Component
             $data = $this->responseData["data"];
         }
 
+        $nama_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        $arr = explode('-', $data['tanggal_lahir']);
+        $bulan = $nama_bulan[$arr[1]-1];
+        $data['tanggal_lahir'] = $arr[2] . " " . $bulan . " " . $arr[0];
+
         return view(
             'livewire.features.profile',
             ['data' => $data]
