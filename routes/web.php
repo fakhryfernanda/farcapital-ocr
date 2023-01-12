@@ -10,6 +10,9 @@ use App\Http\Livewire\Features\Upload;
 use App\Http\Livewire\Features\Edit;
 use App\Http\Livewire\Features\Profile;
 use App\Http\Livewire\Home;
+use App\Http\Livewire\Auth\ForgotPassword;
+use App\Http\Livewire\Auth\ChangePassword;
+use App\Http\Livewire\Auth\SuccessSendEmail;
 Route::get('/', Home::class);
 
 //Route::get('/data', [UserController::class, 'index']);
@@ -30,3 +33,6 @@ Route::get('/login', Login::class)->middleware('notlogin')->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/registrasi', Registrasi::class)->middleware('notlogin');
+Route::get('/forgotpassword', ForgotPassword::class);
+Route::get('/changepassword', ChangePassword::class);
+Route::get('/successsendemail', SuccessSendEmail::class);
