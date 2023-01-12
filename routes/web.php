@@ -3,23 +3,27 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\AccessDenied;
 use App\Http\Livewire\Auth\Registrasi;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Features\Upload;
-use App\Http\Livewire\Features\Edit;
 use App\Http\Livewire\Features\Profile;
 use App\Http\Livewire\Home;
-Route::get('/', Home::class);
 
-Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
-Route::get('/profile/{id}', Profile::class)->name('profile')->middleware('islogin');
+Route::get('/', Home::class);
+Route::get('/accessdenied', AccessDenied::class);
+
+// Admin
+Route::get('/dashboard', Dashboard::class)->middleware(['isadmin', 'islogin']);
+Route::get('/profile/{id}', Profile::class)->name('profile')->middleware(['isadmin', 'islogin']);
 
 Route::get('/profile', Profile::class)->middleware('islogin');
 
-Route::get('/upload', Upload::class);
+Route::get('/upload', Upload::class)->middleware('islogin');
 
 Route::post('/store', [UserController::class, 'store'])->name('store');
+
 // ----( auth )----
 Route::get('/login', Login::class)->middleware('notlogin')->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
