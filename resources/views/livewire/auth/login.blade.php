@@ -47,7 +47,7 @@
                 @endif
 
                 <div class="text-right text-slate-700 hover:underline hover:text-blue-500 underline py-2">
-                    <a href="#">Forgot your password?</a>
+                    <a href="/forgotpassword">Forgot your password?</a>
                 </div>
                 <div class="px-4 pb-2 pt-4">
                     <button class="border-blue-500 border uppercase block w-full px-4 py-2 text-lg rounded-lg  bg-blue-600 font-bold hover:bg-white hover:text-blue-500 hover:font-bold focus:outline-none hover:border-blue-500 hover:border">sign in</button>
