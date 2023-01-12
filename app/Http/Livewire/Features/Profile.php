@@ -8,20 +8,18 @@ use Livewire\Component;
 class Profile extends Component
 {
     public $responseData;
+    public $identity;
 
     public function mount($id = null)
     {
-        if (!isset($id)) {
+        if (isset($id)) {
             $this->responseData = HttpClient::fetch(
                 "GET",
                 "http://localhost:8000/api/identity/{$id}"
             );
-        }
-    }
 
-    public function render()
-    {
-        if (!isset($this->responseData)) {
+            $this->identity = $this->responseData["data"];
+        } else {
             $id = session('id_user');
             
             $responseData = HttpClient::fetch(
@@ -29,20 +27,26 @@ class Profile extends Component
                 "http://localhost:8000/api/identity/{$id}"
             );
 
-            $data = $responseData["data"];
-        } else {
-            $data = $this->responseData["data"];
-        }
+            // Jika belum punya data identitas
+            if (!$responseData['status']) {
+                return redirect('/upload');
+            }
 
+            $this->identity = $responseData["data"];
+        }
+    }
+
+    public function render()
+    {
         $nama_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         
-        $arr = explode('-', $data['tanggal_lahir']);
+        $arr = explode('-', $this->identity['tanggal_lahir']);
         $bulan = $nama_bulan[$arr[1]-1];
-        $data['tanggal_lahir'] = $arr[2] . " " . $bulan . " " . $arr[0];
-
+        $this->identity['tanggal_lahir'] = $arr[2] . " " . $bulan . " " . $arr[0];
+        
         return view(
             'livewire.features.profile',
-            ['data' => $data]
+            ['data' => $this->identity]
         );
     }
 }

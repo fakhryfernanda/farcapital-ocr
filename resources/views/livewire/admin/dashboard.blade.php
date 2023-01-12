@@ -1,5 +1,5 @@
-<div class="background: bg-gradient-to-b from-red-50 to-red-200 h-screen">
-    <h1 class="text-center py-3 text-[30px] font-bold">Daftar Customer</h1>
+<div class="self-start mt-8">
+    <h1 class="text-center py-3 text-[30px] font-bold">Daftar User</h1>
     <div class="overflow-x-auto flex container justify-center">
         <table class="border-2 w-full">
             <thead class="border bg-red-500 text-white">
@@ -46,7 +46,7 @@
                     </td>
                     
                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["foto"]}}
+                        <img src="{{  'http://127.0.0.1:8000/storage/' .  $user["ktp"] }}" alt="ktp" class="w-[100px]">
                     </td>
                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         <a href={{ route('profile', $user["id_user"]) }}>

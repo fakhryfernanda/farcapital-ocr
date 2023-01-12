@@ -46,9 +46,12 @@ class AuthController extends Controller
 
         session()->put("role", $auth['data']['user']['id_role']);
         session()->put("id_user", $auth['data']['user']['id']);
-        // dd($payload,$auth,session('id_user'));
 
-        return redirect('/profile');
+        if (session('role') == 1) {
+            return redirect('/dashboard');
+        } elseif (session('role') == 2) {
+            return redirect('/profile');
+        }
         
     }
 }
