@@ -27,7 +27,7 @@ class IsUser
                 return redirect("/login");
             }
 
-            if (session('id_user') != 2) {
+            if (session('role') != 2) {
                 return redirect('/accessdenied');
             }
         } else {

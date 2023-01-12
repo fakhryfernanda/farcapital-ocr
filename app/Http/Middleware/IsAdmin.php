@@ -26,8 +26,7 @@ class IsAdmin
             if(!$auth) {
                 return redirect("/login");
             }
-
-            if (session('id_user') != 1) {
+            if (session('role') != 1) {
                 return redirect('/accessdenied');
             }
         } else {
