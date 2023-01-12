@@ -12,17 +12,12 @@ use App\Http\Livewire\Features\Profile;
 use App\Http\Livewire\Home;
 Route::get('/', Home::class);
 
-//Route::get('/data', [UserController::class, 'index']);
-Route::post('/edit', Edit::class);
 Route::get('/dashboard', Dashboard::class); //---> ini untuk admin
 Route::get('/profile/{id}', Profile::class)->name('profile')->middleware('islogin');
-
-
 
 Route::get('/profile', Profile::class)->middleware('islogin');
 
 Route::get('/upload', Upload::class);
-
 
 Route::post('/store', [UserController::class, 'store'])->name('store');
 // ----( auth )----
