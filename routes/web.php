@@ -18,10 +18,9 @@ Route::get('/accessdenied', AccessDenied::class);
 Route::get('/dashboard', Dashboard::class)->middleware(['isadmin', 'islogin']);
 Route::get('/profile/{id}', Profile::class)->name('profile')->middleware(['isadmin', 'islogin']);
 
-Route::get('/profile', Profile::class)->middleware('islogin');
-
-Route::get('/upload', Upload::class)->middleware('islogin');
-
+// User
+Route::get('/profile', Profile::class)->middleware(['isuser', 'islogin']);
+Route::get('/upload', Upload::class)->middleware(['isuser', 'islogin']);
 Route::post('/store', [UserController::class, 'store'])->name('store');
 
 // ----( auth )----
