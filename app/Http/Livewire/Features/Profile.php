@@ -33,17 +33,17 @@ class Profile extends Component
             }
 
             $this->identity = $responseData["data"];
-
-            $nama_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        
-            $arr = explode('-', $this->identity['tanggal_lahir']);
-            $bulan = $nama_bulan[$arr[1]-1];
-            $this->identity['tanggal_lahir'] = $arr[2] . " " . $bulan . " " . $arr[0];
         }
     }
 
     public function render()
     {
+        $nama_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        $arr = explode('-', $this->identity['tanggal_lahir']);
+        $bulan = $nama_bulan[$arr[1]-1];
+        $this->identity['tanggal_lahir'] = $arr[2] . " " . $bulan . " " . $arr[0];
+        
         return view(
             'livewire.features.profile',
             ['data' => $this->identity]
