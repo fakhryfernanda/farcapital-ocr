@@ -29,30 +29,13 @@
     </template>
 
     <template x-if="mode == 'verifikasi'">
-        {{-- <div>
-            <input type="text" name="nik" x-bind:value="datanya.nik"><br><br>
-            <input type="text" name="nama" x-bind:value="datanya.nama"><br><br>
-            <input type="text" name="tempat_lahir" x-bind:value="datanya.tempat_lahir"><br><br>
-            <input type="text" name="tanggal_lahir" x-bind:value="datanya.tanggal_lahir"><br><br>
-            <input type="text" name="kelamin" x-bind:value="datanya.kelamin"><br><br>
-
-            <input type="text" name="golongan_darah" x-bind:value="datanya.golongan_darah"><br><br>
-            <input type="text" name="alamat" x-bind:value="datanya.alamat"><br><br>
-            <input type="text" name="rt" x-bind:value="datanya.rt"><br><br>
-            <input type="text" name="rw" x-bind:value="datanya.rw"><br><br>
-            <input type="text" name="kelurahan" x-bind:value="datanya.kelurahan"><br><br>
-            <input type="text" name="kecamatan" x-bind:value="datanya.kecamatan"><br><br>
-            <input type="text" name="agama" x-bind:value="datanya.agama"><br><br>
-            <input type="text" name="perkawinan" x-bind:value="datanya.perkawinan"><br><br>
-            <input type="text" name="pekerjaan" x-bind:value="datanya.pekerjaan"><br><br>
-            <input type="text" name="kewarganegaraan" x-bind:value="datanya.kewarganegaraan"><br><br>
-        </div> --}}
 
         {{-- -------------------------batas suci----------------------- --}}
         <div class="flex w-full justify-center gap-32">
             <div class=" bg-gray-200 rounded-lg max-w-md px-10 pt-10 pb-12 mt-7">
                 <h1 class=" h-[40px] flex justify-center text-[30px] text-red-400 font-bold mb-5">Biodata Diri</h1>
                 <div class="flex flex-col gap-4">
+                    <input type="hidden" id="id_user" :value="{{ session('id_user') }}">
                     <div class="flex items-center">
                         <label class="w-40" for="nama">Nama : </label>
                         <input class="px-1 border-2  focus:border-blue-600 focus:outline-none" type="text" name="nama" id="nama" wire:model="nama" x-bind:value="datanya.nama">

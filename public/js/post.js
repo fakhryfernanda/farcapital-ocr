@@ -53,7 +53,8 @@
 
         //----------(batas suci)----------
         submitData() {
-            const ktp = document.getElementById('ktp').files[0]
+            const id_user = document.getElementById('id_user').value
+            const ktp = this.form.image
             const nik = document.getElementById('nik').value
             const nama = document.getElementById('nama').value
             const tempat_lahir = document.getElementById('tempat_lahir').value
@@ -73,6 +74,7 @@
             const kewarganegaraan = document.getElementById('kewarganegaraan').value
             
             const datane = new FormData();
+            datane.append('id_user',  id_user)
             datane.append('ktp',  ktp)
             datane.append('nik',  nik)
             datane.append('nama',  nama)
@@ -106,6 +108,9 @@
                 console.log(this.datanya)
                 this.mode = 'scan'
             })
+
+            const baseUrl = window.location.origin
+            window.location.replace(baseUrl + '/profile')
 
         }
     }))
