@@ -114,5 +114,43 @@
 
         }
     }))
-    
-    
+
+    Alpine.data('forgotpassword', () =>({
+        email:'',
+        message : '',
+        statusnya : '',
+        pesaneror : '',
+        sendemail() {
+            const data = new FormData();
+            data.append('email', this.email)
+            data.append('link', document.getElementById('link').value)
+            data.append('from', document.getElementById('from').value)
+            data.append('target', document.getElementById('target').value)
+            
+            console.log(data)
+            
+            fetch('http://localhost:8000/api/user/reset', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
+            .then(async response => {
+                anjay = await response.json()
+                this.message = anjay.message
+                this.statusnya = anjay.status
+                console.log(this.statusnya)
+                
+                if(this.statusnya == true){
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/successsendemail')
+                }
+                if(this.statusnya == false){
+                    this.pesaneror = this.message
+                }
+            })
+        },
+
+       
+    }))
