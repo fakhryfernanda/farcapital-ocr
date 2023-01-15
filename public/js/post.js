@@ -2,24 +2,6 @@
     Alpine.data('scan', () =>({
         form: { 
             image: '',
-            // ktp: '',
-            // nik: '',
-            // nama: '',
-            // tempat_lahir: '',
-            // tanggal_lahir: '',
-            // kelamin: '',
-            // golongan_darah: '',
-            // alamat: '',
-            // rt: '',
-            // rw: '',
-            // kelurahan: '',
-            // kecamatan: '',
-            // kota: '',
-            // provinsi: '',
-            // agama: '',
-            // perkawinan: '',
-            // pekerjaan: '',
-            // kewarganegaraan: ''
         },
         mode : 'scan',
         datanya : {},
@@ -42,8 +24,8 @@
                 body: data
             })
             .then(async response => {
-                anjay = await response.json()
-                this.datanya = anjay.data
+                response = await response.json()
+                this.datanya = response.data
                 console.log(this.datanya)
 
                 this.mode = 'verifikasi'
@@ -103,8 +85,8 @@
                 body: datane
             })
             .then(async response => {
-                anjay = await response.json()
-                this.datanya = anjay.data
+                response = await response.json()
+                this.datanya = response.data
                 console.log(this.datanya)
                 this.mode = 'scan'
             })
@@ -115,6 +97,7 @@
         }
     }))
 
+    //----------(batas suci)----------
     Alpine.data('forgotpassword', () =>({
         email:'',
         message : '',
@@ -126,9 +109,7 @@
             data.append('link', document.getElementById('link').value)
             data.append('from', document.getElementById('from').value)
             data.append('target', document.getElementById('target').value)
-            
-            console.log(data)
-            
+           
             fetch('http://localhost:8000/api/user/reset', {
                 method: 'POST',
                 headers: {
@@ -137,10 +118,9 @@
                 body: data
             })
             .then(async response => {
-                anjay = await response.json()
-                this.message = anjay.message
-                this.statusnya = anjay.status
-                console.log(this.statusnya)
+                response = await response.json()
+                this.message = response.message
+                this.statusnya = response.status
                 
                 if(this.statusnya == true){
                     const baseUrl = window.location.origin
@@ -152,5 +132,72 @@
             })
         },
 
-       
     }))
+
+    //----------(batas suci)----------
+    Alpine.data('changeforgetpassword', () =>({
+        password : '',
+        confirmpassword : '',
+        email : '',
+        token : '',
+        isloading:true,
+        errmsg : '',
+        cektoken() {
+            token = document.getElementById('token').value
+            console.log('token')
+            fetch('http://localhost:8000/api/emailbytoken/'+token, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                }
+            })
+            .then(async response => {
+                response = await response.json()
+                statusnya = response.status
+                console.log(statusnya)
+
+                if(statusnya ==true){
+                    this.isloading = false
+                    this.email = response.data.email
+                    this.token = token
+                }else{
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/forgotpassword')
+                }
+            })
+        },
+        
+        submitchangepass() {
+            if(this.password != this.confirmpassword){
+                this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+            }else{
+                const data = new FormData();
+                data.append('token', this.token)
+                data.append('email', this.email)
+                data.append('password', this.password)
+
+                fetch('http://localhost:8000/api/changeforgotpass/', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    body: data
+                })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+                    
+                    if(this.statusnya == true){
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if(this.statusnya == false){
+                        this.errmsg = this.message
+                    }
+                })
+            }  
+        },
+
+    }))
+

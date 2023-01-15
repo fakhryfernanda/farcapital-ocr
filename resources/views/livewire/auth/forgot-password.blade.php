@@ -4,6 +4,9 @@
                 <div class=" flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
+                @if($message = Session::get('expiredtoken'))
+                    <p class="text-red-600 text-center">Link kadaluarsa, silahkan reset ulang!</p>
+                @endif
                 <h1 class="font-bold flex justify-center ">Reset your password</h1>
             </div>
             <div class=" py-2 flex flex-col">
@@ -11,14 +14,15 @@
                     <div class="text-2xl p-2 bg-gray-300 rounded mx-1">
                         <i class="fa-sharp fa-solid fa-envelope"></i>   
                     </div>
-                    <input type="email" x-model="email" @keyup.enter="sendemail()" placeholder="ex: user@farcapital.com" class="block w-full p-2 text-lg rounded bg-gray-200 text-black" x-bind:class="pesaneror == ''? '' : 'border-red-600 border'">
+                    <input type="email" x-model="email" placeholder="ex: user@farcapital.com" class="block w-full p-2 text-lg rounded bg-gray-200 text-black" x-bind:class="pesaneror == ''? '' : 'border-red-600 border'">
                 </div>
                 <p x-text="pesaneror" class="text-red-600 font-light text-center"></p>
                 <input type="hidden" id="link" value="{{$link}}">
                 <input type="hidden" id="from" value="{{$from}}">
                 <input type="hidden" id="target" value="{{$target}}">
             </div>
-            <input type="submit" @click="sendemail()" class="text-center border-[rgb(101,13,29)] border  block w-full px-4 py-1 text-lg rounded-lg  bg-[rgb(112,13,29)] text-white font-semibold hover:bg-white hover:text-[rgb(112,13,29)] hover:font-bold focus:outline-none hover:border-[rgb(112,13,29)] hover:border" value="Submit">
+            
+            <button type="submit" @click="sendemail()" class="text-center border-[rgb(101,13,29)] border  block w-full px-4 py-1 text-lg rounded-lg  bg-[rgb(112,13,29)] text-white font-semibold hover:bg-white hover:text-[rgb(112,13,29)] hover:font-bold focus:outline-none hover:border-[rgb(112,13,29)] hover:border" >submit</button>
         </div>
 
 </div>

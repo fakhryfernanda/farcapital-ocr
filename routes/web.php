@@ -32,5 +32,5 @@ Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('aut
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/registrasi', Registrasi::class)->middleware('notlogin');
 Route::get('/forgotpassword', ForgotPassword::class);
-Route::get('/changepassword', ChangePassword::class);
+Route::get('/changepassword/{token}', ChangePassword::class);
 Route::get('/successsendemail', SuccessSendEmail::class);
