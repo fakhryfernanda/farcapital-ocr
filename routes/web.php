@@ -13,6 +13,7 @@ use App\Http\Livewire\Home;
 use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ChangePassword;
 use App\Http\Livewire\Auth\SuccessSendEmail;
+use App\Http\Livewire\Auth\VerificationSuccess;
 
 Route::get('/', Home::class);
 Route::get('/accessdenied', AccessDenied::class);
@@ -34,3 +35,4 @@ Route::get('/registrasi', Registrasi::class)->middleware('notlogin');
 Route::get('/forgotpassword', ForgotPassword::class);
 Route::get('/changepassword', ChangePassword::class);
 Route::get('/successsendemail', SuccessSendEmail::class);
+Route::get('/verificationsuccess', VerificationSuccess::class);
