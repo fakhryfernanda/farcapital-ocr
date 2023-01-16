@@ -1,7 +1,12 @@
-<div class="self-start mt-8">
+<div class="self-start mt-8" >
+    {{-- <h1 x-text="getData()"></h1> --}}
+    
     <h1 class="text-center py-3 text-[30px] font-bold">Daftar User</h1>
     <div class="overflow-x-auto flex container justify-center">
-        <table class="border-2 w-full">
+        <table class="border-2 w-full" x-data="{users: []}" x-init="fetch( 'http://localhost:8000/api/dashboard').then(async (response)=>{
+            users = await response.json()
+            users = users.data
+        })">
             <thead class="border bg-red-500 text-white">
                 <tr>
                     <th scope="col"
@@ -28,33 +33,35 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $user)
-                <tr class="bg-white border-2">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {{ $loop->iteration }}
-                    </td>
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["nik"]}}
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["nama"]}}
-                    </td>
-                   
-                   
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["jenis_kelamin"] ?  'Laki-Laki' : 'Perempuan' ;}}
-                    </td>
-                    
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <img src="{{  'http://127.0.0.1:8000/storage/' .  $user["ktp"] }}" alt="ktp" class="w-[100px]">
-                    </td>
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <a href={{ route('profile', $user["id_user"]) }}>
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</button>
-                        </a>
-                    </td>
-                </tr>
-                @endforeach
+                <template x-for="user in users" :key= "user.id">
+                    <tr class="bg-white border-2">
+                        <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><h1>1</h1>
+                            {{-- {{ $loop->iteration }} --}}
+                        </td>
+                         <td x-text="user.nik" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                           
+                        </td>
+                        <td x-text="user.nama"  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            
+                        </td>
+                       
+                       
+                        <td x-text="user.jenis_kelamin" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                           
+                        </td>
+                        
+                         <td x-text="user.ktp" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {{-- <img src="{{  'http://127.0.0.1:8000/storage/' .  $user["ktp"] }}" alt="ktp" class="w-[100px]"> --}}
+                        </td>
+                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {{-- <a href={{ route('profile', $user["id_user"]) }}> --}}
+                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</button>
+                            {{-- </a> --}}
+                        </td>
+                    </tr>
+                </template>
+              
+               
                 
             </tbody>
         </table>
