@@ -103,6 +103,17 @@
         message : '',
         statusnya : '',
         pesaneror : '',
+        flash : false,
+        flashdatane(){
+            if(localStorage.getItem('flash')){
+                this.flash = true
+                setTimeout(function(){
+                    localStorage.removeItem('flash')
+                    this.flash = false
+                },3000)
+            }
+        },
+
         sendemail() {
             const data = new FormData();
             data.append('email', this.email)
@@ -161,6 +172,7 @@
                     this.email = response.data.email
                     this.token = token
                 }else{
+                    localStorage.setItem('flash',true)
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/forgotpassword')
                 }
@@ -201,3 +213,49 @@
 
     }))
 
+    //----------(batas suci)----------
+    Alpine.data('userRegister',() => ({
+        email : '',
+        password : '',
+        confirmpassword : '',
+
+        errmsg : '',
+        errarea : '',
+        message : '',
+
+        submit(){
+            if(this.password != this.confirmpassword){
+                this.errarea = 'password'
+                this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+            }else if(this.password.length < 8){
+                this.errarea = 'password'
+                this.errmsg = 'panjang password minimal 8 karakter!'
+            }else{
+                const data = new FormData();
+                data.append('email', this.email)
+                data.append('password', this.password)
+
+                fetch('http://localhost:8000/api/user/add', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    body: data
+                })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+                    
+                    if(this.statusnya == true){
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if(this.statusnya == false){
+                        this.errarea = response.data
+                        this.errmsg = this.message
+                    }
+                })
+            }
+        }
+    }))

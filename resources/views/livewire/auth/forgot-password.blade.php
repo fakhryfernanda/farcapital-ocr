@@ -4,9 +4,13 @@
                 <div class=" flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
-                @if($message = Session::get('expiredtoken'))
-                    <p class="text-red-600 text-center">Link kadaluarsa, silahkan reset ulang!</p>
-                @endif
+                <div x-init="flashdatane()"></div>
+                <div x-show="flash">
+                    <div  x-data="{flashnya : true}" :class="{'block' : flashnya, hidden : !flashnya}" x-init="setTimeout(() => flashnya = false, 5000)">
+                        <p class="text-red-600 text-center">Link kadaluarsa, silahkan reset ulang!</p>
+                    </div>
+                </div>
+
                 <h1 class="font-bold flex justify-center ">Reset your password</h1>
             </div>
             <div class=" py-2 flex flex-col">
