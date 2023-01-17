@@ -1,4 +1,4 @@
-<nav class=" relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-200 text-black hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
+<nav class="z-20 relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-200 text-black hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
     <div class="container w-full flex flex-wrap  justify-between items-center  px-6">
         <a href="/" class=" flex flex-wrap pl-0 mr-auto relative cursor-pointer">
             <img class=" h-20" src="{{ asset('assets/farcapital.png')}}" alt="">  
