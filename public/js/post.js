@@ -1,54 +1,55 @@
-    let beapi = 'http://localhost:8000/api/'
-    
-    Alpine.data('profile',()=>({
-        data : [],
-        async getprofile(id){
-            var response = await fetch(beapi + 'identity/' + id,{
-                method : 'GET',
-                headers:{
-                    'Accept': 'application/json',
-                }
-            })
-            response = await response.json()
-            this.data = response.data
-            console.log(response.status)
-            if(!response.status){
-                if(localStorage.getItem('urole') == 1){
-                    const baseUrl = window.location.origin
-                    window.location.replace(baseUrl + '/dashboard')
-                }
-                if(localStorage.getItem('urole') == 2){
-                    const baseUrl = window.location.origin
-                    window.location.replace(baseUrl + '/scan')
-                }
+let beapi = 'http://localhost:8000/api/'
+
+Alpine.data('profile', () => ({
+    data: [],
+    async getprofile(id) {
+        var response = await fetch(beapi + 'identity/' + id, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+        response = await response.json()
+        this.data = response.data
+        console.log(response.status)
+        if (!response.status) {
+            if (localStorage.getItem('urole') == 1) {
+                const baseUrl = window.location.origin
+                window.location.replace(baseUrl + '/dashboard')
+            }
+            if (localStorage.getItem('urole') == 2) {
+                const baseUrl = window.location.origin
+                window.location.replace(baseUrl + '/scan')
             }
         }
-    }))
-    Alpine.data('dashboard',()=>({
-        data : [],
-        async getidentity(){
-            var response = await fetch(beapi + 'dashboard',{
-                method : 'GET',
-                headers:{
-                    'Accept': 'application/json',
-                }
-            })
-            response = await response.json()
-            this.data = response.data
-            console.log(this.data)
-            
-        }
-    }))
+    }
+}))
+Alpine.data('dashboard', () => ({
+    data: [],
+    async getidentity() {
+        var response = await fetch(beapi + 'dashboard', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+        response = await response.json()
+        this.data = response.data
+        console.log(this.data)
 
-    //----------(batas suci)----------
-    Alpine.data('scan', () =>({
-        form: { 
-            image: '',
-        },
-        mode : 'scan',
-        datanya : {},
-        scanUlang(){
-            this.datanya = {},
+    }
+}))
+
+//----------(batas suci)----------
+Alpine.data('scan', () => ({
+    form: {
+        image: '',
+    },
+    mode: 'scan',
+    datanya: {},
+    giloading: false,
+    scanUlang() {
+        this.datanya = {},
             this.mode = 'scan'
     },
 
@@ -64,7 +65,7 @@
         const data = new FormData();
         data.append('image', this.form.image)
 
-        fetch(beapi+'upload', {
+        fetch(beapi + 'upload', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -125,7 +126,7 @@
         datane.append('kewarganegaraan', kewarganegaraan)
         console.log(datane)
         this.loading = true
-        fetch(beapi+'identity/add', {
+        fetch(beapi + 'identity/add', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -145,212 +146,223 @@
     }
 }))
 
-    //----------(batas suci)----------
-    Alpine.data('forgotpassword', () =>({
-        email:'',
-        message : '',
-        statusnya : '',
-        pesaneror : '',
-        flash : false,
-        flashdatane(){
-            if(localStorage.getItem('flash')){
-                this.flash = true
-                setTimeout(function(){
-                    localStorage.removeItem('flash')
-                    this.flash = false
-                },3000)
-            }
-        },
+//----------(batas suci)----------
+Alpine.data('forgotpassword', () => ({
+    email: '',
+    message: '',
+    statusnya: '',
+    pesaneror: '',
+    isLoading: false,
+    flash: false,
+    flashdatane() {
+        if (localStorage.getItem('flash')) {
+            this.flash = true
+            setTimeout(function () {
+                localStorage.removeItem('flash')
+                this.flash = false
+            }, 3000)
+        }
+    },
 
-        sendemail() {
-            const data = new FormData();
-            data.append('email', this.email)
-            data.append('link', document.getElementById('link').value)
-           
-            fetch(beapi+'user/forgotpass', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: data
-            })
+    sendemail() {
+        this.isLoading = true
+        const data = new FormData();
+        data.append('email', this.email)
+        data.append('link', document.getElementById('link').value)
+
+        fetch(beapi + 'user/forgotpass', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: data
+        })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
                 this.statusnya = response.status
-                
-                if(this.statusnya == true){
+
+                if (this.statusnya == true) {
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/successsendemail')
                 }
-                if(this.statusnya == false){
+                if (this.statusnya == false) {
                     this.pesaneror = this.message
+                    this.isLoading = false
                 }
             })
-        },
+    },
 
-    }))
+}))
 
-    //----------(batas suci)----------
-    Alpine.data('changeforgetpassword', () =>({
-        password : '',
-        confirmpassword : '',
-        email : '',
-        token : '',
-        isloading:true,
-        errmsg : '',
-        cektoken() {
-            token = document.getElementById('token').value
-            console.log('token')
-            fetch(beapi+'emailbytoken/'+token, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                }
-            })
+//----------(batas suci)----------
+Alpine.data('changeforgetpassword', () => ({
+    password: '',
+    confirmpassword: '',
+    email: '',
+    token: '',
+    isloading: true,
+    errmsg: '',
+    cektoken() {
+        token = document.getElementById('token').value
+        console.log('token')
+        fetch(beapi + 'emailbytoken/' + token, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
             .then(async response => {
                 response = await response.json()
                 statusnya = response.status
                 console.log(statusnya)
 
-                if(statusnya ==true){
+                if (statusnya == true) {
                     this.isloading = false
                     this.email = response.data.email
                     this.token = token
-                }else{
-                    localStorage.setItem('flash',true)
+                } else {
+                    localStorage.setItem('flash', true)
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/forgotpassword')
                 }
             })
-        },
-        
-        submitchangepass() {
-            if(this.password != this.confirmpassword){
-                this.errmsg = 'password dan konfirmasi password tidak sesuai!'
-            }else{
-                const data = new FormData();
-                data.append('token', this.token)
-                data.append('email', this.email)
-                data.append('password', this.password)
+    },
 
-                fetch(beapi+'changeforgotpass/', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                    body: data
-                })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.statusnya = response.status
-                    
-                    if(this.statusnya == true){
-                        const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
-                    }
-                    if(this.statusnya == false){
-                        this.errmsg = this.message
-                    }
-                })
-            }  
-        },
-
-    }))
-
-    //----------(batas suci)----------
-    Alpine.data('userRegister',() => ({
-        email : '',
-        password : '',
-        confirmpassword : '',
-
-        errmsg : '',
-        errarea : '',
-        message : '',
-
-        submit(){
-            if(this.password != this.confirmpassword){
-                this.errarea = 'password'
-                this.errmsg = 'password dan konfirmasi password tidak sesuai!'
-            }else if(this.password.length < 8){
-                this.errarea = 'password'
-                this.errmsg = 'panjang password minimal 8 karakter!'
-            }else{
-                const data = new FormData();
-                data.append('email', this.email)
-                data.append('password', this.password)
-
-                fetch(beapi+'user/add', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                    body: data
-                })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.statusnya = response.status
-                    
-                    if(this.statusnya == true){
-                        localStorage.setItem('message',this.message)
-                        localStorage.setItem('flash',true)
-                        const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
-                    }
-                    if(this.statusnya == false){
-                        this.errarea = response.data
-                        this.errmsg = this.message
-                    }
-                })
-            }
-        
-        }
-    }))
-
-    //----------(AUTH Login)----------
-    Alpine.data('userLogin',() => ({
-        email : '',
-        password : '',
-
-        errmsg : '',
-        errarea : '',
-        message : '',
-
-        flash : false,
-        flashdata(){
-            if(localStorage.getItem('flash')){
-                this.flash = true
-                this.message = localStorage.getItem('message')
-                setTimeout(function(){
-                    localStorage.removeItem('flash')
-                    localStorage.removeItem('message')
-                    this.flash = false
-                },3000)
-            }
-        },
-
-        submit(){
-            
+    submitchangepass() {
+        if (this.password != this.confirmpassword) {
+            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+        } else {
             const data = new FormData();
+            data.append('token', this.token)
             data.append('email', this.email)
             data.append('password', this.password)
 
-            fetch(beapi+'login', {
+            fetch(beapi + 'changeforgotpass/', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                 },
                 body: data
             })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+
+                    if (this.statusnya == true) {
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if (this.statusnya == false) {
+                        this.errmsg = this.message
+                    }
+                })
+        }
+    },
+
+}))
+
+//----------(batas suci)----------
+Alpine.data('userRegister', () => ({
+    email: '',
+    password: '',
+    confirmpassword: '',
+
+    errmsg: '',
+    errarea: '',
+    message: '',
+
+    isloading: false,
+    isLoading: false,
+
+
+    submit() {
+        if (this.password != this.confirmpassword) {
+            this.errarea = 'password'
+            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+        } else if (this.password.length < 8) {
+            this.errarea = 'password'
+            this.errmsg = 'panjang password minimal 8 karakter!'
+        } else {
+            this.isloading = true
+            const data = new FormData();
+            data.append('email', this.email)
+            data.append('password', this.password)
+
+            this.isLoading = true
+            fetch(beapi + 'user/add', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+
+                    if (this.statusnya == true) {
+                        localStorage.setItem('message', this.message)
+                        localStorage.setItem('flash', true)
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if (this.statusnya == false) {
+                        this.errarea = response.data
+                        this.errmsg = this.message
+                    }
+                })
+        }
+
+    }
+}))
+
+//----------(AUTH Login)----------
+Alpine.data('userLogin', () => ({
+    email: '',
+    password: '',
+
+    errmsg: '',
+    errarea: '',
+    message: '',
+
+    isLoading: false,
+
+    flash: false,
+    flashdata() {
+        if (localStorage.getItem('flash')) {
+            this.flash = true
+            this.message = localStorage.getItem('message')
+            setTimeout(function () {
+                localStorage.removeItem('flash')
+                localStorage.removeItem('message')
+                this.flash = false
+            }, 3000)
+        }
+    },
+
+    submit() {
+        this.isLoading = true
+        const data = new FormData();
+        data.append('email', this.email)
+        data.append('password', this.password)
+
+        fetch(beapi + 'login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: data
+        })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
                 this.statusnya = response.status
                 console.log(window.location.origin)
-                
-                if(this.statusnya == true){
+
+                if (this.statusnya == true) {
                     auth = response.data.auth
                     user = response.data.user
                     utoken = auth.token_type + ' ' + auth.token
@@ -361,26 +373,26 @@
                     localStorage.setItem('urole', urole)
                     localStorage.setItem('uid', uid)
 
-                    if(urole == 1){
+                    if (urole == 1) {
                         const baseUrl = window.location.origin
                         window.location.replace(baseUrl + '/dashboard')
                     }
-                    if(urole == 2){
-                        fetch(beapi+'identity/'+uid,{
+                    if (urole == 2) {
+                        fetch(beapi + 'identity/' + uid, {
                             method: 'GET',
                             headers: {
                                 'Accept': 'application/json',
                             },
                         })
-                        .then(async response => {
-                            response = await response.json()
-                            this.message = response.message
-                            this.status = response.status
-                        })
-                        if(this.status){
+                            .then(async response => {
+                                response = await response.json()
+                                this.message = response.message
+                                this.status = response.status
+                            })
+                        if (this.status) {
                             const baseUrl = window.location.origin
                             window.location.replace(baseUrl + '/profile')
-                        }else{
+                        } else {
                             const baseUrl = window.location.origin
                             window.location.replace(baseUrl + '/scan')
                         }
@@ -388,160 +400,160 @@
                     // const baseUrl = window.location.origin
                     // window.location.replace(baseUrl + '/login')
                 }
-                if(this.statusnya == false){
+                if (this.statusnya == false) {
                     this.errarea = response.data
                     this.errmsg = this.message
                 }
             })
-            
-        }
-    }))
 
-    Alpine.data('auth',()=>({
-        userid : localStorage.getItem('uid') ??'',
-        userrole : localStorage.getItem('urole') ??'',
-        isloading : false,
-        islogin : false,
-        sts : false,
-        ceklogin(){
-            this.isloading = true
-            token = localStorage.getItem('utoken')
-            fetch(beapi + 'me',{
-                method: 'GET',
-                headers:{
-                    'Accept': 'application/json',
-                    'Authorization' : localStorage.getItem('utoken')
-                },
-            })
+    }
+}))
+
+Alpine.data('auth', () => ({
+    userid: localStorage.getItem('uid') ?? '',
+    userrole: localStorage.getItem('urole') ?? '',
+    isloading: false,
+    islogin: false,
+    sts: false,
+    ceklogin() {
+        this.isloading = true
+        token = localStorage.getItem('utoken')
+        fetch(beapi + 'me', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('utoken')
+            },
+        })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
                 this.status = response.status
 
                 console.log(this.status)
-                if(this.status){
+                if (this.status) {
                     this.userid = localStorage.getItem('uid')
                     this.userrole = localStorage.getItem('urole')
                     this.islogin = true
                     this.isloading = false
                 }
-                else{
+                else {
                     this.islogin = false
                     this.isloading = false
                 }
             })
-   
-        },
 
-        notlogin(){
-            const baseUrl = window.location.origin
-            if(this.userrole == 1){
-                window.location.replace(baseUrl + '/dashboard')
-            }
-            if(this.userrole == 2){
-                fetch(beapi+'identity/'+this.userid,{
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                })
+    },
+
+    notlogin() {
+        const baseUrl = window.location.origin
+        if (this.userrole == 1) {
+            window.location.replace(baseUrl + '/dashboard')
+        }
+        if (this.userrole == 2) {
+            fetch(beapi + 'identity/' + this.userid, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
                 .then(async response => {
                     response = await response.json()
                     msg = response.message
                     this.sts = response.status
                 })
-                if(this.sts){
-                    console.log('anjay')
-                    window.location.replace(baseUrl + '/profile')
-                }else{
-                    console.log('ilih')
-                    window.location.replace(baseUrl + '/scan')
-                }
-                console.log(this.userrole)
+            if (this.sts) {
+                console.log('anjay')
+                window.location.replace(baseUrl + '/profile')
+            } else {
+                console.log('ilih')
+                window.location.replace(baseUrl + '/scan')
             }
-        },
+            console.log(this.userrole)
+        }
+    },
 
-        isadmin(){
-            const baseUrl = window.location.origin
-            if(!this.islogin){
-                window.location.replace(baseUrl + '/login')
-            }
-            if(this.userrole == 2){
-                fetch(beapi+'identity/'+this.userid,{
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status
-                })
-                if(this.sts){
-                    window.location.replace(baseUrl + '/profile')
-                }else{
-                    window.location.replace(baseUrl + '/scan')
-                }
-                console.log(this.userrole)
-            }
-        },
-
-        isuserhaveidentity(){
-            const baseUrl = window.location.origin
-            if(!this.islogin){
-                window.location.replace(baseUrl + '/login')
-            }
-            if(this.userrole == 1){
-                window.location.replace(baseUrl + '/dashboard')
-            }
-            if(this.userrole == 2){
-                fetch(beapi+'identity/'+this.userid,{
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status
-                })
-                if(!this.sts){
-                    window.location.replace(baseUrl + '/scan')
-                }
-            }
-        },
-        isusernothaveidentity(){
-            const baseUrl = window.location.origin
-            if(!this.islogin){
-                window.location.replace(baseUrl + '/login')
-            }
-            if(this.userrole == 1){
-                window.location.replace(baseUrl + '/dashboard')
-            }
-            if(this.userrole == 2){
-                fetch(beapi+'identity/'+this.userid,{
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status 
-                })
-                if(this.sts){
-                    window.location.replace(baseUrl + '/profile')
-                }
-            }
-        },
-
-        logout(){
-            localStorage.clear()
-
-            const baseUrl = window.location.origin
+    isadmin() {
+        const baseUrl = window.location.origin
+        if (!this.islogin) {
             window.location.replace(baseUrl + '/login')
         }
-    }))
+        if (this.userrole == 2) {
+            fetch(beapi + 'identity/' + this.userid, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
+                .then(async response => {
+                    response = await response.json()
+                    msg = response.message
+                    this.sts = response.status
+                })
+            if (this.sts) {
+                window.location.replace(baseUrl + '/profile')
+            } else {
+                window.location.replace(baseUrl + '/scan')
+            }
+            console.log(this.userrole)
+        }
+    },
+
+    isuserhaveidentity() {
+        const baseUrl = window.location.origin
+        if (!this.islogin) {
+            window.location.replace(baseUrl + '/login')
+        }
+        if (this.userrole == 1) {
+            window.location.replace(baseUrl + '/dashboard')
+        }
+        if (this.userrole == 2) {
+            fetch(beapi + 'identity/' + this.userid, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
+                .then(async response => {
+                    response = await response.json()
+                    msg = response.message
+                    this.sts = response.status
+                })
+            if (!this.sts) {
+                window.location.replace(baseUrl + '/scan')
+            }
+        }
+    },
+    isusernothaveidentity() {
+        const baseUrl = window.location.origin
+        if (!this.islogin) {
+            window.location.replace(baseUrl + '/login')
+        }
+        if (this.userrole == 1) {
+            window.location.replace(baseUrl + '/dashboard')
+        }
+        if (this.userrole == 2) {
+            fetch(beapi + 'identity/' + this.userid, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
+                .then(async response => {
+                    response = await response.json()
+                    msg = response.message
+                    this.sts = response.status
+                })
+            if (this.sts) {
+                window.location.replace(baseUrl + '/profile')
+            }
+        }
+    },
+
+    logout() {
+        localStorage.clear()
+
+        const baseUrl = window.location.origin
+        window.location.replace(baseUrl + '/login')
+    }
+}))
