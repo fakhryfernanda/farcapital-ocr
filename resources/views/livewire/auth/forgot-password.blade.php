@@ -22,8 +22,6 @@
                 </div>
                 <p x-text="pesaneror" class="text-red-600 font-light text-center"></p>
                 <input type="hidden" id="link" value="{{$link}}">
-                <input type="hidden" id="from" value="{{$from}}">
-                <input type="hidden" id="target" value="{{$target}}">
             </div>
             
             <button type="submit" @click="sendemail()" class="text-center border-[rgb(101,13,29)] border  block w-full px-4 py-1 text-lg rounded-lg  bg-[rgb(112,13,29)] text-white font-semibold hover:bg-white hover:text-[rgb(112,13,29)] hover:font-bold focus:outline-none hover:border-[rgb(112,13,29)] hover:border" >submit</button>

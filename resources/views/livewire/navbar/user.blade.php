@@ -5,20 +5,28 @@
         </a>
         <div class="flex flex-wrap items-center gap-5 relative">
             <div class="flex items-center relative gap-5">
-                    {{-- Belum login --}}
-                    @if (session('token') == null)
-                    <a href="/login" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
-                        Login
-                    </a>
-                    <a href="/registrasi" class="text-white inline-block   mt-1 px-7 py-2 bg-red-400 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
-                        Register
-                    </a>
-                    {{-- Sudah login --}}
-                    @else
-                    <a href="/logout" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
-                        Logout
-                    </a>
-                    @endif
+                <template x-if="isloading == false">
+                    <div>
+                        <template x-if="islogin == false">
+                            {{-- Belum login --}}
+                            <div>
+                                <a href="/login" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                                    Login
+                                </a>
+                                <a href="/registrasi" class="text-white inline-block   mt-1 px-7 py-2 bg-red-400 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                                    Register
+                                </a>
+                            </div>
+                        </template>
+
+                        <template x-if="islogin == true">
+                            {{-- Sudah login --}}         
+                            <button @click="logout()" class="text-white inline-block mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-gray-600 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-600 active:shadow-lg transition duration-150 ease-in-out" >
+                                Logout
+                            </button>
+                        </template>
+                    </div>
+                </template>
             </div>
             @if (session('token') != null && session('id_user') == 2)
                 <div class="relative">

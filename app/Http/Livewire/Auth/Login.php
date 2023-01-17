@@ -2,12 +2,16 @@
 
 namespace App\Http\Livewire\Auth;
 
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class Login extends Component
 {
-    public function render()
+    public function render(Request $request)
     {
-        return view('livewire.auth.login');
+        $data = [
+            'link' => $request->getSchemeAndHttpHost().'/forgotpassword',
+        ];
+        return view('livewire.auth.login',$data);
     }
 }

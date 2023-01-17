@@ -1,4 +1,6 @@
-<div class="self-start mt-8">
+<div class="self-start mt-8" x-data="dashboard">
+    <div x-init="getidentity()"></div>
+    <div x-init="isadmin()"></div>
     <h1 class="text-center py-3 text-[30px] font-bold">Daftar User</h1>
     <div class="overflow-x-auto flex container justify-center">
         <table class="border-2 w-full">
@@ -18,44 +20,23 @@
                     <th scope="col" class="text-sm font-medium  px-6 py-4 text-left">
                         Jenis Kelamin
                     </th>
-                    
-                    <th scope="col" class="text-sm font-medium  px-6 py-4 text-left">
-                        Foto
-                    </th>
                      <th scope="col" class="text-sm font-medium  px-6 py-4 text-left">
                         Aksi
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $user)
-                <tr class="bg-white border-2">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {{ $loop->iteration }}
-                    </td>
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["nik"]}}
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["nama"]}}
-                    </td>
-                   
-                   
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{$user["jenis_kelamin"] ?  'Laki-Laki' : 'Perempuan' ;}}
-                    </td>
-                    
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <img src="{{  'http://127.0.0.1:8000/storage/' .  $user["ktp"] }}" alt="ktp" class="w-[100px]">
-                    </td>
-                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <a href={{ route('profile', $user["id_user"]) }}>
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</button>
-                        </a>
-                    </td>
-                </tr>
-                @endforeach
-                
+                <template x-for="(item,index) in data">
+                    <tr class="bg-white border-2">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" x-text="++index"></td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" x-text="item.nik"></td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" x-text="item.nama"></td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" x-text="item.jenis_kelamin ? 'Laki-Laki' : 'Perempuan'"></td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <a x-bind:href="window.location.origin+'/profile/'+item.id_user" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</a>
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>

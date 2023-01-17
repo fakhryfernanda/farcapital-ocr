@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center" x-data="scan">
+    <div x-init="isusernothaveidentity()"></div>
     <template x-if="mode == 'scan'">
         <div class="mt-14">
-
             <div class="text-center py-3 font-semibold">
                 <h1>Please Upload Your National Identity Card (KTP)</h1>
             </div>
@@ -25,8 +25,7 @@
             <div class="text-center py-5">
                 <button type="button"  @click="scanktp()" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
             </div>
-
-            
+          
         </div>
         
     </template>
