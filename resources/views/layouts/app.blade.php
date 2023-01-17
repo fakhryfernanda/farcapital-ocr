@@ -10,6 +10,9 @@
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{{asset('/js/post.js')}}"></script>
     <script src="{{asset('/js/imageViewer.js')}}"></script>
+    <script src="{{asset('/js/dashboard.js')}}"></script>
+    <script src="{{asset('/js/dashboard_.js')}}"></script>
+    {{-- <script src="{{asset('/dashboard')}}"></script> --}}
     <title>Document</title>
     @livewireStyles
 </head>

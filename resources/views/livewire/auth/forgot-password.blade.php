@@ -1,21 +1,32 @@
-<div >
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
-    
-    <form action="#" method="POST">
-        @csrf
-        <div class="bg-white w-full px-10 pb-10 flex flex-col gap-10 ">
+<div x-data="forgotpassword">
+        <div class="bg-white w-full px-10 pb-10 flex flex-col gap-2 ">
             <div>
                 <div class=" flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
+                <div x-init="flashdatane()"></div>
+                <div x-show="flash">
+                    <div  x-data="{flashnya : true}" :class="{'block' : flashnya, hidden : !flashnya}" x-init="setTimeout(() => flashnya = false, 5000)">
+                        <p class="text-red-600 text-center">Link kadaluarsa, silahkan reset ulang!</p>
+                    </div>
+                </div>
+
                 <h1 class="font-bold flex justify-center ">Reset your password</h1>
             </div>
-            <div class="flex flex-col gap-2">
-                <h2 class="text-[10px]">Masukan email anda dan kami akan mengirimkan link forgot password</h2>
-                <input type="email" name="email" id="email" placeholder="masukan alamat email anda" class="block w-full p-2 text-lg rounded bg-gray-200 text-black">
+            <div class=" py-2 flex flex-col">
+                <div class="text-gray-500 flex">
+                    <div class="text-2xl p-2 bg-gray-300 rounded mx-1">
+                        <i class="fa-sharp fa-solid fa-envelope"></i>   
+                    </div>
+                    <input type="email" x-model="email" placeholder="ex: user@farcapital.com" class="block w-full p-2 text-lg rounded bg-gray-200 text-black" x-bind:class="pesaneror == ''? '' : 'border-red-600 border'">
+                </div>
+                <p x-text="pesaneror" class="text-red-600 font-light text-center"></p>
+                <input type="hidden" id="link" value="{{$link}}">
+                <input type="hidden" id="from" value="{{$from}}">
+                <input type="hidden" id="target" value="{{$target}}">
             </div>
-            <a href="/successsendemail" class="text-center border-blue-500 border  block w-full px-4 py-2 text-lg rounded-lg  bg-blue-600 font-semibold hover:bg-white hover:text-blue-500 hover:font-bold focus:outline-none hover:border-blue-500 hover:border">Submit</a>
+            
+            <button type="submit" @click="sendemail()" class="text-center border-[rgb(101,13,29)] border  block w-full px-4 py-1 text-lg rounded-lg  bg-[rgb(112,13,29)] text-white font-semibold hover:bg-white hover:text-[rgb(112,13,29)] hover:font-bold focus:outline-none hover:border-[rgb(112,13,29)] hover:border" >submit</button>
         </div>
-        
-    </form>
+
 </div>
