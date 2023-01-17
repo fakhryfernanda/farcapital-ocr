@@ -50,6 +50,10 @@
                 <div class="text-center text-slate-700 py-2">
                     <p>Already Have Account ? <a href="/login" class ="text-blue-500  hover:underline">Sign In</a></p>
                 </div>
+
+       
+
+
             </form>
         </div>
     </div>
