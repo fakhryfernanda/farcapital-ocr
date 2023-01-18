@@ -1,6 +1,14 @@
-<section class="container pb-8 flex bg-gray-50">
+<section class="container pb-8 flex bg-gray-50" x-data="profile">
     <div class="w-1/3">
-
+        <template x-if="userrole != 1 && userrole != 2">
+            <div x-init="logout()"></div>
+        </template>
+        <template x-if="userrole == 1">
+            <div x-init="getprofile({{$id}})"></div>
+        </template>
+        <template x-if="userrole == 2">
+            <div x-init="getprofile(userid)"></div>
+        </template>
         <img src="{{ asset('assets/dummy.jpg')}}" alt="" class="h-[400px]">
         
         <div class="mt-8 flex flex-col items-center gap-6">
@@ -46,66 +54,59 @@
     </div>
 
     <div class="w-2/3 rounded-md shadow-slate-400">
-        <h1 class="p-6 text-4xl font-bold bg-red-500 w-full rounded-lgtext-center text-white">
+        <h1 class="p-6 text-4xl font-bold bg-red-500 w-full rounded-lg text-center text-white">
             Identitas Pribadi
         </h1>
         <div class="px-6 flex flex-col gap-4">
             <div class="py-2 border-b-2 border-red-200">
-                <h2 class="text-xl text-slate-800 font-bold "> {{ $data["nama"] }}</h2>
-                <h2 class="text-lg text-slate-800 font-semibold "> {{ $data["pekerjaan"] }} </h2>
+                <h2 class="text-xl text-slate-800 font-bold " x-text="data.nama"></h2>
+                <h2 class="text-lg text-slate-800 font-semibold " x-text="data.pekerjaan"></h2>
             </div>
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">NIK</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["nik"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.nik"></h1>
             </div>
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Tempat Lahir</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["tempat_lahir"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.tempat_lahir"></h1>
             </div>
 
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Tanggal Lahir</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["tanggal_lahir"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.tempat_lahir"></h1>
             </div>
 
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Jenis Kelamin</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">
-                    {{ $data['jenis_kelamin'] ?  'Laki-Laki' : 'Perempuan' ; }}
-                </h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.jenis_kelamin ? 'Laki-Laki' : 'Perempuan'"></h1>
             </div>
     
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Golongan Darah</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["golongan_darah"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.golongan_darah"></h1>
             </div>
     
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Agama</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["agama"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.agama"></h1>
             </div>
 
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Status Perkawinan</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["status_perkawinan"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.status_perkawinan"></h1>
             </div>
     
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Kewarganegaraan</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["kewarganegaraan"] }}</h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.kewarganegaraan"></h1>
             </div>
     
             <div class="">
                 <h1 class="text-xl text-slate-800 font-bold">Alamat</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">{{ $data["alamat"] }}</h1>
-                <h1 class="text-lg text-slate-800 font-semibold">
-                    RT {{ $data["rt"] }} RW {{ $data["rw"] }}
-                </h1>
-                <h1 class="text-lg text-slate-800 font-semibold">
-                    Kelurahan {{ $data["kelurahan"] }} Kecamatan {{ $data["kecamatan"] }}
-                </h1>
-                <h1 class="text-lg text-slate-800 font-semibold">
-                    Kota {{ $data["kota"] }} {{ $data["provinsi"] }}
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="data.alamat"></h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="'RT '+data.rt+' RW '+data.rw"></h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="'Kelurahan '+data.kelurahan+' Kecamatan '+data.kecamatan"></h1>
+                <h1 class="text-lg text-slate-800 font-semibold" x-text="'Kota '+data.kota+' Provinsi '+data.provinsi">
                 </h1>
             </div>
         </div>

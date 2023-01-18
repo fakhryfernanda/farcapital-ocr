@@ -1,6 +1,6 @@
 <div x-data="changeforgetpassword" x-init="cektoken()">
+    <div x-init="notlogin()"></div>
     <input type="hidden" value="{{$token}}" id="token">
-
     <template x-if="!isloading">
         <div class="bg-white  flex flex-col gap-5 px-10 pb-5 ">
             <div>
