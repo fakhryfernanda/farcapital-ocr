@@ -33,7 +33,7 @@
                     <input class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 border-red-500" x-bind:class="errarea == 'password'? 'border border-red-600' : ''" type="password" x-model="password" placeholder="Password" >
                 </div>
                 <template x-if="errarea == 'password'">
-                    <p class="text-red-600 text-center" x-text="errmsg"></p>
+                    <p class="text-red-600 text-center font-Lato font-bold" x-text="errmsg"></p>
                 </template>
                     <div class="pb-2 pt-4 flex text-white">
                         <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400">
