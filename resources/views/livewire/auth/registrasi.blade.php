@@ -1,7 +1,9 @@
 <section class="min-h-1/2 flex text-white mb-4"x-data="userRegister">
 
-     <div x-show="isLoading">
-        @livewire('loadingscreen')
+     <div x-show="isloading">
+        <div>
+            @livewire('loadingscreen')
+        </div>
     </div>
 
     <div x-init="notlogin()"></div>

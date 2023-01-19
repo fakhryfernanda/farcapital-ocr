@@ -1,8 +1,8 @@
 <div x-data="changeforgetpassword" x-init="cektoken()" class="flex">
-    <div x-show="isLoading">
+    <div x-show="isloading">
         @livewire('loadingscreen')
     </div>
-    <div x-show="!isLoading">
+    <div x-show="!isloading">
     <div x-init="notlogin()"></div>
     <input type="hidden" value="{{$token}}" id="token">
     <template x-if="!isloading">

@@ -156,7 +156,7 @@ Alpine.data('forgotpassword', () => ({
     message: '',
     statusnya: '',
     pesaneror: '',
-    isLoading: false,
+    isloading: false,
     flash: false,
     flashdatane() {
         if (localStorage.getItem('flash')) {
@@ -169,7 +169,7 @@ Alpine.data('forgotpassword', () => ({
     },
 
     sendemail() {
-        this.isLoading = true
+        this.isloading = true
         const data = new FormData();
         data.append('email', this.email)
         data.append('link', document.getElementById('link').value)
@@ -192,7 +192,7 @@ Alpine.data('forgotpassword', () => ({
                 }
                 if (this.statusnya == false) {
                     this.pesaneror = this.message
-                    this.isLoading = false
+                    this.isloading = false
                 }
             })
     },
@@ -206,7 +206,7 @@ Alpine.data('changeforgetpassword', () => ({
     email: '',
     token: '',
     isloading: true,
-    isLoading: false,
+    isloading: false,
     errmsg: '',
     cektoken() {
         token = document.getElementById('token').value
@@ -241,7 +241,7 @@ Alpine.data('changeforgetpassword', () => ({
             data.append('email', this.email)
             data.append('password', this.password)
 
-            this.isLoading = true
+            this.isloading = true
 
             fetch(beapi + 'changeforgotpass/', {
                 method: 'POST',
@@ -293,7 +293,7 @@ Alpine.data('userRegister', () => ({
             data.append('email', this.email)
             data.append('password', this.password)
 
-            this.isLoading = true
+            this.isloading = true
             fetch(beapi + 'user/add', {
                 method: 'POST',
                 headers: {
@@ -332,7 +332,7 @@ Alpine.data('userLogin', () => ({
     errarea: '',
     message: '',
 
-    isLoading: false,
+    isloading: false,
 
     flash: false,
     flashdata() {
@@ -348,7 +348,7 @@ Alpine.data('userLogin', () => ({
     },
 
     submit() {
-        this.isLoading = true
+        this.isloading = true
         const data = new FormData();
         data.append('email', this.email)
         data.append('password', this.password)
@@ -400,13 +400,11 @@ Alpine.data('userLogin', () => ({
                             window.location.replace(baseUrl + '/scan')
                         }
                     }
-                    // const baseUrl = window.location.origin
-                    // window.location.replace(baseUrl + '/login')
                 }
                 if (!this.statusnya) {
                     this.errarea = response.data
                     this.errmsg = this.message
-                    this.isLoading = false
+                    this.isloading = false
                 }
             })
 
@@ -433,16 +431,18 @@ Alpine.data('auth', () => ({
                 response = await response.json()
                 this.message = response.message
                 this.status = response.status
-
+                console.log(this.isloading)
                 if (this.status) {
                     this.userid = localStorage.getItem('uid')
                     this.userrole = localStorage.getItem('urole')
                     this.islogin = true
                     this.isloading = false
+                    console.log('b')
                 }
                 else {
                     this.islogin = false
                     this.isloading = false
+                    console.log('a')
                     localStorage.clear()
                 }
             })
