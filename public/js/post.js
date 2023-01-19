@@ -55,6 +55,8 @@ Alpine.data('scan', () => ({
     },
 
     scanktp() {
+        if(document.getElementById('ktp').files[0]){
+        
         const ktp_label = document.querySelector('#ktp_label');
         const ktp = document.querySelector('#ktp');
         ktp.setAttribute('disabled', true)
@@ -81,6 +83,7 @@ Alpine.data('scan', () => ({
                 this.mode = 'verifikasi'
 
             })
+        }
     },
 
     //----------(batas suci)----------
@@ -551,10 +554,10 @@ Alpine.data('auth', () => ({
                     response = await response.json()
                     msg = response.message
                     this.sts = response.status
+                    if (this.sts == true) {
+                        window.location.replace(baseUrl + '/profile')
+                    }
                 })
-            if (this.sts) {
-                window.location.replace(baseUrl + '/profile')
-            }
         }
     },
 
