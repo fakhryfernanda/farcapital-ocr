@@ -61,7 +61,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label class="w-40 font-semibold" for="nik">NIK : </label>
-                            <input class="px-1 border-2 border-slate-300 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="nik" id="nik" wire:model="nik" x-bind:value="datanya.nik">
+                            <input class="px-1 border-2 border-slate-300 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="number" name="nik" id="nik" wire:model="nik" x-bind:value="datanya.nik">
                         </div>
                         <div class="flex flex-col">
                             <label class="w-40 font-semibold" for="tempat_lahir">Tempat Lahir : </label>
