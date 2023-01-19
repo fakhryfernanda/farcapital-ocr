@@ -47,9 +47,9 @@
     <template x-if="mode == 'verifikasi'">
 
         {{-- -------------------------batas suci----------------------- --}}
-        <div class="flex flex-col w-[1200px] justify-center bg-gray-50 gap-1 rounded-sm mb-10 py-5 mt-10">
+        <div class="flex flex-col w-[1200px] justify-center bg-gray-50 gap-1 rounded-md mb-10 py-5 mt-10">
             <div class="text-center">
-                <h1 class=" h-[40px] flex justify-center text-[30px] text-slate-800 font-bold "> Form Biodata Diri</h1>
+                <h1 class=" h-[40px] flex justify-center text-[30px] text-slate-800 font-bold ">Form Biodata Diri</h1>
             </div>
             <div class="flex justify-center">
                 <div class="rounded-lg max-w-md px-5 py-5 mt-7">

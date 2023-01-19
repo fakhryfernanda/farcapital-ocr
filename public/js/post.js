@@ -7,7 +7,7 @@ Alpine.data('profile', () => ({
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : localStorage.getItem('utoken')
+                'Authorization': localStorage.getItem('utoken')
             }
         })
         response = await response.json()
@@ -31,12 +31,12 @@ Alpine.data('dashboard', () => ({
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : localStorage.getItem('utoken')
+                'Authorization': localStorage.getItem('utoken')
             }
         })
         response = await response.json()
         this.data = response.data
-        
+
 
     }
 }))
@@ -70,7 +70,7 @@ Alpine.data('scan', () => ({
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : localStorage.getItem('utoken')
+                'Authorization': localStorage.getItem('utoken')
             },
             body: data
         })
@@ -131,20 +131,20 @@ Alpine.data('scan', () => ({
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : localStorage.getItem('utoken')
+                'Authorization': localStorage.getItem('utoken')
             },
             body: datane
         })
-        .then(async response => {
-            response = await response.json()
-            this.datanya = response.data
-            if(response.status){
-                const baseUrl = window.location.origin
-                window.location.replace(baseUrl + '/profile')
-            }else{
-                this.mode = 'scan'
-            }
-        })
+            .then(async response => {
+                response = await response.json()
+                this.datanya = response.data
+                if (response.status) {
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/profile')
+                } else {
+                    this.mode = 'scan'
+                }
+            })
 
 
     }
@@ -206,6 +206,7 @@ Alpine.data('changeforgetpassword', () => ({
     email: '',
     token: '',
     isloading: true,
+    isLoading: false,
     errmsg: '',
     cektoken() {
         token = document.getElementById('token').value
@@ -239,6 +240,8 @@ Alpine.data('changeforgetpassword', () => ({
             data.append('token', this.token)
             data.append('email', this.email)
             data.append('password', this.password)
+
+            this.isLoading = true
 
             fetch(beapi + 'changeforgotpass/', {
                 method: 'POST',
@@ -280,10 +283,10 @@ Alpine.data('userRegister', () => ({
     submit() {
         if (this.password != this.confirmpassword) {
             this.errarea = 'password'
-            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+            this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
         } else if (this.password.length < 8) {
             this.errarea = 'password'
-            this.errmsg = 'panjang password minimal 8 karakter!'
+            this.errmsg = 'Password minimal 8 karakter!'
         } else {
             this.isloading = true
             const data = new FormData();
@@ -381,7 +384,7 @@ Alpine.data('userLogin', () => ({
                             method: 'GET',
                             headers: {
                                 'Accept': 'application/json',
-                                'Authorization' : localStorage.getItem('utoken')
+                                'Authorization': localStorage.getItem('utoken')
                             },
                         })
                             .then(async response => {
@@ -449,30 +452,30 @@ Alpine.data('auth', () => ({
     notlogin() {
         const baseUrl = window.location.origin
 
-            if (this.userrole == 1) {
-                this.islogin = true
-                window.location.replace(baseUrl + '/dashboard')
-            }
-            if (this.userrole == 2) {
-                this.islogin = true
-                fetch(beapi + 'identity/' + this.userid, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization' : localStorage.getItem('utoken')
-                    },
+        if (this.userrole == 1) {
+            this.islogin = true
+            window.location.replace(baseUrl + '/dashboard')
+        }
+        if (this.userrole == 2) {
+            this.islogin = true
+            fetch(beapi + 'identity/' + this.userid, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': localStorage.getItem('utoken')
+                },
+            })
+                .then(async response => {
+                    response = await response.json()
+                    msg = response.message
+                    this.sts = response.status
                 })
-                    .then(async response => {
-                        response = await response.json()
-                        msg = response.message
-                        this.sts = response.status
-                    })
-                if (this.sts) {
-                    window.location.replace(baseUrl + '/profile')
-                } else {
-                    window.location.replace(baseUrl + '/scan')
-                }
-            
+            if (this.sts) {
+                window.location.replace(baseUrl + '/profile')
+            } else {
+                window.location.replace(baseUrl + '/scan')
+            }
+
         }
     },
 
@@ -486,7 +489,7 @@ Alpine.data('auth', () => ({
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization' : localStorage.getItem('utoken')
+                    'Authorization': localStorage.getItem('utoken')
                 },
             })
                 .then(async response => {
@@ -515,7 +518,7 @@ Alpine.data('auth', () => ({
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization' : localStorage.getItem('utoken')
+                    'Authorization': localStorage.getItem('utoken')
                 },
             })
                 .then(async response => {
@@ -541,7 +544,7 @@ Alpine.data('auth', () => ({
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization' : localStorage.getItem('utoken')
+                    'Authorization': localStorage.getItem('utoken')
                 },
             })
                 .then(async response => {
