@@ -69,6 +69,7 @@ Alpine.data('scan', () => ({
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
+                'Authorization' : localStorage.getItem('utoken')
             },
             body: data
         })
@@ -274,8 +275,6 @@ Alpine.data('userRegister', () => ({
     message: '',
 
     isloading: false,
-    isLoading: false,
-
 
     submit() {
         if (this.password != this.confirmpassword) {
@@ -312,6 +311,7 @@ Alpine.data('userRegister', () => ({
                     if (this.statusnya == false) {
                         this.errarea = response.data
                         this.errmsg = this.message
+                        this.isloading = false
                     }
                 })
         }
@@ -403,6 +403,7 @@ Alpine.data('userLogin', () => ({
                 if (this.statusnya == false) {
                     this.errarea = response.data
                     this.errmsg = this.message
+                    this.isloading = false
                 }
             })
 
@@ -418,6 +419,7 @@ Alpine.data('auth', () => ({
     ceklogin() {
         this.isloading = true
         token = localStorage.getItem('utoken')
+        console.log(token)
         fetch(beapi + 'me', {
             method: 'GET',
             headers: {
@@ -436,10 +438,12 @@ Alpine.data('auth', () => ({
                     this.userrole = localStorage.getItem('urole')
                     this.islogin = true
                     this.isloading = false
+                    console.log(this.islogin)
                 }
                 else {
                     this.islogin = false
                     this.isloading = false
+                    localStorage.clear()
                 }
             })
 
@@ -447,29 +451,33 @@ Alpine.data('auth', () => ({
 
     notlogin() {
         const baseUrl = window.location.origin
-        if (this.userrole == 1) {
-            window.location.replace(baseUrl + '/dashboard')
-        }
-        if (this.userrole == 2) {
-            fetch(beapi + 'identity/' + this.userid, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                },
-            })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status
-                })
-            if (this.sts) {
-                console.log('anjay')
-                window.location.replace(baseUrl + '/profile')
-            } else {
-                console.log('ilih')
-                window.location.replace(baseUrl + '/scan')
+
+            if (this.userrole == 1) {
+                this.islogin = true
+                window.location.replace(baseUrl + '/dashboard')
             }
-            console.log(this.userrole)
+            if (this.userrole == 2) {
+                this.islogin = true
+                fetch(beapi + 'identity/' + this.userid, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                })
+                    .then(async response => {
+                        response = await response.json()
+                        msg = response.message
+                        this.sts = response.status
+                    })
+                if (this.sts) {
+                    console.log('anjay')
+                    window.location.replace(baseUrl + '/profile')
+                } else {
+                    // console.log(this.islogin)
+                    window.location.replace(baseUrl + '/scan')
+                }
+                console.log(this.userrole)
+            
         }
     },
 

@@ -28,10 +28,10 @@ Route::get('/scan', Upload::class)->name('scan');
 Route::post('/store', [UserController::class, 'store'])->name('store');
 
 // ----( auth )----
-Route::get('/login', Login::class)->middleware('notlogin')->name('login');
+Route::get('/login', Login::class)->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/registrasi', Registrasi::class)->middleware('notlogin');
+Route::get('/registrasi', Registrasi::class);
 Route::get('/forgotpassword', ForgotPassword::class);
 Route::get('/forgotpassword/{token}', ChangePassword::class);
 
