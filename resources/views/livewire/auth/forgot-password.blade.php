@@ -34,14 +34,16 @@
             <h1 class="font-bold flex justify-center font-Lato text-lg">Reset your password</h1>
         </div>
 
-        <div class="pb-2 pt-4 flex justify-center">
-            <div class="text-white flex">
+        <div class="pb-2 pt-4 flex flex-col">
+            <div class="text-white flex justify-center">
                 <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400">
                     <i class="fa-sharp fa-solid fa-envelope"></i>   
                 </div>
                 <input type="email" x-model="email" placeholder="ex: user@farcapital.com" class="block w-80 p-2 text-lg rounded bg-white text-black font-Lato font-bold border border-1 border-red-400" x-bind:class="pesaneror == ''? '' : 'border-red-600 border'">
             </div>
-            <p x-text="pesaneror" class="text-red-600 font-light text-center"></p>
+            <div>
+                <p x-text="pesaneror" class="text-red-600 text-center py-2 font-Lato font-bold capitalize"></p>
+            </div>
             <input type="hidden" id="link" value="{{$link}}">
         </div>
 
