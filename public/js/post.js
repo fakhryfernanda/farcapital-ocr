@@ -417,12 +417,12 @@ Alpine.data('userLogin', () => ({
 Alpine.data('formresendvalidation',() => ({
     email: '',
     resendemail() {
+        link = window.location.origin+'/emailvalidation'
         const data = new FormData();
         data.append('email', this.email)
-        data.append('link', document.getElementById('link').value)
-        data.append('target', document.getElementById('target').value)
+        data.append('link', link)
        
-        fetch('http://localhost:8000/api/user/resendemailvalidation', {
+        fetch('http://localhost:8000/api/resendemailvalidation', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -452,15 +452,19 @@ Alpine.data('auth', () => ({
     islogin: false,
     sts: false,
     ceklogin() {
-        this.isloading = true
-        token = localStorage.getItem('utoken')
-        fetch(beapi + 'me', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': localStorage.getItem('utoken')
-            },
-        })
+        if(!localStorage.getItem('utoken')){
+            this.islogin = false
+            this.isloading = false
+        }else{
+            this.isloading = true
+            token = localStorage.getItem('utoken')
+            fetch(beapi + 'me', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': token
+                },
+            })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
@@ -481,6 +485,8 @@ Alpine.data('auth', () => ({
                 }
             })
 
+        }
+        
     },
 
     notlogin() {
