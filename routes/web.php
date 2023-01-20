@@ -20,21 +20,23 @@ Route::get('/', Home::class);
 Route::get('/accessdenied', AccessDenied::class);
 
 // Admin
-Route::get('/dashboard', Dashboard::class)->middleware(['isadmin', 'islogin']);
-Route::get('/profile/{id}', Profile::class)->name('profile')->middleware(['isadmin', 'islogin']);
+Route::get('/dashboard', Dashboard::class);
+Route::get('/profile', Profile::class);
 
 // User
-Route::get('/profile', Profile::class)->middleware(['isuser', 'islogin']);
-Route::get('/upload', Upload::class)->middleware(['isuser', 'islogin']);
+Route::get('/profile/{id}', Profile::class);
+Route::get('/scan', Upload::class)->name('scan');
 Route::post('/store', [UserController::class, 'store'])->name('store');
 
 // ----( auth )----
-Route::get('/login', Login::class)->middleware('notlogin')->name('login');
+Route::get('/login', Login::class)->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/registrasi', Registrasi::class)->middleware('notlogin');
+Route::get('/registrasi', Registrasi::class);
 Route::get('/forgotpassword', ForgotPassword::class);
-Route::get('/changepassword/{token}', ChangePassword::class);
+Route::get('/forgotpassword/{token}', ChangePassword::class);
+
+Route::get('/verificationsuccess', VerificationSuccess::class);
 Route::get('/successsendemail', SuccessSendEmail::class);
 Route::get('/emailvalidation/{token}', VerificationSuccess::class);
 Route::get('/emailvalidation', FormResendValidation::class);

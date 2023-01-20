@@ -11,9 +11,7 @@ class ForgotPassword extends Component
     {
 
         $data = [
-            'link' => $request->getSchemeAndHttpHost(),
-            'from' => 'forgotpassword',
-            'target' => 'changepassword'
+            'link' => $request->getSchemeAndHttpHost().'/forgotpassword',
         ];
 
         return view('livewire.auth.forgot-password',$data);
