@@ -284,6 +284,7 @@ Alpine.data('userRegister', () => ({
     isloading: false,
 
     submit() {
+        link = window.location.origin+'/emailvalidation'
         if (this.password != this.confirmpassword) {
             this.errarea = 'password'
             this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
@@ -294,6 +295,7 @@ Alpine.data('userRegister', () => ({
             this.isloading = true
             const data = new FormData();
             data.append('email', this.email)
+            data.append('link' , link)
             data.append('password', this.password)
 
             this.isloading = true
