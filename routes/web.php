@@ -14,7 +14,7 @@ use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ChangePassword;
 use App\Http\Livewire\Auth\SuccessSendEmail;
 use App\Http\Livewire\Auth\VerificationSuccess;
-use App\Http\Livewire\FormResendValidation;
+use App\Http\Livewire\Auth\FormResendValidation;
 
 Route::get('/', Home::class);
 Route::get('/accessdenied', AccessDenied::class);
