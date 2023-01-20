@@ -264,3 +264,36 @@
             }
         }
     }))
+
+    // -------batas suci-------//
+
+    Alpine.data('userRegister',() => ({
+        email: '',
+        resendemail() {
+            const data = new FormData();
+            data.append('email', this.email)
+            data.append('link', document.getElementById('link').value)
+            data.append('target', document.getElementById('target').value)
+           
+            fetch('http://localhost:8000/api/user/resendemailvalidation', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
+            .then(async response => {
+                response = await response.json()
+                this.message = response.message
+                this.statusnya = response.status
+                
+                if(this.statusnya == true){
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/login')
+                }
+                if(this.statusnya == false){
+                    this.pesaneror = this.message
+                }
+            })
+        },
+    }))
