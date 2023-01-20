@@ -7,7 +7,7 @@
                 <div class=" flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 
                 </div>
-                <h1 class="font-bold flex           justify-center ">Email verification status</h1>
+                <h1 class="font-bold flex justify-center ">Email verification status</h1>
                 
                     <p class="text-[10px] text-center">Your email was verified
                     </p>
