@@ -1,12 +1,12 @@
 
     <div x-data="forgotpassword" class="min-h-1/2">
-    <div x-show="isLoading">
+    <div x-show="isloading">
         @livewire('loadingscreen')
     </div>
-    {{-- <div x-show="isLoading" class="bg-white fixed z-10 top-0 bottom-0 left-0 right-0"></div> --}}
+    {{-- <div x-show="isloading" class="bg-white fixed z-10 top-0 bottom-0 left-0 right-0"></div> --}}
     {{-- Loading Spinner --}}
 
-    {{-- <div x-show="isLoading" class="z-20 absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    {{-- <div x-show="isloading" class="z-20 absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="flex items-center justify-center space-x-2 animate-bounce">
             <div class="w-8 h-8 bg-red-200 rounded-full"></div>
             <div class="w-8 h-8 bg-red-300 rounded-full"></div>
@@ -19,7 +19,7 @@
         </div>
     </div> --}}
         {{-- <div x-show="!bgTrans" class="bg-black/50"> --}}
-    <div x-show="!isLoading" class="bg-white px-10 pb-10 flex flex-col gap-2 w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
+    <div x-show="!isloading" class="bg-white px-10 pb-10 flex flex-col gap-2 w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
         <div class="pb-2 pt-4">
             <div class=" flex justify-center">
                 <img src="{{ asset('assets/download.png')}}"> 

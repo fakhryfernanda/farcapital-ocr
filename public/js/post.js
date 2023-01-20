@@ -55,6 +55,8 @@ Alpine.data('scan', () => ({
     },
 
     scanktp() {
+        if(document.getElementById('ktp').files[0]){
+        
         const ktp_label = document.querySelector('#ktp_label');
         const ktp = document.querySelector('#ktp');
         ktp.setAttribute('disabled', true)
@@ -81,6 +83,7 @@ Alpine.data('scan', () => ({
                 this.mode = 'verifikasi'
 
             })
+        }
     },
 
     //----------(batas suci)----------
@@ -156,7 +159,7 @@ Alpine.data('forgotpassword', () => ({
     message: '',
     statusnya: '',
     pesaneror: '',
-    isLoading: false,
+    isloading: false,
     flash: false,
     flashdatane() {
         if (localStorage.getItem('flash')) {
@@ -169,7 +172,7 @@ Alpine.data('forgotpassword', () => ({
     },
 
     sendemail() {
-        this.isLoading = true
+        this.isloading = true
         const data = new FormData();
         data.append('email', this.email)
         data.append('link', document.getElementById('link').value)
@@ -192,7 +195,7 @@ Alpine.data('forgotpassword', () => ({
                 }
                 if (this.statusnya == false) {
                     this.pesaneror = this.message
-                    this.isLoading = false
+                    this.isloading = false
                 }
             })
     },
@@ -206,7 +209,7 @@ Alpine.data('changeforgetpassword', () => ({
     email: '',
     token: '',
     isloading: true,
-    isLoading: false,
+    isloading: false,
     errmsg: '',
     cektoken() {
         token = document.getElementById('token').value
@@ -241,7 +244,7 @@ Alpine.data('changeforgetpassword', () => ({
             data.append('email', this.email)
             data.append('password', this.password)
 
-            this.isLoading = true
+            this.isloading = true
 
             fetch(beapi + 'changeforgotpass/', {
                 method: 'POST',
@@ -293,7 +296,7 @@ Alpine.data('userRegister', () => ({
             data.append('email', this.email)
             data.append('password', this.password)
 
-            this.isLoading = true
+            this.isloading = true
             fetch(beapi + 'user/add', {
                 method: 'POST',
                 headers: {
@@ -332,7 +335,7 @@ Alpine.data('userLogin', () => ({
     errarea: '',
     message: '',
 
-    isLoading: false,
+    isloading: false,
 
     flash: false,
     flashdata() {
@@ -348,7 +351,7 @@ Alpine.data('userLogin', () => ({
     },
 
     submit() {
-        this.isLoading = true
+        this.isloading = true
         const data = new FormData();
         data.append('email', this.email)
         data.append('password', this.password)
@@ -400,17 +403,46 @@ Alpine.data('userLogin', () => ({
                             window.location.replace(baseUrl + '/scan')
                         }
                     }
-                    // const baseUrl = window.location.origin
-                    // window.location.replace(baseUrl + '/login')
                 }
                 if (!this.statusnya) {
                     this.errarea = response.data
                     this.errmsg = this.message
-                    this.isLoading = false
+                    this.isloading = false
                 }
             })
 
     }
+}))
+
+Alpine.data('formresendvalidation',() => ({
+    email: '',
+    resendemail() {
+        const data = new FormData();
+        data.append('email', this.email)
+        data.append('link', document.getElementById('link').value)
+        data.append('target', document.getElementById('target').value)
+       
+        fetch('http://localhost:8000/api/user/resendemailvalidation', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: data
+        })
+        .then(async response => {
+            response = await response.json()
+            this.message = response.message
+            this.statusnya = response.status
+            
+            if(this.statusnya == true){
+                const baseUrl = window.location.origin
+                window.location.replace(baseUrl + '/login')
+            }
+            if(this.statusnya == false){
+                this.pesaneror = this.message
+            }
+        })
+    },
 }))
 
 Alpine.data('auth', () => ({
@@ -433,16 +465,18 @@ Alpine.data('auth', () => ({
                 response = await response.json()
                 this.message = response.message
                 this.status = response.status
-
+                console.log(this.isloading)
                 if (this.status) {
                     this.userid = localStorage.getItem('uid')
                     this.userrole = localStorage.getItem('urole')
                     this.islogin = true
                     this.isloading = false
+                    console.log('b')
                 }
                 else {
                     this.islogin = false
                     this.isloading = false
+                    console.log('a')
                     localStorage.clear()
                 }
             })
@@ -505,6 +539,8 @@ Alpine.data('auth', () => ({
         }
     },
 
+    // -------batas suci-------//
+
     isuserhaveidentity() {
         const baseUrl = window.location.origin
         if (!this.islogin) {
@@ -551,10 +587,10 @@ Alpine.data('auth', () => ({
                     response = await response.json()
                     msg = response.message
                     this.sts = response.status
+                    if (this.sts == true) {
+                        window.location.replace(baseUrl + '/profile')
+                    }
                 })
-            if (this.sts) {
-                window.location.replace(baseUrl + '/profile')
-            }
         }
     },
 
