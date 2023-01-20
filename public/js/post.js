@@ -82,6 +82,12 @@ Alpine.data('scan', () => ({
                 this.giloading = false
                 this.mode = 'verifikasi'
 
+                console.log(this.datanya)
+
+                console.log(response.status)
+                console.log(response.message)
+                console.log(response.data)
+
             })
         }
     },
@@ -295,10 +301,14 @@ Alpine.data('successvalidation', () => ({
                     this.isloading = false
                     this.email = response.data.email
                     this.token = token
+                    console.log(response.data)
                 } else {
-                    localStorage.setItem('flash', true)
+                    console.log(response.message)
+                    console.log(response.data)
+                    console.log(beapi + 'emailregist/' + token)
+                    // localStorage.setItem('flash', true)
                     const baseUrl = window.location.origin
-                    window.location.replace(baseUrl + '/emailvalidation')
+                    // window.location.replace(baseUrl + '/emailvalidation')
                 }
             })
     },
@@ -539,18 +549,15 @@ Alpine.data('auth', () => ({
                 response = await response.json()
                 this.message = response.message
                 this.status = response.status
-                console.log(this.isloading)
                 if (this.status) {
                     this.userid = localStorage.getItem('uid')
                     this.userrole = localStorage.getItem('urole')
                     this.islogin = true
                     this.isloading = false
-                    console.log('b')
                 }
                 else {
                     this.islogin = false
                     this.isloading = false
-                    console.log('a')
                     localStorage.clear()
                 }
             })
