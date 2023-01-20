@@ -271,6 +271,74 @@ Alpine.data('changeforgetpassword', () => ({
 
 }))
 
+
+//----------(batas suci)----------
+Alpine.data('successvalidation', () => ({
+  
+    token: '',
+    isloading: true,
+    isloading: false,
+    errmsg: '',
+    cektoken() {
+        token = document.getElementById('token').value
+        fetch(beapi + 'emailregist/' + token, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+            .then(async response => {
+                response = await response.json()
+                statusnya = response.status
+
+                if (statusnya) {
+                    this.isloading = false
+                    this.email = response.data.email
+                    this.token = token
+                } else {
+                    localStorage.setItem('flash', true)
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/emailvalidation')
+                }
+            })
+    },
+
+    submitchangepass() {
+        if (this.password != this.confirmpassword) {
+            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+        } else {
+            const data = new FormData();
+            data.append('token', this.token)
+            data.append('email', this.email)
+            data.append('password', this.password)
+
+            this.isloading = true
+
+            fetch(beapi + 'changeforgotpass/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+
+                    if (this.statusnya == true) {
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if (this.statusnya == false) {
+                        this.errmsg = this.message
+                    }
+                })
+        }
+    },
+
+}))
+
 //----------(batas suci)----------
 Alpine.data('userRegister', () => ({
     email: '',

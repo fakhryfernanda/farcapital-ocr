@@ -12,7 +12,7 @@
                     <p class="text-[10px] text-center">Your email was verified
                     </p>
             </div>
-          
+          <input type="hidden" id="token" value="$wire.token">
             <a href="{{route('login')}}" type="button" class=" text-center border-blue-500 border  block  p-2 text-sm rounded-lg  bg-blue-600 font-semibold hover:bg-white hover:text-blue-500 hover:font-bold focus:outline-none hover:border-blue-500 hover:border w-full">Kembali ke login</a>
         </div>
         
