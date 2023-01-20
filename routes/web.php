@@ -14,6 +14,7 @@ use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ChangePassword;
 use App\Http\Livewire\Auth\SuccessSendEmail;
 use App\Http\Livewire\Auth\VerificationSuccess;
+use App\Http\Livewire\Auth\FormResendValidation;
 
 Route::get('/', Home::class);
 Route::get('/accessdenied', AccessDenied::class);
@@ -35,5 +36,7 @@ Route::get('/registrasi', Registrasi::class);
 Route::get('/forgotpassword', ForgotPassword::class);
 Route::get('/forgotpassword/{token}', ChangePassword::class);
 
-Route::get('/verificationsuccess', VerificationSuccess::class);
+// Route::get('/verificationsuccess', VerificationSuccess::class);
 Route::get('/successsendemail', SuccessSendEmail::class);
+Route::get('/emailvalidation/{token}', VerificationSuccess::class);
+Route::get('/emailvalidation', FormResendValidation::class);

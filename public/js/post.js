@@ -416,6 +416,37 @@ Alpine.data('userLogin', () => ({
     }
 }))
 
+Alpine.data('formresendvalidation',() => ({
+    email: '',
+    resendemail() {
+        link = window.location.origin+'/emailvalidation'
+        const data = new FormData();
+        data.append('email', this.email)
+        data.append('link', link)
+       
+        fetch('http://localhost:8000/api/resendemailvalidation', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: data
+        })
+        .then(async response => {
+            response = await response.json()
+            this.message = response.message
+            this.statusnya = response.status
+            
+            if(this.statusnya == true){
+                const baseUrl = window.location.origin
+                window.location.replace(baseUrl + '/login')
+            }
+            if(this.statusnya == false){
+                this.pesaneror = this.message
+            }
+        })
+    },
+}))
+
 Alpine.data('auth', () => ({
     userid: localStorage.getItem('uid') ?? '',
     userrole: localStorage.getItem('urole') ?? '',
@@ -423,15 +454,19 @@ Alpine.data('auth', () => ({
     islogin: false,
     sts: false,
     ceklogin() {
-        this.isloading = true
-        token = localStorage.getItem('utoken')
-        fetch(beapi + 'me', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': localStorage.getItem('utoken')
-            },
-        })
+        if(!localStorage.getItem('utoken')){
+            this.islogin = false
+            this.isloading = false
+        }else{
+            this.isloading = true
+            token = localStorage.getItem('utoken')
+            fetch(beapi + 'me', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': token
+                },
+            })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
@@ -452,6 +487,8 @@ Alpine.data('auth', () => ({
                 }
             })
 
+        }
+        
     },
 
     notlogin() {
@@ -509,6 +546,8 @@ Alpine.data('auth', () => ({
             }
         }
     },
+
+    // -------batas suci-------//
 
     isuserhaveidentity() {
         const baseUrl = window.location.origin
