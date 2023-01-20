@@ -30,19 +30,7 @@
                     <input type="email" x-model="email" placeholder="Email" class="block w-full p-2 text-lg rounded bg-white-50 text-black font-Lato font-bold border-2 border-red-500" x-bind:class="errarea == 'email'?'border border-red-600' : ''" >
                 </div>
 
-        {{-- Loading Spinner --}}
-        <div>
-            <div class="flex items-center justify-center space-x-2 animate-bounce">
-                <div class="w-8 h-8 bg-red-500 rounded-full"></div>
-                <div class="w-8 h-8 bg-red-300 rounded-full"></div>
-                <div class="w-8 h-8 bg-red-500 rounded-full"></div>
-            </div>
-            <div>
-                <div class="py-5">
-                <h2 class="text-center text-slate-400 text-xl font-semibold animate-pulse">Loading...</h2>
-                </div>
-            </div>
-        </div>
+
 
                 {{-- ----------- (error email salah) ------------- --}}
                 <template x-if="errarea == 'email'">
