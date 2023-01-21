@@ -13,10 +13,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>OCR Far Capital</title>
+    <link rel="shortcut icon" href="{{ asset('assets/farcapital.png')}}" type="image/x-icon">
     @livewireStyles
 </head>
-<body x-data="auth" class="min-h-screen bg-gradient-to-b from-red-50 to-red-300">
+<body x-data="auth" class="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
     <div x-init="ceklogin()"></div>
     {{-- <template x-if="isloading == false"> --}}
     <div>

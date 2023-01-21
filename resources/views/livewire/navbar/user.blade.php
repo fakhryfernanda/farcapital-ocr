@@ -9,10 +9,10 @@
                     <div>
                             {{-- Belum login --}}
                             <div x-show="!islogin">
-                                <a href="/login" class="text-white inline-block   mt-1 px-7 py-2 bg-gray-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                                <a href="/login" class="text-white inline-block   mt-1 px-7 py-2 bg-grayprimary font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-gray-500 hover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" >
                                     Login
                                 </a>
-                                <a href="/registrasi" class="text-white inline-block   mt-1 px-7 py-2 bg-red-400 font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" >
+                                <a href="/registrasi" class="text-white inline-block   mt-1 px-7 py-2 bg-redprimary font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-redsecondary hover:shadow-lg transition duration-150 ease-in-out" >
                                     Register
                                 </a>
                             </div>

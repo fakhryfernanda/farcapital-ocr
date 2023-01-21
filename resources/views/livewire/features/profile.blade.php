@@ -23,7 +23,7 @@
         <div class="py-2">
             <p class="text-slate-600 text-lg text-center">
             <i class="fa-solid fa-envelope"></i>
-            <span class="font-semibold font-Lato text-xl underline">ridwan@rocketmail.com</span>
+            <span class="font-semibold font-Lato text-xl underline" x-text="data.email"></span>
             </p>
         </div>
   

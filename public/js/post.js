@@ -49,6 +49,8 @@ Alpine.data('scan', () => ({
     mode: 'scan',
     datanya: {},
     giloading: false,
+    errmsg: '',
+    errarea: '',
     scanUlang() {
         this.datanya = {},
             this.mode = 'scan'
@@ -78,16 +80,18 @@ Alpine.data('scan', () => ({
         })
             .then(async response => {
                 response = await response.json()
-                this.datanya = response.data
-                this.giloading = false
-                this.mode = 'verifikasi'
-
-                console.log(this.datanya)
-
-                console.log(response.status)
-                console.log(response.message)
-                console.log(response.data)
-
+                resstatus = response.status
+                console.log(resstatus)
+                ktp.removeAttribute('disabled')
+                if(resstatus){
+                    this.datanya = response.data
+                    this.giloading = false
+                    this.mode = 'verifikasi'
+                }else{
+                    this.errmsg = response.message
+                    this.errarea = response.data
+                    this.giloading = false
+                }
             })
         }
     },
@@ -113,6 +117,82 @@ Alpine.data('scan', () => ({
         const perkawinan = document.getElementById('perkawinan').value
         const pekerjaan = document.getElementById('pekerjaan').value
         const kewarganegaraan = document.getElementById('kewarganegaraan').value
+        
+        if(nama == ''){
+            this.errarea = 'nama'
+            this.errmsg = 'Mohon lengkapi Nama'
+        }
+        else 
+        if(nik.length != 16){
+            this.errarea = 'nik'
+            this.errmsg = 'NIK salah'
+        }else
+        if(nik == ''){
+            this.errarea = 'nik'
+            this.errmsg = 'Mohon lengkapi NIK'
+        }
+        else 
+        if(tempat_lahir == ''){
+            this.errarea = 'tempat_lahir'
+            this.errmsg = 'Mohon lengkapi tempat lahir'
+        }else 
+        if(tanggal_lahir == ''){
+            this.errarea = 'tanggal_lahir'
+            this.errmsg = 'Mohon lengkapi tanggal lahir'
+        }else 
+        if(kelamin == ''){
+            this.errarea = 'kelamin'
+            this.errmsg = 'Mohon lengkapi jenis kelamin'
+        }else 
+        if(golongan_darah == ''){
+            this.errarea = 'golongan_darah'
+            this.errmsg = 'Mohon lengkapi golongan darah'
+        }else 
+        if(alamat == ''){
+            this.errarea = 'alamat'
+            this.errmsg = 'Mohon lengkapi alamat'
+        }else 
+        if(rt == ''){
+            this.errarea = 'rt'
+            this.errmsg = 'Mohon lengkapi rt'
+        }else 
+        if(rw == ''){
+            this.errarea = 'rw'
+            this.errmsg = 'Mohon lengkapi rw'
+        }else 
+        if(kelurahan == ''){
+            this.errarea = 'kelurahan'
+            this.errmsg = 'Mohon lengkapi kelurahan'
+        }else 
+        if(kecamatan == ''){
+            this.errarea = 'kecamatan'
+            this.errmsg = 'Mohon lengkapi kecamatan'
+        }else 
+        if(kota == ''){
+            this.errarea = 'kota'
+            this.errmsg = 'Mohon lengkapi kota'
+        }else 
+        if(provinsi == ''){
+            this.errarea = 'provinsi'
+            this.errmsg = 'Mohon lengkapi provinsi'
+        }else 
+        if(agama == ''){
+            this.errarea = 'agama'
+            this.errmsg = 'Mohon lengkapi agama'
+        }else 
+        if(perkawinan == ''){
+            this.errarea = 'perkawinan'
+            this.errmsg = 'Mohon lengkapi status perkawinan'
+        }else 
+        if(pekerjaan == ''){
+            this.errarea = 'pekerjaan'
+            this.errmsg = 'Mohon lengkapi pekerjaan'
+        }else 
+        if(kewarganegaraan == ''){
+            this.errarea = 'kewarganegaraan'
+            this.errmsg = 'Mohon lengkapi kewarganegaraan'
+        }else 
+        {
 
         const datane = new FormData();
         datane.append('id_user', id_user)
@@ -151,11 +231,11 @@ Alpine.data('scan', () => ({
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/profile')
                 } else {
-                    this.mode = 'scan'
+                    
                 }
             })
 
-
+        }
     }
 }))
 
@@ -431,7 +511,8 @@ Alpine.data('userLogin', () => ({
     },
 
     submit() {
-        this.isloading = true
+        if(this.email != '' && this.password !=''){
+            this.isloading = true
         const data = new FormData();
         data.append('email', this.email)
         data.append('password', this.password)
@@ -446,8 +527,8 @@ Alpine.data('userLogin', () => ({
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
-                this.statusnya = response.status
-                if (this.statusnya) {
+                responsestatus = response.status
+                if (responsestatus) {
                     auth = response.data.auth
                     user = response.data.user
                     utoken = auth.token_type + ' ' + auth.token
@@ -467,30 +548,31 @@ Alpine.data('userLogin', () => ({
                             method: 'GET',
                             headers: {
                                 'Accept': 'application/json',
-                                'Authorization': localStorage.getItem('utoken')
+                                'Authorization': utoken
                             },
                         })
                             .then(async response => {
                                 response = await response.json()
                                 this.message = response.message
-                                this.status = response.status
+                                statuslogin = response.status
+                                console.log(this.status)
+                                if (statuslogin) {
+                                    const baseUrl = window.location.origin
+                                    window.location.replace(baseUrl + '/profile')
+                                } else {
+                                    const baseUrl = window.location.origin
+                                    window.location.replace(baseUrl + '/scan')
+                                }
                             })
-                        if (this.status) {
-                            const baseUrl = window.location.origin
-                            window.location.replace(baseUrl + '/profile')
-                        } else {
-                            const baseUrl = window.location.origin
-                            window.location.replace(baseUrl + '/scan')
-                        }
                     }
                 }
-                if (!this.statusnya) {
+                if (!responsestatus) {
                     this.errarea = response.data
                     this.errmsg = this.message
                     this.isloading = false
                 }
             })
-
+        }
     }
 }))
 

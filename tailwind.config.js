@@ -6,6 +6,7 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
+    
     container: {
       center: true,
       screens: {
@@ -15,6 +16,12 @@ module.exports = {
     extend: {
       fontFamily: {
         Lato: ['Lato'],
+      },
+      colors : {
+        'redprimary' : '#702',
+        'redsecondary' : '#902',
+        'grayprimary' : '#888',
+        'graysecondary' : '#aaa',
       }
     },
   },
