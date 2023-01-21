@@ -57,19 +57,17 @@ Alpine.data('scan', () => ({
     },
 
     scanktp() {
-        if(document.getElementById('ktp').files[0]){
-        
-        const ktp_label = document.querySelector('#ktp_label');
-        const ktp = document.querySelector('#ktp');
-        ktp.setAttribute('disabled', true)
-        ktp_label.classList.remove('bg-white', 'cursor-pointer')
-        ktp_label.classList.add('bg-gray-200', 'cursor-not-allowed')
-        this.giloading = true
-        this.form.image = document.getElementById('ktp').files[0]
+        if (document.getElementById('ktp').files[0]) {
 
-        const data = new FormData();
-        data.append('image', this.form.image)
-
+            const ktp_label = document.querySelector('#ktp_label');
+            const ktp = document.querySelector('#ktp');
+            ktp.setAttribute('disabled', true)
+            ktp_label.classList.remove('bg-white', 'cursor-pointer')
+            ktp_label.classList.add('bg-gray-200', 'cursor-not-allowed')
+            this.giloading = true
+            this.form.image = document.getElementById('ktp').files[0]
+            const data = new FormData();
+            data.append('image', this.form.image)
         fetch(beapi + 'upload', {
             method: 'POST',
             headers: {
@@ -93,6 +91,13 @@ Alpine.data('scan', () => ({
                     this.giloading = false
                 }
             })
+                .then(async response => {
+                    response = await response.json()
+                    this.datanya = response.data
+                    this.giloading = false
+                    this.mode = 'verifikasi'
+
+                })
         }
     },
 
@@ -360,7 +365,7 @@ Alpine.data('changeforgetpassword', () => ({
 
 //----------(batas suci)----------
 Alpine.data('successvalidation', () => ({
-  
+
     token: '',
     isloading: true,
     isloading: false,
@@ -442,7 +447,7 @@ Alpine.data('userRegister', () => ({
     isloading: false,
 
     submit() {
-        link = window.location.origin+'/emailvalidation'
+        link = window.location.origin + '/emailvalidation'
         if (this.password != this.confirmpassword) {
             this.errarea = 'password'
             this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
@@ -453,7 +458,7 @@ Alpine.data('userRegister', () => ({
             this.isloading = true
             const data = new FormData();
             data.append('email', this.email)
-            data.append('link' , link)
+            data.append('link', link)
             data.append('password', this.password)
 
             this.isloading = true
@@ -576,14 +581,14 @@ Alpine.data('userLogin', () => ({
     }
 }))
 
-Alpine.data('formresendvalidation',() => ({
+Alpine.data('formresendvalidation', () => ({
     email: '',
     resendemail() {
-        link = window.location.origin+'/emailvalidation'
+        link = window.location.origin + '/emailvalidation'
         const data = new FormData();
         data.append('email', this.email)
         data.append('link', link)
-       
+
         fetch('http://localhost:8000/api/resendemailvalidation', {
             method: 'POST',
             headers: {
@@ -591,33 +596,34 @@ Alpine.data('formresendvalidation',() => ({
             },
             body: data
         })
-        .then(async response => {
-            response = await response.json()
-            this.message = response.message
-            this.statusnya = response.status
-            
-            if(this.statusnya == true){
-                const baseUrl = window.location.origin
-                window.location.replace(baseUrl + '/login')
-            }
-            if(this.statusnya == false){
-                this.pesaneror = this.message
-            }
-        })
+            .then(async response => {
+                response = await response.json()
+                this.message = response.message
+                this.statusnya = response.status
+
+                if (this.statusnya == true) {
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/login')
+                }
+                if (this.statusnya == false) {
+                    this.pesaneror = this.message
+                }
+            })
     },
 }))
 
 Alpine.data('auth', () => ({
+    beimg: 'http://localhost:8000/storage/',
     userid: localStorage.getItem('uid') ?? '',
     userrole: localStorage.getItem('urole') ?? '',
     isloading: false,
     islogin: false,
     sts: false,
     ceklogin() {
-        if(!localStorage.getItem('utoken')){
+        if (!localStorage.getItem('utoken')) {
             this.islogin = false
             this.isloading = false
-        }else{
+        } else {
             this.isloading = true
             token = localStorage.getItem('utoken')
             fetch(beapi + 'me', {
@@ -627,25 +633,25 @@ Alpine.data('auth', () => ({
                     'Authorization': token
                 },
             })
-            .then(async response => {
-                response = await response.json()
-                this.message = response.message
-                this.status = response.status
-                if (this.status) {
-                    this.userid = localStorage.getItem('uid')
-                    this.userrole = localStorage.getItem('urole')
-                    this.islogin = true
-                    this.isloading = false
-                }
-                else {
-                    this.islogin = false
-                    this.isloading = false
-                    localStorage.clear()
-                }
-            })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.status = response.status
+                    if (this.status) {
+                        this.userid = localStorage.getItem('uid')
+                        this.userrole = localStorage.getItem('urole')
+                        this.islogin = true
+                        this.isloading = false
+                    }
+                    else {
+                        this.islogin = false
+                        this.isloading = false
+                        localStorage.clear()
+                    }
+                })
 
         }
-        
+
     },
 
     notlogin() {
@@ -766,3 +772,5 @@ Alpine.data('auth', () => ({
         window.location.replace(baseUrl + '/login')
     }
 }))
+
+

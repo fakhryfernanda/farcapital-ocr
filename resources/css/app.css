@@ -10,3 +10,46 @@
       @apply text-center border-grayprimary border px-4 py-2 text-lg rounded-lg  bg-grayprimary text-white font-bold font-Lato hover:bg-graysecondary  focus:outline-none;
     }
   }
+
+@layer utilities{
+    .col {
+        margin: 0 18px;
+        box-sizing: border-box;
+    }
+
+    .col-1 {
+        width: 10%;
+    }
+
+    .col-2 {
+        width: 20%;
+    }
+
+    .col-3 {
+        width: 25%;
+    }
+
+    .col-4 {
+        width: calc(100% / 3);
+    }
+
+    .col-6 {
+        width: calc(100% / 2 - 12px);
+    }
+
+    .col-8 {
+        width: calc(100% * 2 / 3);
+    }
+
+    .col-9 {
+        width: calc(100% * (9/12));
+    }
+
+    .col-10 {
+        width: calc(100% * (10/12));
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+}
