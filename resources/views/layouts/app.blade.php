@@ -16,13 +16,13 @@
     <title>Document</title>
     @livewireStyles
 </head>
-<body x-data="auth" class="min-h-screen bg-gradient-to-b from-red-50 to-red-300">
+<body x-data="auth" class="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
     <div x-init="ceklogin()"></div>
     {{-- <template x-if="isloading == false"> --}}
     <div>
         @livewire('navbar.user')
         <template x-if="!isloading">
-            <div class="flex justify-center mt-4">
+            <div class="flex mt-4">
                 {{$slot}}
             </div>
         </template>
