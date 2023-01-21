@@ -75,6 +75,8 @@ Alpine.data('scan', () => ({
                     'Authorization': localStorage.getItem('utoken')
                 },
                 body: data
+
+
             })
                 .then(async response => {
                     response = await response.json()
@@ -271,6 +273,78 @@ Alpine.data('changeforgetpassword', () => ({
 
 }))
 
+
+//----------(batas suci)----------
+Alpine.data('successvalidation', () => ({
+
+    token: '',
+    isloading: true,
+    isloading: false,
+    errmsg: '',
+    cektoken() {
+        token = document.getElementById('token').value
+        fetch(beapi + 'emailregist/' + token, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+            .then(async response => {
+                response = await response.json()
+                statusnya = response.status
+
+                if (statusnya) {
+                    this.isloading = false
+                    this.email = response.data.email
+                    this.token = token
+                    console.log(response.data)
+                } else {
+                    console.log(response.message)
+                    console.log(response.data)
+                    console.log(beapi + 'emailregist/' + token)
+                    // localStorage.setItem('flash', true)
+                    const baseUrl = window.location.origin
+                    // window.location.replace(baseUrl + '/emailvalidation')
+                }
+            })
+    },
+
+    submitchangepass() {
+        if (this.password != this.confirmpassword) {
+            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+        } else {
+            const data = new FormData();
+            data.append('token', this.token)
+            data.append('email', this.email)
+            data.append('password', this.password)
+
+            this.isloading = true
+
+            fetch(beapi + 'changeforgotpass/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+
+                    if (this.statusnya == true) {
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/login')
+                    }
+                    if (this.statusnya == false) {
+                        this.errmsg = this.message
+                    }
+                })
+        }
+    },
+
+}))
+
 //----------(batas suci)----------
 Alpine.data('userRegister', () => ({
     email: '',
@@ -284,6 +358,7 @@ Alpine.data('userRegister', () => ({
     isloading: false,
 
     submit() {
+        link = window.location.origin + '/emailvalidation'
         if (this.password != this.confirmpassword) {
             this.errarea = 'password'
             this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
@@ -294,6 +369,7 @@ Alpine.data('userRegister', () => ({
             this.isloading = true
             const data = new FormData();
             data.append('email', this.email)
+            data.append('link', link)
             data.append('password', this.password)
 
             this.isloading = true
@@ -417,12 +493,12 @@ Alpine.data('userLogin', () => ({
 Alpine.data('formresendvalidation', () => ({
     email: '',
     resendemail() {
+        link = window.location.origin + '/emailvalidation'
         const data = new FormData();
         data.append('email', this.email)
-        data.append('link', document.getElementById('link').value)
-        data.append('target', document.getElementById('target').value)
+        data.append('link', link)
 
-        fetch('http://localhost:8000/api/user/resendemailvalidation', {
+        fetch('http://localhost:8000/api/resendemailvalidation', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -453,34 +529,37 @@ Alpine.data('auth', () => ({
     islogin: false,
     sts: false,
     ceklogin() {
-        this.isloading = true
-        token = localStorage.getItem('utoken')
-        fetch(beapi + 'me', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': localStorage.getItem('utoken')
-            },
-        })
-            .then(async response => {
-                response = await response.json()
-                this.message = response.message
-                this.status = response.status
-                console.log(this.isloading)
-                if (this.status) {
-                    this.userid = localStorage.getItem('uid')
-                    this.userrole = localStorage.getItem('urole')
-                    this.islogin = true
-                    this.isloading = false
-                    console.log('b')
-                }
-                else {
-                    this.islogin = false
-                    this.isloading = false
-                    console.log('a')
-                    localStorage.clear()
-                }
+        if (!localStorage.getItem('utoken')) {
+            this.islogin = false
+            this.isloading = false
+        } else {
+            this.isloading = true
+            token = localStorage.getItem('utoken')
+            fetch(beapi + 'me', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': token
+                },
             })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.status = response.status
+                    if (this.status) {
+                        this.userid = localStorage.getItem('uid')
+                        this.userrole = localStorage.getItem('urole')
+                        this.islogin = true
+                        this.isloading = false
+                    }
+                    else {
+                        this.islogin = false
+                        this.isloading = false
+                        localStorage.clear()
+                    }
+                })
+
+        }
 
     },
 

@@ -126,8 +126,8 @@
                         </div>
                         <div class="flex flex-col">
                             <label class="w-40 font-semibold" for="agama">Agama : </label>
-                            <select class="px-1 border-2 border-slate-300 rounded-md  focus:border-blue-400 focus:outline-none py-1" name="agama" id="agama" wire:model="agama">
-                                <option value="-">-</option>
+                            <select class="px-1 border-2 border-slate-300 rounded-md  focus:border-blue-400 focus:outline-none py-1" id="agama">
+                                <option value="-"  x-bind:selected="datanya.agama != 'ISLAM'||datanya.agama != 'KRISTEN'||datanya.agama != 'KATOLIK'||datanya.agama != 'HINDU'||datanya.agama != 'BUDHA'||datanya.agama != 'KONGHUCU' || !datanya.agama">-</option>
                                 <option value="ISLAM" x-bind:selected="datanya.agama == 'ISLAM'">ISLAM</option>
                                 <option value="KRISTEN" x-bind:selected="datanya.agama == 'KRISTEN'">KRISTEN</option>
                                 <option value="KATOLIK" x-bind:selected="datanya.agama == 'KATOLIK'">KATOLIK</option>

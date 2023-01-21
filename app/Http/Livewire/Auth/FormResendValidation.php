@@ -9,11 +9,6 @@ class FormResendValidation extends Component
 
     public function render()
     {
-        $data = [
-            'link' => $request->getSchemeAndHttpHost(),
-            'target' => 'emailvalidation'
-
-        ];
-        return view('livewire.auth.form-resend-validation', $data);
+        return view('livewire.auth.form-resend-validation');
     }
 }

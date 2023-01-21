@@ -35,8 +35,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/registrasi', Registrasi::class);
 Route::get('/forgotpassword', ForgotPassword::class);
 Route::get('/forgotpassword/{token}', ChangePassword::class);
-
-Route::get('/verificationsuccess', VerificationSuccess::class);
 Route::get('/successsendemail', SuccessSendEmail::class);
+
+// Route::get('/verificationsuccess', VerificationSuccess::class);
 Route::get('/emailvalidation/{token}', VerificationSuccess::class);
 Route::get('/emailvalidation', FormResendValidation::class);
