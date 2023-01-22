@@ -294,6 +294,58 @@ Alpine.data('forgotpassword', () => ({
 }))
 
 //----------(batas suci)----------
+Alpine.data('changepassword', () => ({
+    password: '',
+    confirmpassword: '',
+    isloading: true,
+    comploading:false,
+    isloading: false,
+    isChangePassword:false,
+    errmsg: '',
+    msg: '',
+
+    submitchangepass() {
+        if (this.password != this.confirmpassword) {
+            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
+        } 
+        else if(this.password.length < 8){
+            this.errmsg = 'password minimal 8 karakter!'
+        }
+        else {
+            this.comploading = true
+            const data = new FormData();
+            data.append('password', this.password)
+
+            this.isloading = true
+
+            fetch(beapi + 'user/'+localStorage.getItem('uid')+'/edit', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': localStorage.getItem('utoken')
+                },
+                body: data
+            })
+                .then(async response => {
+                    response = await response.json()
+                    this.message = response.message
+                    this.statusnya = response.status
+
+                    if (this.statusnya == true) {
+                        this.msg = 'Ganti password sukses'
+                        this.isChangePassword=false
+                        this.comploading = false
+                    }
+                    if (this.statusnya == false) {
+                        this.errmsg = this.message
+                        this.comploading = false
+                    }
+                })
+        }
+    },
+
+}))
+//----------(batas suci)----------
 Alpine.data('changeforgetpassword', () => ({
     password: '',
     confirmpassword: '',

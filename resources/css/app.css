@@ -9,6 +9,15 @@
     .btn-secondary {
       @apply text-center border-grayprimary border px-4 py-2 text-lg rounded-lg  bg-grayprimary text-white font-bold font-Lato hover:bg-graysecondary  focus:outline-none;
     }
+    .btn-secondaryrvs {
+      @apply text-center border-grayprimary border px-4 py-2 text-lg rounded-lg  bg-white text-grayprimary font-bold font-Lato hover:bg-graysecondary  focus:outline-none;
+    }
+    .msgerror{
+        @apply text-red-600 text-sm italic;
+    }
+    .msgsuccess{
+        @apply text-green-600 italic;
+    }
   }
 
 @layer utilities{

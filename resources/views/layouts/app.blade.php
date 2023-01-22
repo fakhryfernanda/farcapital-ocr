@@ -23,7 +23,7 @@
     <div>
         @livewire('navbar.user')
         <template x-if="!isloading">
-            <div class="flex mt-4">
+            <div class="flex mt-4 justify-center">
                 {{$slot}}
             </div>
         </template>
