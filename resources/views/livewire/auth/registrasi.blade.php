@@ -52,7 +52,7 @@
 
             {{-- Tombol Register --}}
             <div class="px-4 pb-2 pt-4 my-4 flex justify-center">
-                <button @click="submit" class="border-red-500 border block w-1/2 px-4 py-2 text-lg rounded-lg bg-red-500 font-bold hover:bg-white hover:text-red-500 focus:outline-none hover:border-red-500 hover:border font-Lato">Register</button>
+                <button @click="submit" class="btn-primary">Register</button>
             </div>
 
             {{-- Tombol Sign In --}}
