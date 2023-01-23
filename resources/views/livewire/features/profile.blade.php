@@ -3,17 +3,19 @@
         <div x-init="logout()"></div>
     </template>
     <template x-if="userrole == 1">
-        <div x-init="getprofile({{$id}})"></div>
-        <div class="py-2">
-            <a class="btn-secondary" href="/dashboard">kembali</a>
+        <div>
+            <div x-init="getprofile({{$id}})"></div>
+            <div class="py-2">
+                <a class="btn-secondary" href="/dashboard">kembali</a>
+            </div>
         </div>
     </template>
     <template x-if="userrole == 2">
         <div x-init="getprofile(userid)"></div>
     </template>
-    <div class="mx-auto flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row container mx-auto">
 
-        <div class="bg-gray-300 lg:col-3 rounded-t-lg shadow-lg shadow-gray-300" x-data="changepassword">
+        <div class="bg-gray-300 lg:col-3 rounded-t-lg shadow-lg shadow-gray-300 lg:pb-10" x-data="changepassword">
             <div class="hidden lg:flex justify-center py-10 bg-gray-50">
                 <img src="{{ asset('assets/logo.png')}}" alt="" class="w-24 h-24 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-300">
             </div>
@@ -32,29 +34,30 @@
                             <p class="msgsuccess text-center text-sm lg:text-base" x-text="msg"></p>
                         </div>
                     </template>
-
-                    <button x-on:click="isChangePassword=!isChangePassword" type="button" x-text="isChangePassword? 'Sembunyikan' : 'Ubah Password'" class="transition ease-in-out delay-100 font-Lato text-white bg-redprimary hover:bg-redsecondary focus:ring-4 focus:outline-none focus:ring-redsecondary font-bold rounded-lg text-sm p-2 lg:px-5 lg:py-2.5 text-center inline-flex items-center lg:hover:-translate-y-1 lg:hover:scale-110 duration-300">
-                    </button>
+                    <template x-if="localStorage.getItem('urole') == 2">
+                        <button  x-on:click="isChangePassword=!isChangePassword" type="button" x-text="isChangePassword? 'Sembunyikan' : 'Ubah Password'" class="transition ease-in-out delay-100 font-Lato text-white bg-redprimary hover:bg-redsecondary focus:ring-4 focus:outline-none focus:ring-redsecondary font-bold rounded-lg text-sm p-2 lg:px-5 lg:py-2.5 text-center inline-flex items-center lg:hover:-translate-y-1 lg:hover:scale-110 duration-300">
+                        </button>
+                    </template>
                 </div>
             </div>
 
+            <hr class="my-2" x-show="isChangePassword" >
+
             <template x-if="localStorage.getItem('urole') == 2">
                 
-                <div x-show="isChangePassword" x-transition.duration.200ms>
-                    <hr class="my-2">
-                    <div class="flex justify-center p-2 items-center lg:flex-col gap-2">
+                <div class="flex flex-col lg:flex-col-reverse"  x-show="isChangePassword" x-transition.duration.200ms>
+                    <div class="flex justify-center w-full p-2 items-center lg:flex-col gap-2">
     
-                    <div class="">
+                    <div class="w-full">
                         <label for="" class="hidden lg:flex font-Lato font-bold text-md text-slate-700">Password :</label>
                         <input x-model="password" @click="errmsg = ''" type="password" placeholder="Password" class="px-2 py-1 placeholder-slate-400 text-slate-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full" x-bind:class="errmsg != '' ? 'border border-red-600':' border-0'"/>
-                        <p class="msgerror" x-text="errmsg"></p>
                     </div>
             
-                     <div class="">
+                     <div class="w-full">
                         <label for="" class="hidden lg:flex font-Lato font-bold text-md text-slate-700">Konfirmasi Password :</label>
                         <input x-model="confirmpassword" @click="errmsg = ''" type="password" placeholder="Konfirmasi Password" class="px-2 py-1 placeholder-slate-400 text-slate-700 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full" x-bind:class="errmsg != '' ? 'border border-red-600':' border-0'"/>
                     </div>
-                    <div class="lg:mb-3 lg:py-3 lg:px-5 flex justify-center font-Lato">
+                    <div class="lg:py-3 lg:px-5 flex justify-center font-Lato">
                        <button @click="submitchangepass()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-3 py-2 lg:px-5 lg:py-2.5 text-center mr-2 inline-flex items-center">
                             <svg x-show="comploading" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
@@ -64,6 +67,8 @@
                         </button>
                     </div>
                 </div>  
+                <p class="msgerror px-2" x-text="errmsg"></p>
+                <div class="mb-2"></div>
             </div>
             </template>
         </div>
@@ -93,7 +98,7 @@
     
             <div class="flex flex-col md:flex-row justify-between">
     
-                <div class=" shadow-slate-400 font-Lato flex flex-col gap-2">
+                <div class="w-full shadow-slate-400 font-Lato flex flex-col gap-2">
                     
                     <div>
                         <h1 class="text-xl font-bold text-redprimary w-max px-3 rounded-sm">NIK</h1>
@@ -122,7 +127,7 @@
                     
                 </div>
                 
-                <div class=" shadow-slate-400 font-Lato flex flex-col gap-3 pb-6">
+                <div class="w-full shadow-slate-400 font-Lato flex flex-col gap-3 pb-6">
                    <div>
                         <h1 class="text-xl font-bold text-redprimary w-max px-3 rounded-sm">Alamat</h1>
                         <h1 class="text-md text-slate-800 font-normal px-3" x-text="data.alamat"></h1>
