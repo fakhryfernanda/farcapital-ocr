@@ -19,16 +19,17 @@
             <div>
 
                 <div class="flex justify-center w-3/4 pb-2 pt-4 mx-auto"> 
-                    <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400 text-white">
+                    <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1" x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
                         <i class="fa-solid fa-key"></i>  
                     </div>
-                    <input type="password" x-model="password" placeholder="Masukan Kata Sandi Baru" class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 border-red-500">
+                    <input type="password" x-model="password" placeholder="Masukan Kata Sandi Baru" class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'?'border border-red-600' : 'border-gray-600 bg-white'">
                 </div>
                 <div class="flex justify-center w-3/4 pb-2 pt-4 mx-auto">
                     <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400 text-white">
                         <i class="fa-solid fa-key"></i>  
                     </div>
-                    <input type="password" x-model="confirmpassword" placeholder="Ulangi Kata Sandi Baru" class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 border-red-500">
+                    <input type="password" x-model="confirmpassword" placeholder="Ulangi Kata Sandi Baru" class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 "
+                    x-bind:class="errarea == 'password'?'border border-red-600' : 'border-gray-600 bg-white'">
                 </div>
 
             </div>
