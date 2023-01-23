@@ -500,7 +500,10 @@ Alpine.data('userRegister', () => ({
 
     submit() {
         link = window.location.origin + '/emailvalidation'
-        if (this.password != this.confirmpassword) {
+        if(this.email ==''){
+            this.errarea = 'email'
+            this.errmsg = 'Email tidak boleh kosong!'
+        }else if (this.password != this.confirmpassword) {
             this.errarea = 'password'
             this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
         } else if (this.password.length < 8) {

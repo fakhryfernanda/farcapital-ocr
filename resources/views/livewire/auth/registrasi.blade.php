@@ -1,5 +1,5 @@
 <section class="min-h-1/2 flex text-white mb-4"x-data="userRegister">
-
+    <form action="#">
      <div x-show="isloading">
         <div>
             @livewire('loadingscreen')
@@ -30,7 +30,7 @@
                 </template>
 
                 <div class="pb-2 pt-4 flex text-white">
-                        <div class="text-2xl p-2  rounded mx-1 border border-1 "
+                    <div class="text-2xl p-2  rounded mx-1 border border-1 "
                         x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'" >
                         <i class="fa-solid fa-key"></i>  
                     </div> 
@@ -39,14 +39,15 @@
                 <template x-if="errarea == 'password'">
                     <p class="text-red-600 text-center font-Lato font-bold" x-text="errmsg"></p>
                 </template>
-                    <div class="pb-2 pt-4 flex text-white">
-                        <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400">
+                <div class="pb-2 pt-4 flex text-white">
+                    <div class="text-2xl p-2  rounded mx-1 border border-1 "
+                        x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'" >
                         <i class="fa-solid fa-key"></i>  
                     </div> 
-                    <input class="block w-full p-2 text-lg rounded bg-white text-black font-Lato border-2 border-red-500" x-bind:class="errarea == 'password'? 'border border-red-600' : ''" type="password" x-model="confirmpassword" placeholder="Konfimasi Password" >
+                    <input class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="confirmpassword" placeholder="Konfirmasi Password" >
                 </div>
                 <div class="px-4 pb-2 pt-4 my-4 flex justify-center">
-                    <button @click="submit" class="border-red-500 border block w-1/2 px-4 py-2 text-lg rounded-lg bg-red-500 font-bold hover:bg-white hover:text-red-500 focus:outline-none hover:border-red-500 hover:border font-Lato">Register</button>
+                    <button @click="submit" class="btn-primary w-1/2">Register</button>
                 </div>
 
                 <div class="text-center text-slate-700 py-2 font-Lato font-semibold">
@@ -55,5 +56,6 @@
 
         </div>
     </div>
+    </form>
 </section>
 

@@ -6,7 +6,7 @@
         
     <div x-init="notlogin()"></div>
     
-    <div x-show="!isloading" class="lg:w-[500px] bg-white w-full rounded-xl shadow-lg shadow-gray-600/50 flex items-center justify-center text-center md:px-16 px-0 z-0">
+    <div x-show="!isloading" class="w-[500px] bg-white  rounded-xl shadow-lg shadow-gray-600/50 flex items-center justify-center text-center md:px-16 px-0 z-0">
         <div class="absolute lg:hidden z-10 inset-0 bg-gray-50 bg-no-repeat bg-cover items-center">
             <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
         </div>

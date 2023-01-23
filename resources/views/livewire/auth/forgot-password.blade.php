@@ -21,20 +21,22 @@
         </div>
 
         <div class="py-2 flex flex-col">
-            <div class="text-white flex justify-center">
-                <div class="text-2xl p-2 bg-gray-500 rounded mx-1 border border-1 border-gray-400">
-                    <i class="fa-sharp fa-solid fa-envelope"></i>   
+            <div x-data="{flashnya : true}" x-init="setTimeout(() => flashnya = false, 10000)">
+                <div class="text-white flex justify-center">
+                    <div class="text-2xl p-2 rounded mx-1 border border-1" x-bind:class="pesaneror != '' && flashnya? 'bg-red-600' : 'bg-gray-600'">
+                        <i class="fa-sharp fa-solid fa-envelope"></i>   
+                    </div>
+                    <input type="email" x-model="email" placeholder="ex: user@farcapital.com" class="block w-80 p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2" x-bind:class="pesaneror != '' && flashnya ? 'border-red-600' : 'border-gray-600'">
                 </div>
-                <input type="email" x-model="email" placeholder="ex: user@farcapital.com" class="block w-80 p-2 text-lg rounded bg-white text-black font-Lato font-bold border border-2 border-gray-400" x-bind:class="pesaneror == ''? '' : 'border-red-600 border'">
-            </div>
-            <div>
-                <p x-text="pesaneror" class="text-red-600 text-center py-2 font-Lato font-bold capitalize"></p>
+                <div>
+                    <p x-text="pesaneror" x-show="flashnya" class="text-red-600 text-center py-2 font-Lato font-bold capitalize"></p>
+                </div>
             </div>
             <input type="hidden" id="link" value="{{$link}}">
         </div>
 
         <div class="flex justify-center px-4 pb-2 pt-4">
-            <button type="submit" @click="sendemail()" class="text-center border-red-500 border block w-1/2 px-4 py-2 text-lg rounded-lg  bg-red-500 text-white font-bold font-Lato hover:bg-white hover:text-red-500 hover:font-bold focus:outline-none hover:border-red-500 hover:border" >Submit</button>
+            <button type="submit" @click="sendemail()" class="btn-primary w-1/2" >Submit</button>
         </div>
     </div>
     {{-- </div> --}}
