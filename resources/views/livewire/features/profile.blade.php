@@ -4,13 +4,13 @@
     </template>
     <template x-if="userrole == 1">
         <div x-init="getprofile({{$id}})"></div>
+        <div class="py-2">
+            <a class="btn-secondary" href="/dashboard">kembali</a>
+        </div>
     </template>
     <template x-if="userrole == 2">
         <div x-init="getprofile(userid)"></div>
     </template>
-    <div class="py-2">
-        <a class="btn-secondary" href="/dashboard">kembali</a>
-    </div>
     <div class=" flex">
         <div class="bg-gray-300 col-3 rounded-t-lg shadow-lg shadow-gray-300">
             <div class="flex justify-center py-10 bg-gray-50">

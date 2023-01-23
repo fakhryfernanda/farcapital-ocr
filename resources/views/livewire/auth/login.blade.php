@@ -22,6 +22,13 @@
                         <p class="text-green-500 text-lg" x-text="message"></p>
                     </div>
                 </div>
+                {{-- ----------- (akun invalid) ------------- --}}
+                <template x-if="errarea == 'invalid'">
+                    <div>
+                        <span class="text-red-600 italic" x-text="errmsg+', silahkan aktivasi melalui link yang kami kirimkan ke email anda!, atau '"></span>
+                        <p class="text-redprimary font-bold"><a href="/emailvalidation">kirim ulang email aktivasi</a></p>
+                    </div>
+                </template>
             
                 <div class="pb-2 pt-4 text-white flex">
                     <div class="text-2xl p-2 rounded mx-1 border border-1" x-bind:class="errarea == 'email' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
@@ -48,10 +55,6 @@
                     <span class="text-red-600" x-text="errmsg"></span>
                 </template>
                 
-                {{-- ----------- (akun invalid) ------------- --}}
-                <template x-if="errarea == 'invalid'">
-                    <span class="text-red-600" x-text="errmsg"></span>
-                </template>
 
                 <div class="text-right text-slate-700 hover:text-redsecondary underline py-2 font-Lato font-semibold">
                     <a href="/forgotpassword">Forgot your password?</a>

@@ -635,6 +635,7 @@ Alpine.data('userLogin', () => ({
 
 Alpine.data('formresendvalidation', () => ({
     email: '',
+    pesanerror : '',
     resendemail() {
         link = window.location.origin + '/emailvalidation'
         const data = new FormData();
@@ -658,7 +659,7 @@ Alpine.data('formresendvalidation', () => ({
                     window.location.replace(baseUrl + '/login')
                 }
                 if (this.statusnya == false) {
-                    this.pesaneror = this.message
+                    this.pesanerror = this.message
                 }
             })
     },
