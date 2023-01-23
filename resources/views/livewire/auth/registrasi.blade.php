@@ -18,10 +18,11 @@
             </div>
                
                 <div class="pb-2 pt-4 text-white flex">
-                    <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400">
+                    <div class="text-2xl p-2  rounded mx-1 border border-1 "
+                    x-bind:class="errarea == 'email' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
                         <i class="fa-sharp fa-solid fa-envelope"></i>   
                     </div> 
-                    <input type="email" x-model="email" placeholder="Email" class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 border-red-500" x-bind:class="errarea == 'email'? 'border border-red-600' : ''">
+                    <input type="email" x-model="email" placeholder="Email" class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'email'? 'border border-red-600' : 'border-gray-600 bg-white' ">
                 </div>
                 
                 <template x-if="errarea == 'email'">
@@ -29,10 +30,11 @@
                 </template>
 
                 <div class="pb-2 pt-4 flex text-white">
-                        <div class="text-2xl p-2 bg-red-500 rounded mx-1 border border-1 border-red-400">
+                        <div class="text-2xl p-2  rounded mx-1 border border-1 "
+                        x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'" >
                         <i class="fa-solid fa-key"></i>  
                     </div> 
-                    <input class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 border-red-500" x-bind:class="errarea == 'password'? 'border border-red-600' : ''" type="password" x-model="password" placeholder="Password" >
+                    <input class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="password" placeholder="Password" >
                 </div>
                 <template x-if="errarea == 'password'">
                     <p class="text-red-600 text-center font-Lato font-bold" x-text="errmsg"></p>
