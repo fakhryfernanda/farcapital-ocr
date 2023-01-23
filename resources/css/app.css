@@ -4,7 +4,7 @@
 
 @layer components {
     .btn-primary {
-      @apply text-center border-redprimary border px-4 py-2 text-lg rounded-lg  bg-redprimary text-white font-bold font-Lato hover:bg-redsecondary  focus:outline-none;
+      @apply w-[150px] cursor-pointer text-center border-redprimary border px-4 py-2 text-lg rounded-lg  bg-redprimary text-white font-bold font-Lato hover:bg-redsecondary  focus:outline-none;
     }
     .btn-secondary {
       @apply text-center border-grayprimary border px-4 py-2 text-lg rounded-lg  bg-grayprimary text-white font-bold font-Lato hover:bg-graysecondary  focus:outline-none;
