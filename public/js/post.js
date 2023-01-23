@@ -249,11 +249,14 @@ Alpine.data('forgotpassword', () => ({
     email: '',
     message: '',
     statusnya: '',
-    pesaneror: '',
+    errmsg: '',
     isloading: false,
     flash: false,
+    errarea : '',
     flashdatane() {
         if (localStorage.getItem('flash')) {
+            this.flash = true
+            this.errarea = 'other'
             this.flash = true
             setTimeout(function () {
                 localStorage.removeItem('flash')
@@ -263,32 +266,42 @@ Alpine.data('forgotpassword', () => ({
     },
 
     sendemail() {
-        this.isloading = true
-        const data = new FormData();
-        data.append('email', this.email)
-        data.append('link', document.getElementById('link').value)
-
-        fetch(beapi + 'user/forgotpass', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-            },
-            body: data
-        })
+        if(this.email==''){
+            this.flash = true
+            setTimeout(() => this.flash = false, 5000)
+            this.errarea = 'email'
+            this.errmsg = 'email wajib diisi!'
+        }else{
+            this.isloading = true
+            const data = new FormData();
+            data.append('email', this.email)
+            data.append('link', document.getElementById('link').value)
+    
+            fetch(beapi + 'user/forgotpass', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
                 this.statusnya = response.status
 
-                if (this.statusnya == true) {
+                if (this.statusnya) {
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/successsendemail')
                 }
-                if (this.statusnya == false) {
-                    this.pesaneror = this.message
+                else{
+                    this.flash = true
+                    setTimeout(() => this.flash = false, 5000)
+                    this.errarea = 'email'
+                    this.errmsg = this.message
                     this.isloading = false
                 }
             })
+        }
     },
 
 }))
@@ -355,6 +368,7 @@ Alpine.data('changeforgetpassword', () => ({
     isloading: false,
     errmsg: '',
     cektoken() {
+        this.isloading = true
         token = document.getElementById('token').value
         fetch(beapi + 'emailbytoken/' + token, {
             method: 'GET',
@@ -379,7 +393,11 @@ Alpine.data('changeforgetpassword', () => ({
     },
 
     submitchangepass() {
-        if (this.password != this.confirmpassword) {
+        if(this.password == ''){
+            this.errmsg = 'Password wajib diisi'
+        }else if(this.password.length < 8){
+            this.errmsg = 'panjang minimal 8 karakter'
+        }else if (this.password != this.confirmpassword) {
             this.errmsg = 'password dan konfirmasi password tidak sesuai!'
         } else {
             const data = new FormData();
@@ -401,7 +419,9 @@ Alpine.data('changeforgetpassword', () => ({
                     this.message = response.message
                     this.statusnya = response.status
 
-                    if (this.statusnya == true) {
+                    if (this.statusnya == true) {  
+                    localStorage.setItem('message','Sukses ganti password, silahkan login menggunakan password baru')
+                    localStorage.setItem('flash',true)
                         const baseUrl = window.location.origin
                         window.location.replace(baseUrl + '/login')
                     }

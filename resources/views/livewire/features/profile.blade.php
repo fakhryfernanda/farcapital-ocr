@@ -119,7 +119,7 @@
                     </div>
                     <div>
                         <h1 class="text-lg text-white font-bold bg-grayprimary w-max py-1 px-3 rounded-sm">Jenis Kelamin</h1>
-                        <h1 class="text-md text-slate-800 font-semibold py-1 px-3" x-text="data.jenis_kelamin ? 'Laki-Laki' : 'Perempuan'"></h1>
+                        <h1 class="text-md text-slate-800 font-semibold py-1 px-3" x-text="data.jenis_kelamin == '1' ? 'Laki-Laki' : 'Perempuan'"></h1>
                     </div>
                     <div>
                         <h1 class="text-lg text-white font-bold bg-grayprimary w-max py-1 px-3 rounded-sm">Golongan Darah</h1>
