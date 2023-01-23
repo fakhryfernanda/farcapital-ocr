@@ -660,18 +660,22 @@ Alpine.data('formresendvalidation', () => ({
     email: '',
     pesanerror : '',
     resendemail() {
-        link = window.location.origin + '/emailvalidation'
-        const data = new FormData();
-        data.append('email', this.email)
-        data.append('link', link)
+        if(this.email == ''){
+            this.pesanerror = 'email wajib diisi!'
+        }else{
 
-        fetch('http://localhost:8000/api/resendemailvalidation', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-            },
-            body: data
-        })
+            link = window.location.origin + '/emailvalidation'
+            const data = new FormData();
+            data.append('email', this.email)
+            data.append('link', link)
+    
+            fetch('http://localhost:8000/api/resendemailvalidation', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            })
             .then(async response => {
                 response = await response.json()
                 this.message = response.message
@@ -685,6 +689,7 @@ Alpine.data('formresendvalidation', () => ({
                     this.pesanerror = this.message
                 }
             })
+        }
     },
 }))
 
@@ -709,23 +714,22 @@ Alpine.data('auth', () => ({
                     'Authorization': token
                 },
             })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.status = response.status
-                    if (this.status) {
-                        this.userid = localStorage.getItem('uid')
-                        this.userrole = localStorage.getItem('urole')
-                        this.islogin = true
-                        this.isloading = false
-                    }
-                    else {
-                        this.islogin = false
-                        this.isloading = false
-                        localStorage.clear()
-                    }
-                })
-
+            .then(async response => {
+                response = await response.json()
+                this.message = response.message
+                this.status = response.status
+                if (this.status) {
+                    this.userid = localStorage.getItem('uid')
+                    this.userrole = localStorage.getItem('urole')
+                    this.islogin = true
+                    this.isloading = false
+                }
+                else {
+                    this.islogin = false
+                    this.isloading = false
+                    localStorage.clear()
+                }
+            })
         }
 
     },

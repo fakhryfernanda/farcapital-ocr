@@ -6,10 +6,8 @@
         
     <div x-init="notlogin()"></div>
     
-    <div x-show="!isloading" class="w-[500px] px-12 bg-white  rounded-xl shadow-lg shadow-gray-600/50 flex items-center justify-center text-center">
-        <div class="absolute lg:hidden z-10 inset-0 bg-gray-50 bg-no-repeat bg-cover items-center">
-            <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
-        </div>
+    <div x-show="!isloading" class="md:w-[500px] px-12 bg-white  rounded-xl shadow-lg shadow-gray-600/50 flex items-center justify-center text-center">
+
         <div class="w-full py-6 z-20">
             
             <div class="py-1 space-x-2 flex justify-center">
@@ -25,8 +23,8 @@
                 {{-- ----------- (akun invalid) ------------- --}}
                 <template x-if="errarea == 'invalid'">
                     <div>
-                        <span class="text-red-600 italic" x-text="errmsg+', silahkan aktivasi melalui link yang kami kirimkan ke email anda!, atau '"></span>
-                        <p class="text-redprimary font-bold"><a href="/emailvalidation">kirim ulang email aktivasi</a></p>
+                        <span class="text-red-600 italic" x-text="errmsg+', silahkan cek email anda atau '"></span>
+                        <p class="text-redprimary font-bold"><a href="/emailvalidation">kirim ulang email aktivasi akun</a></p>
                     </div>
                 </template>
             

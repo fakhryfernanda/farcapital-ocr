@@ -4,7 +4,7 @@
         @livewire('loadingscreen')
     </div>
 
-    <div x-show="!isloading" class="bg-white px-12 pb-10 flex flex-col gap-2 w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
+    <div x-show="!isloading" class="bg-white px-12 pb-10 flex flex-col gap-2 md:w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
         <div class="pb-2 pt-4">
             <div class=" flex justify-center">
                 <img src="{{ asset('assets/download.png')}}"> 

@@ -6,7 +6,7 @@
     <div x-init="notlogin()"></div>
     <input type="hidden" value="{{$token}}" id="token">
     <template x-if="!isloading">
-        <div class="bg-white pb-2 pt-4 px-12 w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
+        <div class="bg-white pb-2 pt-4 px-12 md:w-[500px] rounded-xl shadow-lg shadow-gray-600/50">
             <div>
                 <div class=" flex justify-center">
                     <img src="{{ asset('assets/download.png')}}"> 

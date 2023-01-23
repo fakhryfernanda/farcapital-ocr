@@ -1,6 +1,6 @@
 <div>
     <div x-init="notlogin()"></div>
-    <div class=" bg-white w-[500px] px-10 pb-10 flex flex-col gap-10 rounded-xl shadow-lg shadow-gray-600/50">
+    <div class=" bg-white md:w-[500px] px-12 pb-10 flex flex-col gap-10 rounded-xl shadow-lg shadow-gray-600/50">
         <div class="flex flex-col">
             <div class=" flex justify-center">
                 <img src="{{ asset('assets/download.png')}}"> 

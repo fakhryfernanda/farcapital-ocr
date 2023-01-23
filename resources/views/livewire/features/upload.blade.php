@@ -52,12 +52,12 @@
     <template x-if="mode == 'verifikasi'">
 
         {{-- -------------------------batas suci----------------------- --}}
-        <div class="flex flex-col w-[1200px] justify-center bg-gray-50 gap-1 rounded-md mb-10 py-5 mt-10">
+        <div class="flex flex-col justify-center bg-gray-50 gap-1 rounded-md mb-10 py-5 mt-10">
             <div class="text-center">
                 <h1 class=" h-[40px] flex justify-center text-[30px] text-slate-800 font-bold ">Form Biodata Diri</h1>
             </div>
-            <div class="flex justify-center">
-                <div class="rounded-lg max-w-md px-5 py-5 mt-7">
+            <div class="flex flex-col md:flex-row justify-center py-5 mt-7">
+                <div class="rounded-lg max-w-md px-5">
                     <div class="flex flex-col">
                         <input type="hidden" id="id_user" :value="{{ session('id_user') }}">
                         <div class="flex flex-col">
@@ -119,7 +119,7 @@
                     </div>
                     
                 </div>
-                <div class="max-w-md px-5 py-5 mt-7 rounded-lg">
+                <div class="max-w-md px-5 rounded-lg">
                     <div class="flex flex-col">
                         <div class="flex flex-col">
                             <label class="w-40 font-semibold" for="kelurahan">Kelurahan : </label>
