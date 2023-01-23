@@ -487,61 +487,61 @@ Alpine.data('successvalidation', () => ({
 }))
 
 //----------(batas suci)----------
-Alpine.data('userRegister', () => ({
-    email: '',
-    password: '',
-    confirmpassword: '',
+// Alpine.data('userRegister', () => ({
+//     email: '',
+//     password: '',
+//     confirmpassword: '',
 
-    errmsg: '',
-    errarea: '',
-    message: '',
+//     errmsg: '',
+//     errarea: '',
+//     message: '',
 
-    isloading: false,
+//     isloading: false,
 
-    submit() {
-        link = window.location.origin + '/emailvalidation'
-        if (this.password != this.confirmpassword) {
-            this.errarea = 'password'
-            this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
-        } else if (this.password.length < 8) {
-            this.errarea = 'password'
-            this.errmsg = 'Password minimal 8 karakter!'
-        } else {
-            this.isloading = true
-            const data = new FormData();
-            data.append('email', this.email)
-            data.append('link', link)
-            data.append('password', this.password)
+//     submit() {
+//         link = window.location.origin + '/emailvalidation'
+//         if (this.password != this.confirmpassword) {
+//             this.errarea = 'password'
+//             this.errmsg = 'Password dan konfirmasi password tidak sesuai!'
+//         } else if (this.password.length < 8) {
+//             this.errarea = 'password'
+//             this.errmsg = 'Password minimal 8 karakter!'
+//         } else {
+//             this.isloading = true
+//             const data = new FormData();
+//             data.append('email', this.email)
+//             data.append('link', link)
+//             data.append('password', this.password)
 
-            this.isloading = true
-            fetch(beapi + 'user/add', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: data
-            })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.statusnya = response.status
+//             this.isloading = true
+//             fetch(beapi + 'user/add', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Accept': 'application/json',
+//                 },
+//                 body: data
+//             })
+//                 .then(async response => {
+//                     response = await response.json()
+//                     this.message = response.message
+//                     this.statusnya = response.status
 
-                    if (this.statusnya == true) {
-                        localStorage.setItem('message', this.message)
-                        localStorage.setItem('flash', true)
-                        const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
-                    }
-                    if (this.statusnya == false) {
-                        this.errarea = response.data
-                        this.errmsg = this.message
-                        this.isloading = false
-                    }
-                })
-        }
+//                     if (this.statusnya == true) {
+//                         localStorage.setItem('message', this.message)
+//                         localStorage.setItem('flash', true)
+//                         const baseUrl = window.location.origin
+//                         window.location.replace(baseUrl + '/login')
+//                     }
+//                     if (this.statusnya == false) {
+//                         this.errarea = response.data
+//                         this.errmsg = this.message
+//                         this.isloading = false
+//                     }
+//                 })
+//         }
 
-    }
-}))
+//     }
+// }))
 
 //----------(AUTH Login)----------
 Alpine.data('userLogin', () => ({
