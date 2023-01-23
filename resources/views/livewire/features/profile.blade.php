@@ -9,7 +9,12 @@
         <div x-init="getprofile(userid)"></div>
     </template>
     <div class="py-2">
-        <a class="btn-secondary" href="/dashboard">kembali</a>
+        <a
+            class="btn-secondary"
+            :href="userrole == 1 ? '/dashboard' : '/'"
+            x-text="userrole == 1 ? 'Dashboard' : 'Home'"
+        >
+        </a>
     </div>
     <div class=" flex">
         <div class="bg-gray-300 col-3 rounded-t-lg shadow-lg shadow-gray-300">
