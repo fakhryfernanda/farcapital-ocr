@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{{asset('/js/post.js')}}"></script>
+    <script src="{{asset('/js/auth.js')}}"></script>
     <script src="{{asset('/js/imageViewer.js')}}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
