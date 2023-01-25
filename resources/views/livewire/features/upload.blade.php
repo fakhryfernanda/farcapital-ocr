@@ -1,8 +1,11 @@
 <div class="flex flex-col justify-center" x-data="scan">
     <div x-init="isusernothaveidentity()"></div>
+    <div x-show="isloading">
+            @livewire('loadingscreen')
+    </div>
     <template x-if="mode == 'scan'">
 
-        <div class=" flex flex-col justify-center items-center">
+        <div x-show="!isloading" class=" flex flex-col justify-center items-center">
             
             <div class="text-center py-3 font-semibold mt-3">
                 <h1>Upload KTP untuk proses scan</h1>
@@ -23,7 +26,7 @@
                     <template x-if="imageUrl">
                         <img :src="imageUrl" class="h-[250px] object-contain">
                     </template>
-                    <input @change="fileChosen" id="ktp" type="file" accept="image/*" class="hidden" />
+                    <input @click="errarea.backscan = false" @change="fileChosen" id="ktp" type="file" accept="image/*" class="hidden" />
                 </label>
             </div>
             <div class="text-center font-semibold mt-7">
@@ -44,15 +47,13 @@
             <span class="sr-only">Loading...</span>
         </div>
     </template>
-    
-    {{-- <template x-if="giloading"> --}}
+
     <div x-show="giloading" class="bg-black/50 fixed z-10 top-0 bottom-0 left-0 right-0"></div>
-        {{-- <template> --}}
-            
-            
             
     <template x-if="mode == 'verifikasi'">
-        @livewire('features.formidentity')
+        <div x-show="!isloading">
+            @livewire('features.formidentity')
+        </div>
     </template>
 </div>
 

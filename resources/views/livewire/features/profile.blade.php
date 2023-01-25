@@ -2,10 +2,13 @@
     <template x-if="userrole != 1 && userrole != 2">
         <div x-init="logout()"></div>
     </template>
+    <div x-show="isloading">
+        @livewire('loadingscreen')
+</div>
     <template x-if="userrole == 1">
         <div>
             <div x-init="getprofile({{$id}})"></div>
-            <div class="py-2">
+            <div class="py-2" x-show="!isloading">
                 <a class="btn-secondary" href="/dashboard">kembali</a>
             </div>
         </div>
@@ -13,7 +16,7 @@
     <template x-if="userrole == 2">
         <div x-init="getprofile(userid)"></div>
     </template>
-    <div class="flex flex-col lg:flex-row container mx-auto">
+    <div class="flex flex-col lg:flex-row container mx-auto" x-show="!isloading">
 
         <div class="bg-gray-300 lg:col-3 rounded-t-lg shadow-lg shadow-gray-300 lg:pb-10" x-data="changepassword">
             <div class="hidden lg:flex justify-center py-10 bg-gray-50">
@@ -35,8 +38,12 @@
                         </div>
                     </template>
                     <template x-if="localStorage.getItem('urole') == 2">
-                        <button  x-on:click="isChangePassword=!isChangePassword" type="button" x-text="isChangePassword? 'Sembunyikan' : 'Ubah Password'" class="transition ease-in-out delay-100 font-Lato text-white bg-redprimary hover:bg-redsecondary focus:ring-4 focus:outline-none focus:ring-redsecondary font-bold rounded-lg text-sm p-2 lg:px-5 lg:py-2.5 text-center inline-flex items-center lg:hover:-translate-y-1 lg:hover:scale-110 duration-300">
-                        </button>
+                        <div class="flex flex-col gap-2 text-center">
+                            <a href="/scan" class="transition ease-in-out delay-100 font-Lato text-white bg-grayprimary hover:bg-graysecondary focus:ring-4 focus:outline-none focus:ring-graysecondary font-bold rounded-lg text-sm p-2 lg:px-5 lg:py-2.5 text-center items-center lg:hover:-translate-y-1 lg:hover:scale-110 duration-300">Scan Ulang</a>
+
+                            <button  x-on:click="isChangePassword=!isChangePassword" type="button" x-text="isChangePassword? 'Sembunyikan' : 'Ubah Password'" class="transition ease-in-out delay-100 font-Lato text-white bg-redprimary hover:bg-redsecondary focus:ring-4 focus:outline-none focus:ring-redsecondary font-bold rounded-lg text-sm p-2 lg:px-5 lg:py-2.5 text-center inline-flex items-center lg:hover:-translate-y-1 lg:hover:scale-110 duration-300">
+                            </button>
+                        </div>
                     </template>
                 </div>
             </div>

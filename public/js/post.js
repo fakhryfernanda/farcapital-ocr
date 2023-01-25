@@ -2,7 +2,9 @@ let beapi = 'http://localhost:8000/api/'
 
 Alpine.data('profile', () => ({
     data: [],
+    isloading : false,
     async getprofile(id) {
+        this.isloading = true
         var response = await fetch(beapi + 'identity/' + id, {
             method: 'GET',
             headers: {
@@ -22,6 +24,7 @@ Alpine.data('profile', () => ({
                 window.location.replace(baseUrl + '/scan')
             }
         }
+        this.isloading = false
     }
 }))
 Alpine.data('dashboard', () => ({
@@ -49,6 +52,7 @@ Alpine.data('scan', (src = '') => ({
     mode: 'scan',
     datanya: {},
     giloading: false,
+    isloading: false,
     imageUrl: src,
     eulacheck : false,
     errmsg: {
@@ -161,7 +165,6 @@ Alpine.data('scan', (src = '') => ({
         .then(async response => {
             response = await response.json()
             resstatus = response.status
-            console.log(resstatus)
             ktp.removeAttribute('disabled')
             if(resstatus){
                 this.datanya = response.data
@@ -214,7 +217,6 @@ Alpine.data('scan', (src = '') => ({
                 if(this.datanya.rw == ''){
                     this.errarea.rw = true
                     this.errmsg.rw = 'Mohon lengkapi rw'
-                    console.log('aaaaa')
                 }
                     
                 if(this.datanya.kelurahan == ''){
@@ -256,12 +258,11 @@ Alpine.data('scan', (src = '') => ({
                     this.errarea.kewarganegaraan = true
                     this.errmsg.kewarganegaraan = 'Mohon lengkapi kewarganegaraan'
                 }
-                //akhir pengecekan eror
-                console.log(this.datanya)
                 
             }else{
                 this.errmsg.backscan = response.message
                 this.errarea.backscan = true
+                this.imageUrl = ''
                 this.giloading = false
             }
         })
@@ -384,6 +385,7 @@ Alpine.data('scan', (src = '') => ({
                 this.errarea.eula = true
                 this.errmsg.eula = 'Wajib menyetujui EULA!'
             }else{
+                this.isloading = true
                 const datane = new FormData();
                 datane.append('id_user', id_user)
                 datane.append('ktp', ktp)
@@ -405,7 +407,6 @@ Alpine.data('scan', (src = '') => ({
                 datane.append('pekerjaan', pekerjaan)
                 datane.append('kewarganegaraan', kewarganegaraan)
                 datane.append('id_user', localStorage.getItem('uid'))
-                this.loading = true
                 fetch(beapi + 'identity/add', {
                     method: 'POST',
                     headers: {
@@ -421,10 +422,14 @@ Alpine.data('scan', (src = '') => ({
                         window.location.replace(baseUrl + '/profile')
                     } 
                     else {
+                        
                         if(response.data == 'nik'){
                             this.errarea.nik = true
                             this.errmsg.nik = response.message
+                            this.isloading = false
+                        
                         }else{
+                            this.isloading = false
                             this.errarea.becritical = true
                             this.errmsg.becritical = response.message
                         }
@@ -631,7 +636,7 @@ Alpine.data('changeforgetpassword', () => ({
 Alpine.data('successvalidation', () => ({
 
     token: '',
-    isloading: true,
+    // isloading: true,
     isloading: false,
     errmsg: '',
     cektoken() {
@@ -650,11 +655,7 @@ Alpine.data('successvalidation', () => ({
                     this.isloading = false
                     this.email = response.data.email
                     this.token = token
-                    console.log(response.data)
                 } else {
-                    console.log(response.message)
-                    console.log(response.data)
-                    console.log(beapi + 'emailregist/' + token)
                     // localStorage.setItem('flash', true)
                     const baseUrl = window.location.origin
                     // window.location.replace(baseUrl + '/emailvalidation')
