@@ -18,13 +18,13 @@
     <link rel="shortcut icon" href="{{ asset('assets/farcapital.png')}}" type="image/x-icon">
     @livewireStyles
 </head>
-<body x-data="auth" class="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+<body x-data="auth" class="min-h-screen bg-gray-100">
     <div x-init="ceklogin()"></div>
     {{-- <template x-if="isloading == false"> --}}
     <div>
         @livewire('navbar.user')
         <template x-if="!isloading">
-            <div class="flex mt-4 justify-center">
+            <div class="flex px-2 py-4 md:px-0 justify-center">
                 {{$slot}}
             </div>
         </template>

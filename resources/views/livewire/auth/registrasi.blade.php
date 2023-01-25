@@ -1,14 +1,15 @@
-<section class="min-h-1/2 flex text-white mb-4" x-data="userRegister">
-
-    <div x-show="isloading">
-        @livewire('loadingscreen')
+<section class="min-h-1/2 flex text-white mb-4"x-data="userRegister">
+     <div x-show="isloading">
+        <div>
+            @livewire('loadingscreen')
+        </div>
     </div>
 
     <div x-init="notlogin()"></div>
     
-    <div class="lg:w-[500px] w-full rounded-lg shadow-lg shadow-gray-600/50 flex items-center justify-center text-center md:px-16 px-0 z-0 bg-white">
+    <div class="md:w-[500px] rounded-lg shadow-lg shadow-gray-600/50 flex items-center justify-center w-full text-center px-12 z-0 bg-white">
 
-        <div class="w-full py-6 z-20">
+        <div class="w-[100%] py-6 z-20">
             
             {{-- Logo Far Capital --}}
             <div class="py-1 space-x-2 flex justify-center">
@@ -21,7 +22,7 @@
                 x-bind:class="errarea == 'email' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
                     <i class="fa-sharp fa-solid fa-envelope"></i>   
                 </div> 
-                <input @keydown.enter="submit" type="email" x-model="email" placeholder="Email" class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'email'? 'border border-red-600' : 'border-gray-600 bg-white' ">
+                <input @click="errarea = ''" @keydown.enter="submit" type="email" x-model="email" placeholder="Email" class="block w-full p-2 text-lg rounded  text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'email'? 'border border-red-600' : 'border-gray-600 bg-white' ">
             </div>
             
             {{-- Pesan Error Email --}}
@@ -31,10 +32,11 @@
 
             {{-- Password --}}
             <div class="pb-2 pt-4 flex text-white">
-                <div class="text-2xl p-2  rounded mx-1 border border-1" x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
+                <div class="text-2xl p-2  rounded mx-1 border border-1 "
+                    x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'" >
                     <i class="fa-solid fa-key"></i>  
                 </div> 
-                <input @keydown.enter="submit" class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password' ? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="password" placeholder="Password" >
+                <input @click="errarea = ''" class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="password" placeholder="Password" >
             </div>
 
             {{-- Konfirmasi Password --}}
@@ -42,7 +44,7 @@
                 <div class="text-2xl p-2  rounded mx-1 border border-1" x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
                     <i class="fa-solid fa-key"></i>  
                 </div> 
-                <input @keydown.enter="submit" class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password' ? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="confirmpassword" placeholder="Konfimasi Password" >
+                <input @click="errarea = ''" @keydown.enter="submit" class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password' ? 'border border-red-400' : 'border-gray-600 bg-white'" type="password" x-model="confirmpassword" placeholder="Konfimasi Password" >
             </div>
 
             {{-- Pesan Error Password --}}
@@ -57,7 +59,7 @@
 
             {{-- Tombol Sign In --}}
             <div class="text-center text-slate-700 py-2 font-Lato font-semibold">
-                <p>Already Have Account ? <a href="/login" class ="text-blue-500  hover:underline">Sign In</a></p>
+                <p>Already Have Account ? <a href="/login" class ="text-redprimary  hover:text-redsecondary hover:underline">Sign In</a></p>
             </div>
 
         </div>
