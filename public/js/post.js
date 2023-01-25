@@ -42,18 +42,91 @@ Alpine.data('dashboard', () => ({
 }))
 
 //----------(batas suci)----------
-Alpine.data('scan', () => ({
+Alpine.data('scan', (src = '') => ({
     form: {
         image: '',
     },
     mode: 'scan',
     datanya: {},
     giloading: false,
-    errmsg: '',
-    errarea: '',
+    errmsg: {
+        backscan : '',
+        nik : '',
+        nama : '',
+        tempat_lahir : '',
+        tanggal_lahir : '',
+        kelamin : '',
+        golongan_darah : '',
+        alamat : '',
+        rt : '',
+        rw : '',
+        kelurahan : '',
+        kecamatan : '',
+        kota : '',
+        provinsi : '',
+        agama : '',
+        status_perkawinan : '',
+        pekerjaan : '',
+        kewarganegaraan : ''
+    },
+    errarea: {
+        backscan : false,
+        nik : false,
+        nama : false,
+        tempat_lahir : false,
+        tanggal_lahir : false,
+        kelamin : false,
+        golongan_darah : false,
+        alamat : false,
+        rt : false,
+        rw : false,
+        kelurahan : false,
+        kecamatan : false,
+        kota :false,
+        provinsi :false,
+        agama :false,
+        status_perkawinan : false,
+        pekerjaan : false,
+        kewarganegaraan : false
+    },
     scanUlang() {
         this.datanya = {},
-            this.mode = 'scan'
+        this.mode = 'scan'
+        
+            this.errarea.backscan = false
+            this.errarea.nik = false
+            this.errarea.nama = false
+            this.errarea.tempat_lahir = false
+            this.errarea.tanggal_lahir = false
+            this.errarea.kelamin = false
+            this.errarea.golongan_darah = false
+            this.errarea.alamat = false
+            this.errarea.rt = false
+            this.errarea.rw = false
+            this.errarea.kelurahan = false
+            this.errarea.kecamatan = false
+            this.errarea.kota =false
+            this.errarea.provinsi =false
+            this.errarea.agama =false
+            this.errarea.status_perkawinan = false
+            this.errarea.pekerjaan = false
+            this.errarea.kewarganegaraan = false
+        
+    },
+    imageUrl: src,
+  
+    fileChosen(event) {
+    this.fileToDataUrl(event, src => this.imageUrl = src)
+    },
+
+    fileToDataUrl(event, callback) {
+    if (!event.target.files.length) return
+
+    let file = event.target.files[0],
+        reader = new FileReader()
+
+    reader.readAsDataURL(file)
+    reader.onload = e => callback(e.target.result)
     },
 
     scanktp() {
@@ -76,28 +149,113 @@ Alpine.data('scan', () => ({
             },
             body: data
         })
-            .then(async response => {
-                response = await response.json()
-                resstatus = response.status
-                console.log(resstatus)
-                ktp.removeAttribute('disabled')
-                if(resstatus){
-                    this.datanya = response.data
-                    this.giloading = false
-                    this.mode = 'verifikasi'
-                }else{
-                    this.errmsg = response.message
-                    this.errarea = response.data
-                    this.giloading = false
+        .then(async response => {
+            response = await response.json()
+            resstatus = response.status
+            console.log(resstatus)
+            ktp.removeAttribute('disabled')
+            if(resstatus){
+                this.datanya = response.data
+                this.mode = 'verifikasi'
+                this.giloading = false
+                // pengecekan eror / data kosong
+                if(this.datanya.nama == ''){
+                    this.errarea.nama = true
+                    this.errmsg.nama = 'Mohon lengkapi Nama'
+                } 
+                if(this.datanya.nik.length != 16){
+                    this.errarea.nik = true
+                    this.errmsg.nik = 'NIK salah'
+                }else
+                if(this.datanya.nik == ''){
+                    this.errarea.nik = true
+                    this.errmsg.nik = 'Mohon lengkapi NIK'
                 }
-            })
-                .then(async response => {
-                    response = await response.json()
-                    this.datanya = response.data
-                    this.giloading = false
-                    this.mode = 'verifikasi'
-
-                })
+                    
+                if(this.datanya.tempat_lahir == ''){
+                    this.errarea.tempat_lahir = true
+                    this.errmsg.tempat_lahir = 'Mohon lengkapi tempat lahir'
+                }
+                    
+                if(this.datanya.tanggal_lahir == ''){
+                    this.errarea.tanggal_lahir = true
+                    this.errmsg.tanggal_lahir = 'Mohon lengkapi tanggal lahir'
+                }
+                    
+                if(this.datanya.kelamin != 0 && this.datanya.kelamin != 1){
+                    this.errarea.kelamin = true
+                    this.errmsg.kelamin = 'Mohon lengkapi jenis kelamin'
+                }
+                    
+                if(this.datanya.golongan_darah == ''){
+                    this.errarea.golongan_darah = true
+                    this.errmsg.golongan_darah = 'Mohon lengkapi golongan darah'
+                }
+                    
+                if(this.datanya.alamat == ''){
+                    this.errarea.alamat = true
+                    this.errmsg.alamat = 'Mohon lengkapi alamat'
+                }
+                    
+                if(this.datanya.rt == ''){
+                    this.errarea.rt = true
+                    this.errmsg.rt = 'Mohon lengkapi rt'
+                }
+                    
+                if(this.datanya.rw == ''){
+                    this.errarea.rw = true
+                    this.errmsg.rw = 'Mohon lengkapi rw'
+                    console.log('aaaaa')
+                }
+                    
+                if(this.datanya.kelurahan == ''){
+                    this.errarea.kelurahan = true
+                    this.errmsg.kelurahan = 'Mohon lengkapi kelurahan'
+                }
+                    
+                if(this.datanya.kecamatan == ''){
+                    this.errarea.kecamatan = true
+                    this.errmsg.kecamatan = 'Mohon lengkapi kecamatan'
+                }
+                    
+                if(this.datanya.kota == ''){
+                    this.errarea.kota = true
+                    this.errmsg.kota = 'Mohon lengkapi kota'
+                }
+                    
+                if(this.datanya.provinsi == ''){
+                    this.errarea.provinsi = true
+                    this.errmsg.provinsi = 'Mohon lengkapi provinsi'
+                }
+                    
+                if(this.datanya.agama == ''){
+                    this.errarea.agama = true
+                    this.errmsg.agama = 'Mohon lengkapi agama'
+                }
+                    
+                if(this.datanya.perkawinan == ''){
+                    this.errarea.perkawinan = true
+                    this.errmsg.perkawinan = 'Mohon lengkapi status perkawinan'
+                }
+                    
+                if(this.datanya.pekerjaan == ''){
+                    this.errarea.pekerjaan = true
+                    this.errmsg.pekerjaan = 'Mohon lengkapi pekerjaan'
+                }
+                    
+                if(this.datanya.kewarganegaraan == ''){
+                    this.errarea.kewarganegaraan = true
+                    this.errmsg.kewarganegaraan = 'Mohon lengkapi kewarganegaraan'
+                }
+                //akhir pengecekan eror
+                console.log(this.datanya)
+                
+            }else{
+                this.errmsg.backscan = response.message
+                this.errarea.backscan = true
+                this.giloading = false
+            }
+        })
         }
     },
 
@@ -122,81 +280,96 @@ Alpine.data('scan', () => ({
         const perkawinan = document.getElementById('perkawinan').value
         const pekerjaan = document.getElementById('pekerjaan').value
         const kewarganegaraan = document.getElementById('kewarganegaraan').value
-        
-        if(nama == ''){
-            this.errarea = 'nama'
-            this.errmsg = 'Mohon lengkapi Nama'
+        if(nama == ''||nik == ''||nik.length != 16||tempat_lahir == ''||tanggal_lahir == ''||kelamin == ''||golongan_darah == ''||alamat == ''||rt == ''||rw == ''||kelurahan == ''||kecamatan == ''||kota == ''||provinsi == ''||agama == ''||perkawinan == ''||pekerjaan == ''||kewarganegaraan == ''){
+            if(nama == ''){
+                this.errarea = 'nama'
+                this.errmsg = 'Mohon lengkapi Nama'
+            } 
+            if(nik.length != 16){
+                this.errarea = 'nik'
+                this.errmsg = 'NIK salah'
+            }else
+            if(nik == ''){
+                this.errarea = 'nik'
+                this.errmsg = 'Mohon lengkapi NIK'
+            }
+             
+            if(tempat_lahir == ''){
+                this.errarea = 'tempat_lahir'
+                this.errmsg = 'Mohon lengkapi tempat lahir'
+            }
+             
+            if(tanggal_lahir == ''){
+                this.errarea = 'tanggal_lahir'
+                this.errmsg = 'Mohon lengkapi tanggal lahir'
+            }
+             
+            if(kelamin == ''){
+                this.errarea = 'kelamin'
+                this.errmsg = 'Mohon lengkapi jenis kelamin'
+            }
+             
+            if(golongan_darah == ''){
+                this.errarea = 'golongan_darah'
+                this.errmsg = 'Mohon lengkapi golongan darah'
+            }
+             
+            if(alamat == ''){
+                this.errarea = 'alamat'
+                this.errmsg = 'Mohon lengkapi alamat'
+            }
+             
+            if(rt == ''){
+                this.errarea = 'rt'
+                this.errmsg = 'Mohon lengkapi rt'
+            }
+             
+            if(rw == ''){
+                this.errarea = 'rw'
+                this.errmsg = 'Mohon lengkapi rw'
+            }
+             
+            if(kelurahan == ''){
+                this.errarea = 'kelurahan'
+                this.errmsg = 'Mohon lengkapi kelurahan'
+            }
+             
+            if(kecamatan == ''){
+                this.errarea = 'kecamatan'
+                this.errmsg = 'Mohon lengkapi kecamatan'
+            }
+             
+            if(kota == ''){
+                this.errarea = 'kota'
+                this.errmsg = 'Mohon lengkapi kota'
+            }
+             
+            if(provinsi == ''){
+                this.errarea = 'provinsi'
+                this.errmsg = 'Mohon lengkapi provinsi'
+            }
+             
+            if(agama == ''){
+                this.errarea = 'agama'
+                this.errmsg = 'Mohon lengkapi agama'
+            }
+             
+            if(perkawinan == ''){
+                this.errarea = 'perkawinan'
+                this.errmsg = 'Mohon lengkapi status perkawinan'
+            }
+             
+            if(pekerjaan == ''){
+                this.errarea = 'pekerjaan'
+                this.errmsg = 'Mohon lengkapi pekerjaan'
+            }
+             
+            if(kewarganegaraan == ''){
+                this.errarea = 'kewarganegaraan'
+                this.errmsg = 'Mohon lengkapi kewarganegaraan'
+            }
         }
         else 
-        if(nik.length != 16){
-            this.errarea = 'nik'
-            this.errmsg = 'NIK salah'
-        }else
-        if(nik == ''){
-            this.errarea = 'nik'
-            this.errmsg = 'Mohon lengkapi NIK'
-        }
-        else 
-        if(tempat_lahir == ''){
-            this.errarea = 'tempat_lahir'
-            this.errmsg = 'Mohon lengkapi tempat lahir'
-        }else 
-        if(tanggal_lahir == ''){
-            this.errarea = 'tanggal_lahir'
-            this.errmsg = 'Mohon lengkapi tanggal lahir'
-        }else 
-        if(kelamin == ''){
-            this.errarea = 'kelamin'
-            this.errmsg = 'Mohon lengkapi jenis kelamin'
-        }else 
-        if(golongan_darah == ''){
-            this.errarea = 'golongan_darah'
-            this.errmsg = 'Mohon lengkapi golongan darah'
-        }else 
-        if(alamat == ''){
-            this.errarea = 'alamat'
-            this.errmsg = 'Mohon lengkapi alamat'
-        }else 
-        if(rt == ''){
-            this.errarea = 'rt'
-            this.errmsg = 'Mohon lengkapi rt'
-        }else 
-        if(rw == ''){
-            this.errarea = 'rw'
-            this.errmsg = 'Mohon lengkapi rw'
-        }else 
-        if(kelurahan == ''){
-            this.errarea = 'kelurahan'
-            this.errmsg = 'Mohon lengkapi kelurahan'
-        }else 
-        if(kecamatan == ''){
-            this.errarea = 'kecamatan'
-            this.errmsg = 'Mohon lengkapi kecamatan'
-        }else 
-        if(kota == ''){
-            this.errarea = 'kota'
-            this.errmsg = 'Mohon lengkapi kota'
-        }else 
-        if(provinsi == ''){
-            this.errarea = 'provinsi'
-            this.errmsg = 'Mohon lengkapi provinsi'
-        }else 
-        if(agama == ''){
-            this.errarea = 'agama'
-            this.errmsg = 'Mohon lengkapi agama'
-        }else 
-        if(perkawinan == ''){
-            this.errarea = 'perkawinan'
-            this.errmsg = 'Mohon lengkapi status perkawinan'
-        }else 
-        if(pekerjaan == ''){
-            this.errarea = 'pekerjaan'
-            this.errmsg = 'Mohon lengkapi pekerjaan'
-        }else 
-        if(kewarganegaraan == ''){
-            this.errarea = 'kewarganegaraan'
-            this.errmsg = 'Mohon lengkapi kewarganegaraan'
-        }else 
         {
 
         const datane = new FormData();

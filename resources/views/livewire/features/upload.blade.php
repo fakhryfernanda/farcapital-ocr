@@ -7,18 +7,19 @@
                 <h1 x-show="errarea == 'backscan'" x-text="errmsg" class="text-red-600 text-lg"></h1>
             </div>
             <div class="text-center py-3 font-semibold mt-3">
-                <h1>Please Upload Your National Identity Card (KTP)</h1>
+                <h1>Upload KTP untuk proses scan</h1>
             </div>
             
-            <div x-data="imageViewer()" class="w-[400px]  h-[300px]">
+            <div class="w-[400px]  h-[300px]">
                 <label for="ktp" id="ktp_label" class="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-solid bg-white rounded-lg cursor-pointer  dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-200 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                     <template x-if="!imageUrl">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                             </svg>
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">JPEG (MAX. 800x400px) </p>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk upload KTP</span></p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">KTP yang diupload harus bersih, tidak rusak, dan tidak terbalik</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Usahakan orientasi file yang diupload adalah landscape!</p>
                         </div>
                     </template>
                     <template x-if="imageUrl">
@@ -28,7 +29,7 @@
                 </label>
             </div>
             <div class="text-center py-5">
-                <button type="button"  @click="scanktp()" class="btn-primary w-max px-7">Upload</button>
+                <button type="button"  @click="scanktp()" class="btn-primary w-max px-7">Scan</button>
             </div>
           
         </div>
@@ -42,162 +43,15 @@
             <span class="sr-only">Loading...</span>
         </div>
     </template>
-
+    
     {{-- <template x-if="giloading"> --}}
-        <div x-show="giloading" class="bg-black/50 fixed z-10 top-0 bottom-0 left-0 right-0"></div>
-    {{-- <template> --}}
-        
-
-
-    <template x-if="mode == 'verifikasi'">
-
-        {{-- -------------------------batas suci----------------------- --}}
-        <div class="flex flex-col justify-center bg-gray-50 gap-1 rounded-md mb-10 py-5 mt-10">
-            <div class="text-center">
-                <h1 class=" h-[40px] flex justify-center text-[30px] text-slate-800 font-bold ">Form Biodata Diri</h1>
-            </div>
-            <div class="flex flex-col md:flex-row justify-center py-5 mt-7">
-                <div class="rounded-lg max-w-md px-5">
-                    <div class="flex flex-col">
-                        <input type="hidden" id="id_user" :value="{{ session('id_user') }}">
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="nama">Nama : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1 w-96" type="text" name="nama" id="nama" wire:model="nama" x-bind:class="errarea == 'nama' ? 'border-red-600' : ' border-slate-300'" x-bind:value="datanya.nama">
-                            <p x-show="errarea == 'nama'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="nik">NIK : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="number" name="nik" id="nik" wire:model="nik" x-bind:value="datanya.nik" x-bind:class="errarea == 'nik' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'nik'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="tempat_lahir">Tempat Lahir : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="tempat_lahir" id="tempat_lahir" wire:model="tempat_lahir" x-bind:value="datanya.tempat_lahir" x-bind:class="errarea == 'tempat_lahir' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'tempat_lahir'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="tanggal_lahir">Tanggal Lahir : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="date" name="tanggal_lahir" id="tanggal_lahir" wire:model="tanggal_lahir" x-bind:value="datanya.tanggal_lahir" x-bind:class="errarea == 'tanggal_lahir' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'tanggal_lahir'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-    
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="kelamin">Jenis Kelamin : </label>
-                            <select class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" name="kelamin" id="kelamin" wire:model="kelamin" x-bind:class="errarea == 'kelamin' ? 'border-red-600' : ' border-slate-300'">
-                                <option value="1" x-bind:selected="datanya.kelamin == '1'">LAKI-LAKI</option>
-                                <option value="0" x-bind:selected="datanya.kelamin == '0'">PEREMPUAN</option>
-                            </select>        
-                            <p x-show="errarea == 'kelamin'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-    
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="golongan_darah">Golongan Darah : </label>
-                            <select class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" name="golongan_darah" id="golongan_darah" wire:model="golongan_darah" x-bind:class="errarea == 'golongan_darah' ? 'border-red-600' : ' border-slate-300'">
-                                <option value="-" x-bind:selected="datanya.golongan_darah == '-'">-</option>    
-                                <option value="A" x-bind:selected="datanya.golongan_darah == 'A'">A</option>    
-                                <option value="B" x-bind:selected="datanya.golongan_darah == 'B'">B</option>    
-                                <option value="AB" x-bind:selected="datanya.golongan_darah == 'AB'">AB</option>    
-                                <option value="O" x-bind:selected="datanya.golongan_darah == 'O'">O</option>    
-                            </select>
-                            <p x-show="errarea == 'golongan_darah'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="alamat">Alamat : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="alamat" id="alamat" wire:model="alamat" x-bind:value="datanya.alamat" x-bind:class="errarea == 'alamat' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'alamat'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="rt">RT : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="number" name="rt" id="rt" wire:model="rt" x-bind:value="datanya.rt" x-bind:class="errarea == 'rt' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'rt'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="rw">RW : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" x-bind:class="errarea == 'rw' ? 'border-red-600' : ' border-slate-300'" type="number" name="rw" id="rw" wire:model="rw" x-bind:value="datanya.rw">
-                            <p x-show="errarea == 'rw'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="max-w-md px-5 rounded-lg">
-                    <div class="flex flex-col">
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="kelurahan">Kelurahan : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1 w-96" type="text" name="kelurahan" id="kelurahan" wire:model="kelurahan" x-bind:value="datanya.kelurahan" x-bind:class="errarea == 'kelurahan' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'kelurahan'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="kecamatan">Kecamatan : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="kecamatan" id="kecamatan" wire:model="kecamatan" x-bind:value="datanya.kecamatan" x-bind:class="errarea == 'kecamatan' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'kecamatan'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="kecamatan">Kota : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="kota" id="kota" wire:model="kota" x-bind:value="datanya.kota" x-bind:class="errarea == 'kota' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'kota'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="provinsi">Provinsi : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="provinsi" id="provinsi" wire:model="provinsi" x-bind:value="datanya.provinsi" x-bind:class="errarea == 'provinsi' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'provinsi'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="agama">Agama : </label>
-                            <select class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" id="agama" x-bind:class="errarea == 'agama' ? 'border-red-600' : ' border-slate-300'">
-                                <option value="-"  x-bind:selected="datanya.agama != 'ISLAM'||datanya.agama != 'KRISTEN'||datanya.agama != 'KATOLIK'||datanya.agama != 'HINDU'||datanya.agama != 'BUDHA'||datanya.agama != 'KONGHUCU' || !datanya.agama">-</option>
-                                <option value="ISLAM" x-bind:selected="datanya.agama == 'ISLAM'">ISLAM</option>
-                                <option value="KRISTEN" x-bind:selected="datanya.agama == 'KRISTEN'">KRISTEN</option>
-                                <option value="KATOLIK" x-bind:selected="datanya.agama == 'KATOLIK'">KATOLIK</option>
-                                <option value="HINDU" x-bind:selected="datanya.agama == 'HINDU'">HINDU</option>
-                                <option value="BUDHA" x-bind:selected="datanya.agama == 'BUDHA'">BUDHA</option>
-                                <option value="KONGHUCU" x-bind:selected="datanya.agama == 'KONGHUCU'">KONGHUCU</option>
-                            </select>
-                            <p x-show="errarea == 'agama'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="perkawinan">Status Perkawinan : </label>
-                            <select class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="perkawinan" id="perkawinan" wire:model="perkawinan" x-bind:class="errarea == 'perkawinan' ? 'border-red-600' : ' border-slate-300'">
-                                <option value="KAWIN" x-bind:selected="datanya.perkawinan == 'KAWIN'">KAWIN</option>
-                                <option value="BELUM KAWIN" x-bind:selected="datanya.perkawinan == 'BELUM KAWIN'">BELUM KAWIN</option>
-                                <option value="CERAI HIDUP" x-bind:selected="datanya.perkawinan == 'CERAI HIDUP'">CERAI HIDUP</option>
-                                <option value="CERAI MATI" x-bind:selected="datanya.perkawinan == 'CERAI MATI'">CERAI MATI</option>
-                            </select>
-                            <p x-show="errarea == 'perkawinan'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="pekerjaan">Pekerjaan : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="pekerjaan" id="pekerjaan" wire:model="pekerjaan" x-bind:value="datanya.pekerjaan" x-bind:class="errarea == 'pekerjaan' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'pekerjaan'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="w-40 font-semibold" for="kewarganegaraan">Kewarganegaraan : </label>
-                            <input class="px-1 border-2 rounded-md  focus:border-blue-400 focus:outline-none py-1" type="text" name="kewarganegaraan" id="kewarganegaraan" wire:model="kewarganegaraan" x-bind:value="datanya.kewarganegaraan" x-bind:class="errarea == 'kewarganegaraan' ? 'border-red-600' : ' border-slate-300'">
-                            <p x-show="errarea == 'kewarganegaraan'" x-text="errmsg" class="text-red-600 text-sm italic"></p>
-                        </div>
+    <div x-show="giloading" class="bg-black/50 fixed z-10 top-0 bottom-0 left-0 right-0"></div>
+        {{-- <template> --}}
             
-                    </div>
-                    
-                </div>
-                
-            </div>
-            <div class="w-full flex justify-center gap-4">
-                <button 
-                    @click="scanUlang()" 
-                    class="btn-secondary w-40"
-                >
-                    Scan Ulang
-                </button>
-                
-                <button 
-                    @click="submitData()" 
-                    class="btn-primary w-40"
-                >
-                    Submit
-                </button>
-            </div>
-        </div>  
-        {{-- -------------------------batas suci----------------------- --}}
-        
+            
+            
+    <template x-if="mode == 'verifikasi'">
+        @livewire('features.formidentity')
     </template>
 </div>
 
