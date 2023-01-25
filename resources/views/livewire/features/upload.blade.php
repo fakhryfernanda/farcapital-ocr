@@ -3,9 +3,7 @@
     <template x-if="mode == 'scan'">
 
         <div class=" flex flex-col justify-center items-center">
-            <div class="text-center font-semibold mt-7">
-                <h1 x-show="errarea == 'backscan'" x-text="errmsg" class="text-red-600 text-lg"></h1>
-            </div>
+            
             <div class="text-center py-3 font-semibold mt-3">
                 <h1>Upload KTP untuk proses scan</h1>
             </div>
@@ -27,6 +25,9 @@
                     </template>
                     <input @change="fileChosen" id="ktp" type="file" accept="image/*" class="hidden" />
                 </label>
+            </div>
+            <div class="text-center font-semibold mt-7">
+                <h1 x-show="errarea.backscan" x-text="errmsg.backscan" class="text-red-600 italic"></h1>
             </div>
             <div class="text-center py-5">
                 <button type="button"  @click="scanktp()" class="btn-primary w-max px-7">Scan</button>

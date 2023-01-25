@@ -49,6 +49,8 @@ Alpine.data('scan', (src = '') => ({
     mode: 'scan',
     datanya: {},
     giloading: false,
+    imageUrl: src,
+    eulacheck : false,
     errmsg: {
         backscan : '',
         nik : '',
@@ -67,7 +69,9 @@ Alpine.data('scan', (src = '') => ({
         agama : '',
         status_perkawinan : '',
         pekerjaan : '',
-        kewarganegaraan : ''
+        kewarganegaraan : '',
+        becritical : '',
+        eula : ''
     },
     errarea: {
         backscan : false,
@@ -87,10 +91,14 @@ Alpine.data('scan', (src = '') => ({
         agama :false,
         status_perkawinan : false,
         pekerjaan : false,
-        kewarganegaraan : false
+        kewarganegaraan : false,
+        becritical : false,
+        eula : false
     },
     scanUlang() {
-        this.datanya = {},
+        this.datanya = {}
+        this.imageUrl = ''
+        this.eulacheck = false
         this.mode = 'scan'
         
             this.errarea.backscan = false
@@ -111,9 +119,10 @@ Alpine.data('scan', (src = '') => ({
             this.errarea.status_perkawinan = false
             this.errarea.pekerjaan = false
             this.errarea.kewarganegaraan = false
+            this.errarea.eula = false
+            this.errarea.becritical = false
         
     },
-    imageUrl: src,
   
     fileChosen(event) {
     this.fileToDataUrl(event, src => this.imageUrl = src)
@@ -261,7 +270,7 @@ Alpine.data('scan', (src = '') => ({
 
     //----------(batas suci)----------
     submitData() {
-        const id_user = document.getElementById('id_user').value
+        const id_user = localStorage.getItem('uid')
         const ktp = this.form.image
         const nik = document.getElementById('nik').value
         const nama = document.getElementById('nama').value
@@ -282,136 +291,146 @@ Alpine.data('scan', (src = '') => ({
         const kewarganegaraan = document.getElementById('kewarganegaraan').value
         if(nama == ''||nik == ''||nik.length != 16||tempat_lahir == ''||tanggal_lahir == ''||kelamin == ''||golongan_darah == ''||alamat == ''||rt == ''||rw == ''||kelurahan == ''||kecamatan == ''||kota == ''||provinsi == ''||agama == ''||perkawinan == ''||pekerjaan == ''||kewarganegaraan == ''){
             if(nama == ''){
-                this.errarea = 'nama'
-                this.errmsg = 'Mohon lengkapi Nama'
+                this.errarea.nama = true
+                this.errmsg.nama = 'Mohon lengkapi Nama'
             } 
-            if(nik.length != 16){
-                this.errarea = 'nik'
-                this.errmsg = 'NIK salah'
-            }else
             if(nik == ''){
-                this.errarea = 'nik'
-                this.errmsg = 'Mohon lengkapi NIK'
+                this.errarea.nik = true
+                this.errmsg.nik = 'Mohon lengkapi NIK'
+            }else
+            if(nik.length != 16){
+                this.errarea.nik = true
+                this.errmsg.nik = 'NIK salah'
             }
              
             if(tempat_lahir == ''){
-                this.errarea = 'tempat_lahir'
-                this.errmsg = 'Mohon lengkapi tempat lahir'
+                this.errarea.tempat_lahir = true
+                this.errmsg.tempat_lahir = 'Mohon lengkapi tempat lahir'
             }
              
             if(tanggal_lahir == ''){
-                this.errarea = 'tanggal_lahir'
-                this.errmsg = 'Mohon lengkapi tanggal lahir'
+                this.errarea.tanggal_lahir = true
+                this.errmsg.tanggal_lahir = 'Mohon lengkapi tanggal lahir'
             }
              
             if(kelamin == ''){
-                this.errarea = 'kelamin'
-                this.errmsg = 'Mohon lengkapi jenis kelamin'
+                this.errarea.kelamin = true
+                this.errmsg.kelamin = 'Mohon lengkapi jenis kelamin'
             }
              
             if(golongan_darah == ''){
-                this.errarea = 'golongan_darah'
-                this.errmsg = 'Mohon lengkapi golongan darah'
+                this.errarea.golongan_darah = true
+                this.errmsg.golongan_darah = 'Mohon lengkapi golongan darah'
             }
              
             if(alamat == ''){
-                this.errarea = 'alamat'
-                this.errmsg = 'Mohon lengkapi alamat'
+                this.errarea.alamat = true
+                this.errmsg.alamat = 'Mohon lengkapi alamat'
             }
              
             if(rt == ''){
-                this.errarea = 'rt'
-                this.errmsg = 'Mohon lengkapi rt'
+                this.errarea.rt = true
+                this.errmsg.rt = 'Mohon lengkapi rt'
             }
              
             if(rw == ''){
-                this.errarea = 'rw'
-                this.errmsg = 'Mohon lengkapi rw'
+                this.errarea.rw = true
+                this.errmsg.rw = 'Mohon lengkapi rw'
             }
              
             if(kelurahan == ''){
-                this.errarea = 'kelurahan'
-                this.errmsg = 'Mohon lengkapi kelurahan'
+                this.errarea.kelurahan = true
+                this.errmsg.kelurahan = 'Mohon lengkapi kelurahan'
             }
              
             if(kecamatan == ''){
-                this.errarea = 'kecamatan'
-                this.errmsg = 'Mohon lengkapi kecamatan'
+                this.errarea.kecamatan = true
+                this.errmsg.kecamatan = 'Mohon lengkapi kecamatan'
             }
              
             if(kota == ''){
-                this.errarea = 'kota'
-                this.errmsg = 'Mohon lengkapi kota'
+                this.errarea.kota = true
+                this.errmsg.kota = 'Mohon lengkapi kota'
             }
              
             if(provinsi == ''){
-                this.errarea = 'provinsi'
-                this.errmsg = 'Mohon lengkapi provinsi'
+                this.errarea.provinsi = true
+                this.errmsg.provinsi = 'Mohon lengkapi provinsi'
             }
              
             if(agama == ''){
-                this.errarea = 'agama'
-                this.errmsg = 'Mohon lengkapi agama'
+                this.errarea.agama = true
+                this.errmsg.agama = 'Mohon lengkapi agama'
             }
              
             if(perkawinan == ''){
-                this.errarea = 'perkawinan'
-                this.errmsg = 'Mohon lengkapi status perkawinan'
+                this.errarea.perkawinan = true
+                this.errmsg.perkawinan = 'Mohon lengkapi status perkawinan'
             }
              
             if(pekerjaan == ''){
-                this.errarea = 'pekerjaan'
-                this.errmsg = 'Mohon lengkapi pekerjaan'
+                this.errarea.pekerjaan = true
+                this.errmsg.pekerjaan = 'Mohon lengkapi pekerjaan'
             }
              
             if(kewarganegaraan == ''){
-                this.errarea = 'kewarganegaraan'
-                this.errmsg = 'Mohon lengkapi kewarganegaraan'
+                this.errarea.kewarganegaraan = true
+                this.errmsg.kewarganegaraan = 'Mohon lengkapi kewarganegaraan'
             }
         }
         else 
         {
-
-        const datane = new FormData();
-        datane.append('id_user', id_user)
-        datane.append('ktp', ktp)
-        datane.append('nik', nik)
-        datane.append('nama', nama)
-        datane.append('tempat_lahir', tempat_lahir)
-        datane.append('tanggal_lahir', tanggal_lahir)
-        datane.append('jenis_kelamin', kelamin)
-        datane.append('golongan_darah', golongan_darah)
-        datane.append('alamat', alamat)
-        datane.append('rt', rt)
-        datane.append('rw', rw)
-        datane.append('kelurahan', kelurahan)
-        datane.append('kecamatan', kecamatan)
-        datane.append('kota', kota)
-        datane.append('provinsi', provinsi)
-        datane.append('agama', agama)
-        datane.append('status_perkawinan', perkawinan)
-        datane.append('pekerjaan', pekerjaan)
-        datane.append('kewarganegaraan', kewarganegaraan)
-        datane.append('id_user', localStorage.getItem('uid'))
-        this.loading = true
-        fetch(beapi + 'identity/add', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': localStorage.getItem('utoken')
-            },
-            body: datane
-        })
-            .then(async response => {
-                response = await response.json()
-                this.datanya = response.data
-                if (response.status) {
-                    const baseUrl = window.location.origin
-                    window.location.replace(baseUrl + '/profile')
-                } else {
-                    
-                }
-            })
+            if(!this.eulacheck){
+                this.errarea.eula = true
+                this.errmsg.eula = 'Wajib menyetujui EULA!'
+            }else{
+                const datane = new FormData();
+                datane.append('id_user', id_user)
+                datane.append('ktp', ktp)
+                datane.append('nik', nik)
+                datane.append('nama', nama)
+                datane.append('tempat_lahir', tempat_lahir)
+                datane.append('tanggal_lahir', tanggal_lahir)
+                datane.append('jenis_kelamin', kelamin)
+                datane.append('golongan_darah', golongan_darah)
+                datane.append('alamat', alamat)
+                datane.append('rt', rt)
+                datane.append('rw', rw)
+                datane.append('kelurahan', kelurahan)
+                datane.append('kecamatan', kecamatan)
+                datane.append('kota', kota)
+                datane.append('provinsi', provinsi)
+                datane.append('agama', agama)
+                datane.append('status_perkawinan', perkawinan)
+                datane.append('pekerjaan', pekerjaan)
+                datane.append('kewarganegaraan', kewarganegaraan)
+                datane.append('id_user', localStorage.getItem('uid'))
+                this.loading = true
+                fetch(beapi + 'identity/add', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': localStorage.getItem('utoken')
+                    },
+                    body: datane
+                })
+                .then(async response => {
+                    response = await response.json()
+                    if (response.status) {
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/profile')
+                    } 
+                    else {
+                        if(response.data == 'nik'){
+                            this.errarea.nik = true
+                            this.errmsg.nik = response.message
+                        }else{
+                            this.errarea.becritical = true
+                            this.errmsg.becritical = response.message
+                        }
+                    }
+                })
+            }
 
         }
     }
@@ -718,8 +737,8 @@ Alpine.data('formresendvalidation', () => ({
 
 Alpine.data('auth', () => ({
     beimg: 'http://localhost:8000/storage/',
-    userid: localStorage.getItem('uid') ?? '',
-    userrole: localStorage.getItem('urole') ?? '',
+    userid: '',
+    userrole: '',
     isloading: false,
     islogin: false,
     sts: false,
@@ -742,10 +761,16 @@ Alpine.data('auth', () => ({
                 this.message = response.message
                 this.status = response.status
                 if (this.status) {
-                    this.userid = localStorage.getItem('uid')
-                    this.userrole = localStorage.getItem('urole')
-                    this.islogin = true
-                    this.isloading = false
+                    if(response.data.id == localStorage.getItem('uid') && response.data.id_role == localStorage.getItem('urole')){
+                        this.userid = localStorage.getItem('uid')
+                        this.userrole = localStorage.getItem('urole')
+                        this.islogin = true
+                        this.isloading = false
+                    }else{
+                        this.islogin = false
+                        this.isloading = false
+                        localStorage.clear()
+                    }
                 }
                 else {
                     this.islogin = false
@@ -848,23 +873,6 @@ Alpine.data('auth', () => ({
         }
         if (this.userrole == 1) {
             window.location.replace(baseUrl + '/dashboard')
-        }
-        if (this.userrole == 2) {
-            fetch(beapi + 'identity/' + this.userid, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': localStorage.getItem('utoken')
-                },
-            })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status
-                    if (this.sts == true) {
-                        window.location.replace(baseUrl + '/profile')
-                    }
-                })
         }
     },
 
