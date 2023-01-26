@@ -18,13 +18,17 @@ Alpine.data('profile', () => ({
             if (localStorage.getItem('urole') == 1) {
                 const baseUrl = window.location.origin
                 window.location.replace(baseUrl + '/dashboard')
+                // this.isloading = false
             }
             if (localStorage.getItem('urole') == 2) {
                 const baseUrl = window.location.origin
                 window.location.replace(baseUrl + '/scan')
+                // this.isloading = false
             }
+        }else{
+            this.isloading = false
         }
-        this.isloading = false
+        
     }
 }))
 Alpine.data('dashboard', () => ({
@@ -742,6 +746,7 @@ Alpine.data('auth', () => ({
     userrole: '',
     isloading: false,
     islogin: false,
+    hasprofile: false,
     sts: false,
     ceklogin() {
         if (!localStorage.getItem('utoken')) {
@@ -767,6 +772,23 @@ Alpine.data('auth', () => ({
                         this.userrole = localStorage.getItem('urole')
                         this.islogin = true
                         this.isloading = false
+                        if(this.userrole == '2'){
+                            fetch(beapi + 'identity/' + this.userid, {
+                                method: 'GET',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': localStorage.getItem('utoken')
+                                },
+                            })
+                            .then(async response => {
+                                response = await response.json()
+                                msg = response.message
+                                this.sts = response.status
+                                if (this.sts) {
+                                    this.hasprofile = true
+                                }
+                            })
+                        }
                     }else{
                         this.islogin = false
                         this.isloading = false
@@ -784,12 +806,13 @@ Alpine.data('auth', () => ({
     },
 
     notlogin() {
+        this.isloading = true
         const baseUrl = window.location.origin
 
         if (this.userrole == 1) {
             this.islogin = true
             window.location.replace(baseUrl + '/dashboard')
-        }
+        }else
         if (this.userrole == 2) {
             this.islogin = true
             fetch(beapi + 'identity/' + this.userid, {
@@ -799,25 +822,28 @@ Alpine.data('auth', () => ({
                     'Authorization': localStorage.getItem('utoken')
                 },
             })
-                .then(async response => {
-                    response = await response.json()
-                    msg = response.message
-                    this.sts = response.status
-                })
-            if (this.sts) {
-                window.location.replace(baseUrl + '/profile')
-            } else {
-                window.location.replace(baseUrl + '/scan')
-            }
+            .then(async response => {
+                response = await response.json()
+                msg = response.message
+                this.sts = response.status
+                if (this.sts) {
+                    window.location.replace(baseUrl + '/profile')
+                } else {
+                    window.location.replace(baseUrl + '/scan')
+                }
+            })
 
+        }else{
+            this.isloading=false
         }
     },
 
     isadmin() {
+        this.isloading = true
         const baseUrl = window.location.origin
         if (!this.islogin) {
             window.location.replace(baseUrl + '/login')
-        }
+        }else
         if (this.userrole == 2) {
             fetch(beapi + 'identity/' + this.userid, {
                 method: 'GET',
@@ -836,6 +862,8 @@ Alpine.data('auth', () => ({
             } else {
                 window.location.replace(baseUrl + '/scan')
             }
+        }else{
+            this.isloading = false
         }
     },
 

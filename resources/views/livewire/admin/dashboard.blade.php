@@ -2,6 +2,10 @@
     <div x-init="getidentity()"></div>
     <div x-init="isadmin()"></div>
 
+    <div x-show="isloading">
+        @livewire('loadingscreen')
+    </div>
+
     <div class="flex flex-col lg:flex-row container mx-auto">
 
         <div class="bg-gray-300 lg:col-3 rounded-t-lg shadow-lg shadow-gray-300 lg:pb-10" x-data="changepassword">
