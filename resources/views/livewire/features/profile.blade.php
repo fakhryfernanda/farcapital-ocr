@@ -98,7 +98,7 @@
         
                     <div class="py-3 fixed z-20 inset-0 bg-slate-500/60 backdrop-blur-sm flex items-center justify-center" x-show="isShow" x-transition.duration.300ms>
                         <div class="px-5 md:px-0 md:w-3/4 h-max overflow-hidden z-10">
-                            <img x-bind:src="beimg+data.ktp" alt="Image" class="rounded-lg w-full">
+                            <img x-bind:src="beimg+data.ktp" class="rounded-lg w-full">
                         </div>
                         <div class="absolute inset-0 -z-10" x-on:click="isShow=false">
         
