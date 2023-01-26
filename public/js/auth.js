@@ -39,26 +39,26 @@ Alpine.data('userRegister', () => ({
                 },
                 body: data
             })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.statusnya = response.status
+            .then(async response => {
+                response = await response.json()
+                this.message = response.message
+                this.statusnya = response.status
 
-                    // Jika registrasi berhasil
-                    if (this.statusnya) {
-                        localStorage.setItem('message', this.message)
-                        localStorage.setItem('flash', true)
-                        const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
-                    }
-                    
-                    // Jika registrasi gagal
-                    else {
-                        this.errarea = response.data
-                        this.errmsg = this.message
-                        this.isloading = false
-                    }
-                })
+                // Jika registrasi berhasil
+                if (this.statusnya) {
+                    localStorage.setItem('message', this.message)
+                    localStorage.setItem('flash', true)
+                    const baseUrl = window.location.origin
+                    window.location.replace(baseUrl + '/login')
+                }
+                
+                // Jika registrasi gagal
+                else {
+                    this.errarea = response.data
+                    this.errmsg = this.message
+                    this.isloading = false
+                }
+            })
         }
 
     }
@@ -107,66 +107,66 @@ Alpine.data('userLogin', () => ({
                 },
                 body: data
             })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    responsestatus = response.status
+            .then(async response => {
+                response = await response.json()
+                this.message = response.message
+                responsestatus = response.status
 
-                    // Jika login berhasil
-                    if (responsestatus) {
-                        auth = response.data.auth
-                        user = response.data.user
-                        utoken = auth.token_type + ' ' + auth.token
-                        urole = user.id_role
-                        uid = user.id
+                // Jika login berhasil
+                if (responsestatus) {
+                    auth = response.data.auth
+                    user = response.data.user
+                    utoken = auth.token_type + ' ' + auth.token
+                    urole = user.id_role
+                    uid = user.id
 
-                        localStorage.setItem('utoken', utoken)
-                        localStorage.setItem('urole', urole)
-                        localStorage.setItem('uid', uid)
+                    localStorage.setItem('utoken', utoken)
+                    localStorage.setItem('urole', urole)
+                    localStorage.setItem('uid', uid)
 
-                        // Jika yang login admin
-                        if (urole == 1) {
-                            const baseUrl = window.location.origin
-                            window.location.replace(baseUrl + '/dashboard')
-                        }
-
-                        // Jika yang login user
-                        else if (urole == 2) {
-                            // Memeriksa apakah user sudah pernah scan ktp
-                            fetch(beapi + 'identity/' + uid, {
-                                method: 'GET',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Authorization': utoken
-                                },
-                            })
-                                .then(async response => {
-                                    response = await response.json()
-                                    this.message = response.message
-                                    statuslogin = response.status
-
-                                    // User sudah scan
-                                    if (statuslogin) {
-                                        const baseUrl = window.location.origin
-                                        window.location.replace(baseUrl + '/profile')
-                                    }
-                                    
-                                    // User belum scan
-                                    else {
-                                        const baseUrl = window.location.origin
-                                        window.location.replace(baseUrl + '/scan')
-                                    }
-                                })
-                        }
+                    // Jika yang login admin
+                    if (urole == 1) {
+                        const baseUrl = window.location.origin
+                        window.location.replace(baseUrl + '/dashboard')
                     }
 
-                    // Jika login gagal
-                    else {
-                        this.errarea = response.data
-                        this.errmsg = this.message
-                        this.isloading = false
+                    // Jika yang login user
+                    else if (urole == 2) {
+                        // Memeriksa apakah user sudah pernah scan ktp
+                        fetch(beapi + 'identity/' + uid, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Authorization': utoken
+                            },
+                        })
+                        .then(async response => {
+                            response = await response.json()
+                            this.message = response.message
+                            statuslogin = response.status
+
+                            // User sudah scan
+                            if (statuslogin) {
+                                const baseUrl = window.location.origin
+                                window.location.replace(baseUrl + '/profile')
+                            }
+                            
+                            // User belum scan
+                            else {
+                                const baseUrl = window.location.origin
+                                window.location.replace(baseUrl + '/scan')
+                            }
+                        })
                     }
-                })
+                }
+
+                // Jika login gagal
+                else {
+                    this.errarea = response.data
+                    this.errmsg = this.message
+                    this.isloading = false
+                }
+            })
         }
     }
 }))

@@ -13,6 +13,7 @@
             </div>
         </div>
     </template>
+    
     <template x-if="userrole == 2">
         <div x-init="getprofile(userid)"></div>
     </template>
@@ -22,8 +23,9 @@
             <div class="hidden lg:flex justify-center py-10 bg-gray-50">
                 <img src="{{ asset('assets/logo.png')}}" alt="" class="w-24 h-24 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-300">
             </div>
+
             <div class=" flex lg:flex-col px-2 justify-between">
-        
+
                 <div class="font-Lato text-xl text-slate-900 font-bold text-center lg:px-0 py-3">
                     <h1 class="hidden lg:block font-extrabold">Info Akun</h1>
                     <div class="flex justify-center items-center gap-1">
@@ -31,6 +33,7 @@
                         <p class="text-slate-900 font-bold md:font-normal font-Lato text-sm md:text-lg" x-text="data.email"></p>
                     </div>
                 </div>
+
                 <div class="flex justify-center flex-row lg:flex-col-reverse gap-2 items-center">
                     <template x-if="msg != ''">
                         <div  x-data="{flashnya : true}" :class="{'block' : flashnya, hidden : !flashnya}" x-init="setTimeout(() => flashnya = false, 5000)">
@@ -46,6 +49,7 @@
                         </div>
                     </template>
                 </div>
+
             </div>
 
             <hr class="my-2" x-show="isChangePassword" >

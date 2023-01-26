@@ -878,10 +878,20 @@ Alpine.data('auth', () => ({
     },
 
     logout() {
-        localStorage.clear()
-
-        const baseUrl = window.location.origin
-        window.location.replace(baseUrl + '/login')
+        fetch(beapi + 'logout', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('utoken')
+            },
+            body: data
+        })
+        .then(async response => {
+            response = await response.json()
+            localStorage.clear()
+            const baseUrl = window.location.origin
+            window.location.replace(baseUrl + '/login')
+        })
     }
 }))
 

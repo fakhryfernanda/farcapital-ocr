@@ -1,5 +1,0 @@
-function imageViewer(src = '') {
-    return {
-      
-    }
-  }
