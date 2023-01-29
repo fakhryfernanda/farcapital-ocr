@@ -1,4 +1,7 @@
-let beapi = 'http://localhost:8000/api/'
+let beapi = 'https://api-ocr-farcapital.fly.dev/api/'
+let beimg = 'https://api-ocr-farcapital.fly.dev/storage/'
+// let beapi = 'http://localhost:8000/api/'
+// let beimg = 'http://localhost:8000/storage/'
 
 Alpine.data('profile', () => ({
     data: [],
@@ -14,6 +17,9 @@ Alpine.data('profile', () => ({
         })
         response = await response.json()
         this.data = response.data
+        splittanggal = this.data.tanggal_lahir.split('-')
+        splittanggal = splittanggal.reverse()
+        this.data.tanggal_lahir = splittanggal.join('-')
         if (!response.status) {
             if (localStorage.getItem('urole') == 1) {
                 const baseUrl = window.location.origin
@@ -200,12 +206,12 @@ Alpine.data('scan', (src = '') => ({
                     
                 if(this.datanya.kelamin != 0 && this.datanya.kelamin != 1){
                     this.errarea.kelamin = true
-                    this.errmsg.kelamin = 'Mohon lengkapi jenis kelamin'
+                    this.errmsg.kelamin = 'Mohon koreksi data jenis kelamin'
                 }
                     
                 if(this.datanya.golongan_darah == ''){
                     this.errarea.golongan_darah = true
-                    this.errmsg.golongan_darah = 'Mohon lengkapi golongan darah'
+                    this.errmsg.golongan_darah = 'Mohon koreksi data golongan darah'
                 }
                     
                 if(this.datanya.alamat == ''){
@@ -245,12 +251,12 @@ Alpine.data('scan', (src = '') => ({
                     
                 if(this.datanya.agama == ''){
                     this.errarea.agama = true
-                    this.errmsg.agama = 'Mohon lengkapi agama'
+                    this.errmsg.agama = 'Mohon koreksi data agama'
                 }
                     
                 if(this.datanya.perkawinan == ''){
                     this.errarea.perkawinan = true
-                    this.errmsg.perkawinan = 'Mohon lengkapi status perkawinan'
+                    this.errmsg.perkawinan = 'Mohon koreksi data status perkawinan'
                 }
                     
                 if(this.datanya.pekerjaan == ''){
@@ -716,7 +722,7 @@ Alpine.data('formresendvalidation', () => ({
             data.append('email', this.email)
             data.append('link', link)
     
-            fetch('http://localhost:8000/api/resendemailvalidation', {
+            fetch(beapi+'resendemailvalidation', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -741,7 +747,6 @@ Alpine.data('formresendvalidation', () => ({
 }))
 
 Alpine.data('auth', () => ({
-    beimg: 'http://localhost:8000/storage/',
     userid: '',
     userrole: '',
     isloading: false,

@@ -37,7 +37,7 @@
                     <i class="fa-sharp fa-solid fa-envelope"></i>   
                 </div> 
 
-                <input @keydown.enter="submit" type="email" x-model="email" placeholder="Email"  class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'email'?'border border-red-600' : 'border-gray-600 bg-white'">
+                <input  @click="errarea = ''" @keydown.enter="submit" type="email" x-model="email" placeholder="Email"  class="block w-full p-2 text-lg rounded text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'email'?'border border-red-600' : 'border-gray-600 bg-white'">
             </div>
 
             {{-- Pesan Error Email --}}
@@ -49,7 +49,7 @@
                 <div class="text-2xl p-2 rounded mx-1 border border-1" x-bind:class="errarea == 'password' ? 'bg-red-500 border-red-400' : 'bg-gray-600 border-gray-400'">
                     <i class="fa-solid fa-key"></i>  
                 </div> 
-                <input class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'?'border border-red-600' : 'border-gray-600'" type="password" x-model="password" placeholder="Password">
+                <input @click="errarea = ''" @keydown.enter="submit"  class="block w-full p-2 text-lg rounded bg-white text-black font-Lato font-bold border-2 " x-bind:class="errarea == 'password'?'border border-red-600' : 'border-gray-600'" type="password" x-model="password" placeholder="Password">
             </div>
             
             {{-- ----------- (password salah) ------------- --}}
