@@ -1,8 +1,10 @@
-let beapi = 'https://api-ocr-farcapital.fly.dev/api/'
-let beimg = 'https://api-ocr-farcapital.fly.dev/storage/'
-// let beapi = 'http://localhost:8000/api/'
-// let beimg = 'http://localhost:8000/storage/'
+// let beapi = 'https://api-ocr-farcapital.fly.dev/api/'
+// let beimg = 'https://api-ocr-farcapital.fly.dev/storage/'
+let beapi = 'http://localhost:8000/api/'
+let beimg = 'http://localhost:8000/storage/'
 
+//----------(profile page)----------
+// view = features/profile.blade
 Alpine.data('profile', () => ({
     data: [],
     isloading : false,
@@ -37,6 +39,9 @@ Alpine.data('profile', () => ({
         
     }
 }))
+
+//----------(dashboard page (admin))----------
+// view = admin/dashboard.blade
 Alpine.data('dashboard', () => ({
     data: [],
     async getidentity() {
@@ -54,7 +59,8 @@ Alpine.data('dashboard', () => ({
     }
 }))
 
-//----------(batas suci)----------
+//----------(scanning ktp in scan page (user))----------
+// view = features/upload.blade
 Alpine.data('scan', (src = '') => ({
     form: {
         image: '',
@@ -115,27 +121,26 @@ Alpine.data('scan', (src = '') => ({
         this.eulacheck = false
         this.mode = 'scan'
         
-            this.errarea.backscan = false
-            this.errarea.nik = false
-            this.errarea.nama = false
-            this.errarea.tempat_lahir = false
-            this.errarea.tanggal_lahir = false
-            this.errarea.kelamin = false
-            this.errarea.golongan_darah = false
-            this.errarea.alamat = false
-            this.errarea.rt = false
-            this.errarea.rw = false
-            this.errarea.kelurahan = false
-            this.errarea.kecamatan = false
-            this.errarea.kota =false
-            this.errarea.provinsi =false
-            this.errarea.agama =false
-            this.errarea.status_perkawinan = false
-            this.errarea.pekerjaan = false
-            this.errarea.kewarganegaraan = false
-            this.errarea.eula = false
-            this.errarea.becritical = false
-        
+        this.errarea.backscan = false
+        this.errarea.nik = false
+        this.errarea.nama = false
+        this.errarea.tempat_lahir = false
+        this.errarea.tanggal_lahir = false
+        this.errarea.kelamin = false
+        this.errarea.golongan_darah = false
+        this.errarea.alamat = false
+        this.errarea.rt = false
+        this.errarea.rw = false
+        this.errarea.kelurahan = false
+        this.errarea.kecamatan = false
+        this.errarea.kota =false
+        this.errarea.provinsi =false
+        this.errarea.agama =false
+        this.errarea.status_perkawinan = false
+        this.errarea.pekerjaan = false
+        this.errarea.kewarganegaraan = false
+        this.errarea.eula = false
+        this.errarea.becritical = false
     },
   
     fileChosen(event) {
@@ -152,6 +157,7 @@ Alpine.data('scan', (src = '') => ({
     reader.onload = e => callback(e.target.result)
     },
 
+    // click button scan
     scanktp() {
         if (document.getElementById('ktp').files[0]) {
 
@@ -180,6 +186,7 @@ Alpine.data('scan', (src = '') => ({
                 this.datanya = response.data
                 this.mode = 'verifikasi'
                 this.giloading = false
+
                 // pengecekan eror / data kosong
                 if(this.datanya.nama == ''){
                     this.errarea.nama = true
@@ -279,7 +286,7 @@ Alpine.data('scan', (src = '') => ({
         }
     },
 
-    //----------(batas suci)----------
+    //----------(button submit in scan page (user))----------
     submitData() {
         const id_user = localStorage.getItem('uid')
         const ktp = this.form.image
@@ -391,9 +398,11 @@ Alpine.data('scan', (src = '') => ({
         }
         else 
         {
+            // jika belum check eula
             if(!this.eulacheck){
                 this.errarea.eula = true
                 this.errmsg.eula = 'Wajib menyetujui EULA!'
+
             }else{
                 this.isloading = true
                 const datane = new FormData();
@@ -433,6 +442,7 @@ Alpine.data('scan', (src = '') => ({
                     } 
                     else {
                         
+                        // jika mendapat response data = 'nik' (error nik dari backend)
                         if(response.data == 'nik'){
                             this.errarea.nik = true
                             this.errmsg.nik = response.message
@@ -446,12 +456,12 @@ Alpine.data('scan', (src = '') => ({
                     }
                 })
             }
-
         }
     }
 }))
 
-//----------(batas suci)----------
+//----------(forgot password page)----------
+// view = auth/forgot-password.blade
 Alpine.data('forgotpassword', () => ({
     email: '',
     message: '',
@@ -472,17 +482,23 @@ Alpine.data('forgotpassword', () => ({
         }
     },
 
+    // button submit
     sendemail() {
+
+        // jika belum input email
         if(this.email==''){
             this.flash = true
             setTimeout(() => this.flash = false, 5000)
             this.errarea = 'email'
             this.errmsg = 'email wajib diisi!'
+
         }else{
             this.isloading = true
             const data = new FormData();
             data.append('email', this.email)
-            data.append('link', document.getElementById('link').value)
+
+            //kirim link frontend ke backend (sebagai lokasi redirect yang dikirim ke email)
+            data.append('link', document.getElementById('link').value) 
     
             fetch(beapi + 'user/forgotpass', {
                 method: 'POST',
@@ -496,6 +512,7 @@ Alpine.data('forgotpassword', () => ({
                 this.message = response.message
                 this.statusnya = response.status
 
+                // jika response status true
                 if (this.statusnya) {
                     const baseUrl = window.location.origin
                     window.location.replace(baseUrl + '/successsendemail')
@@ -513,16 +530,16 @@ Alpine.data('forgotpassword', () => ({
 
 }))
 
-//----------(batas suci)----------
+//----------(fitur ganti password setelah login (page profile [user], page dashboard [admin]))----------
+// view = features/profile.blade && admin/dashboard.blade
 Alpine.data('changepassword', () => ({
-    password: '',
-    confirmpassword: '',
-    isloading: true,
-    comploading:false,
-    isloading: false,
-    isChangePassword:false,
-    errmsg: '',
-    msg: '',
+    password: '', //input password
+    confirmpassword: '', //input confirm password
+    comploading:false,  // mode loading pada button (component loading)
+    isloading: false,   //show hide loading
+    isChangePassword:false, //show hide form changepass
+    errmsg: '', //error message
+    msg: '', //message (success)
 
     submitchangepass() {
         if (this.password != this.confirmpassword) {
@@ -565,7 +582,8 @@ Alpine.data('changepassword', () => ({
     },
 
 }))
-//----------(batas suci)----------
+//----------(ganti password pada page forgotpassword/token (token dapat dari backend yang dikirim melalui SMTP))----------
+// view = change-password.blade
 Alpine.data('changeforgetpassword', () => ({
     password: '',
     confirmpassword: '',
@@ -574,6 +592,8 @@ Alpine.data('changeforgetpassword', () => ({
     isloading: true,
     isloading: false,
     errmsg: '',
+
+    // cek token aktif atau tidak
     cektoken() {
         this.isloading = true
         token = document.getElementById('token').value
@@ -587,18 +607,24 @@ Alpine.data('changeforgetpassword', () => ({
                 response = await response.json()
                 statusnya = response.status
 
+                // jika token benar
                 if (statusnya == true) {
                     this.isloading = false
                     this.email = response.data.email
                     this.token = token
+
+                    // jika token salah
                 } else {
                     localStorage.setItem('flash', true)
                     const baseUrl = window.location.origin
+
+                    // redirect ke halaman /forgotpassword (halaman input email untuk dikirim token baru)
                     window.location.replace(baseUrl + '/forgotpassword')
                 }
             })
     },
 
+    // button submit untuk simpan password baru
     submitchangepass() {
         if(this.password == ''){
             this.errmsg = 'Password wajib diisi'
@@ -627,10 +653,10 @@ Alpine.data('changeforgetpassword', () => ({
                     this.statusnya = response.status
 
                     if (this.statusnya == true) {  
-                    localStorage.setItem('message','Sukses ganti password, silahkan login menggunakan password baru')
-                    localStorage.setItem('flash',true)
+                        localStorage.setItem('message','Sukses ganti password, silahkan login menggunakan password baru')
+                        localStorage.setItem('flash',true)
                         const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
+                        window.location.replace(baseUrl + '/login') //redirect ke halaman login
                     }
                     if (this.statusnya == false) {
                         this.errmsg = this.message
@@ -642,14 +668,19 @@ Alpine.data('changeforgetpassword', () => ({
 }))
 
 
-//----------(batas suci)----------
+//----------(ketika berhasil validasi akun (setelah registrasi + aktifkan akun / email melalui smtp))----------
+// view = auth/verification-success.blade
 Alpine.data('successvalidation', () => ({
 
     token: '',
-    // isloading: true,
-    isloading: false,
+    isloading: true,
+    email: '',
+    // isloading: false,
     errmsg: '',
+
+    // cek token yang didapat dari SMTP
     cektoken() {
+        this.isloading = true
         token = document.getElementById('token').value
         fetch(beapi + 'emailregist/' + token, {
             method: 'POST',
@@ -657,58 +688,26 @@ Alpine.data('successvalidation', () => ({
                 'Accept': 'application/json',
             }
         })
-            .then(async response => {
-                response = await response.json()
-                statusnya = response.status
+        .then(async response => {
+            response = await response.json()
+            statusnya = response.status
 
-                if (statusnya) {
-                    this.isloading = false
-                    this.email = response.data.email
-                    this.token = token
-                } else {
-                    // localStorage.setItem('flash', true)
-                    const baseUrl = window.location.origin
-                    // window.location.replace(baseUrl + '/emailvalidation')
-                }
-            })
-    },
-
-    submitchangepass() {
-        if (this.password != this.confirmpassword) {
-            this.errmsg = 'password dan konfirmasi password tidak sesuai!'
-        } else {
-            const data = new FormData();
-            data.append('token', this.token)
-            data.append('email', this.email)
-            data.append('password', this.password)
-
-            this.isloading = true
-
-            fetch(beapi + 'changeforgotpass/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: data
-            })
-                .then(async response => {
-                    response = await response.json()
-                    this.message = response.message
-                    this.statusnya = response.status
-
-                    if (this.statusnya == true) {
-                        const baseUrl = window.location.origin
-                        window.location.replace(baseUrl + '/login')
-                    }
-                    if (this.statusnya == false) {
-                        this.errmsg = this.message
-                    }
-                })
-        }
-    },
+            if (statusnya) {
+                // this.isloading = false
+                this.email = response.data.email
+                this.token = token
+            } else {
+                localStorage.setItem('flash', true)
+                const baseUrl = window.location.origin
+                window.location.replace(baseUrl + '/emailvalidation') //page untuk kirim ulang link validasi akun ke smtp
+            }
+        })
+    }
 
 }))
 
+//----------(halaman untuk kirim ulang link validasi akun ke smtp)----------
+// view = auth/form-resend-validation.blade
 Alpine.data('formresendvalidation', () => ({
     email: '',
     pesanerror : '',
@@ -746,6 +745,7 @@ Alpine.data('formresendvalidation', () => ({
     },
 }))
 
+// pengelola authentikasi (terpasang di layout/app.blade)
 Alpine.data('auth', () => ({
     userid: '',
     userrole: '',
@@ -753,6 +753,8 @@ Alpine.data('auth', () => ({
     islogin: false,
     hasprofile: false,
     sts: false,
+
+    // pengecekan user sudah login / belum
     ceklogin() {
         if (!localStorage.getItem('utoken')) {
             this.islogin = false
@@ -810,6 +812,7 @@ Alpine.data('auth', () => ({
 
     },
 
+    // pengecekan untuk halaman yang tidak perlu login
     notlogin() {
         this.isloading = true
         const baseUrl = window.location.origin
@@ -843,6 +846,7 @@ Alpine.data('auth', () => ({
         }
     },
 
+    // pengecekan untuk halaman milik role admin
     isadmin() {
         this.isloading = true
         const baseUrl = window.location.origin
@@ -872,8 +876,7 @@ Alpine.data('auth', () => ({
         }
     },
 
-    // -------batas suci-------//
-
+    // pengecekan untuk user yang sudah pernah scan ktp / have identity
     isuserhaveidentity() {
         const baseUrl = window.location.origin
         if (!this.islogin) {
@@ -900,6 +903,8 @@ Alpine.data('auth', () => ({
             }
         }
     },
+
+    // pengecekan pada halaman user yang belum pernah scan / belum punya identity
     isusernothaveidentity() {
         const baseUrl = window.location.origin
         if (!this.islogin) {

@@ -1,3 +1,5 @@
+//----------(page register)----------
+// view = auth/registrasi.blade
 Alpine.data('userRegister', () => ({
     email: '',
     password: '',
@@ -64,6 +66,8 @@ Alpine.data('userRegister', () => ({
     }
 }))
 
+//----------(page login)----------
+// view = auth/login.blade
 Alpine.data('userLogin', () => ({
     email: '',
     password: '',
@@ -116,7 +120,7 @@ Alpine.data('userLogin', () => ({
                 if (responsestatus) {
                     auth = response.data.auth
                     user = response.data.user
-                    utoken = auth.token_type + ' ' + auth.token
+                    utoken = auth.token_type + ' ' + auth.token //buat token
                     urole = user.id_role
                     uid = user.id
 
